@@ -21,19 +21,19 @@ global:
     oidc_client_id: "5vmqlfbdhdrma83s40bnrbb59i"
 
   argocd:
-    targetRevision: feature/refactor-apps
+    targetRevision: main
 
 apps:
   mosquitto:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values: {}
   paperlessgpt:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values:
           generic:
@@ -51,7 +51,7 @@ apps:
   duplicati:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values:
           generic:
@@ -65,7 +65,7 @@ apps:
   homeassistant:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values:
           generic:
@@ -76,7 +76,7 @@ apps:
   redis:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values:
           generic:
@@ -87,7 +87,7 @@ apps:
   immich:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values:
           generic:
@@ -106,7 +106,7 @@ apps:
   smarthome3:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values:
           hueIp: ''
@@ -116,25 +116,25 @@ apps:
   argocd:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values: {}
   argoimageupdater:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values: {}
   gotenberg:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values: {}
   paperlessngx:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values:
           generic:
@@ -154,7 +154,7 @@ apps:
   stirlingpdf:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values:
           generic:
@@ -167,13 +167,13 @@ apps:
   zfs:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values: {}
   postgres:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values:
           generic:
@@ -184,19 +184,19 @@ apps:
   tika:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values: {}
   akeyless:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values: {}
   zigbee2mqtt:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values:
           generic:
@@ -210,13 +210,13 @@ apps:
   asn:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values: {}
   tgtg:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values:
           generic:
@@ -227,7 +227,7 @@ apps:
   vaultwarden:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values:
           generic:
@@ -240,13 +240,13 @@ apps:
   aws:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values: {}
   prometheus:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values:
           generic:
@@ -258,7 +258,7 @@ apps:
   sftpgo:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values:
           generic:
@@ -277,13 +277,13 @@ apps:
   cloudflareddns:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values: {}
   traefik:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values:
           generic:
@@ -297,13 +297,13 @@ apps:
   duplicatiprometheusexporter:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values: {}
   homematic:
     enabled: true
     argocd:
-      targetRevision: feature/refactor-apps
+      targetRevision: ~
       helm:
         values:
           persistence:
