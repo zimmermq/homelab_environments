@@ -167,12 +167,6 @@ apps:
                   hostPath: /mnt/tank1/encrypted/apps/stirlingpdf/pipeline/watchedFolders/scanner
                 paperlessconsume:
                   hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume
-  zfs:
-    enabled: true
-    argocd:
-      targetRevision: ~
-      helm:
-        values: {}
   postgres:
     enabled: true
     argocd:
