@@ -24,7 +24,7 @@ global:
     oidc_client_id: "5vmqlfbdhdrma83s40bnrbb59i"
 
   argocd:
-    targetRevision: main
+    targetRevision: feature/homer
 
 apps:
   mosquitto:
