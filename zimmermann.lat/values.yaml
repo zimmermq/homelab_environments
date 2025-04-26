@@ -306,3 +306,9 @@ apps:
           persistence:
             data:
               mountPath: /mnt/tank1/unencrypted/apps/homematic/ccu_data
+  homer:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values: {}
