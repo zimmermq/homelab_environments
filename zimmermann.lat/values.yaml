@@ -310,6 +310,8 @@ apps:
     enabled: true
     argocd:
       targetRevision: ~
+      helm:
+        values: {}
     additionalLinks:
       githubEnvironments:
         name: "Environments"
@@ -341,8 +343,6 @@ apps:
         subtitle: "Duplicati Homeserver"
         logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/adguard-home.svg"
         url: "http://duplicat.home.lat:8200/"
-      helm:
-        values: {}
   reloader:
     enabled: true
     argocd:
