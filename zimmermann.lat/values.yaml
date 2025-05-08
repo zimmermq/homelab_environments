@@ -318,7 +318,7 @@ apps:
         group: "infrastructure"
         subtitle: "GitHub"
         logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/github.svg"
-        url: "https://github.com/zimmermq/homelab-environments"
+        url: "https://github.com/zimmermq/homelab_environments"
       adguardHomeserver:
         name: "AdGuard"
         group: "infrastructure"
@@ -341,7 +341,7 @@ apps:
         name: "Duplicati Homeserver"
         group: "infrastructure"
         subtitle: "Duplicati Homeserver"
-        logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/adguard-home.svg"
+        logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/duplicati.svg"
         url: "http://duplicat.home.lat:8200/"
   reloader:
     enabled: true
