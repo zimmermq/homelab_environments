@@ -310,37 +310,37 @@ apps:
     enabled: true
     argocd:
       targetRevision: ~
-      additionalLinks:
-        githubEnvironments:
-          name: "Environments"
-          group: "infrastructure"
-          subtitle: "GitHub"
-          logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/github.svg"
-          url: "https://github.com/zimmermq/homelab-environments"
-        adguardHomeserver:
-          name: "AdGuard"
-          group: "infrastructure"
-          subtitle: "DNS Homeserver"
-          logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/adguard-home.svg"
-          url: "http://adguard.home.lat:7080/"
-        printer:
-          name: "Printer"
-          group: "infrastructure"
-          subtitle: "Printer"
-          logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/printer.svg"
-          url: "http://192.168.0.53/main.asp?Lang=de"
-        scanner:
-          name: "Scanner"
-          group: "infrastructure"
-          subtitle: "Scanner"
-          logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/scanservjs.png"
-          url: "http://192.168.0.124/"
-        duplicateHomeserver:
-          name: "Duplicati Homeserver"
-          group: "infrastructure"
-          subtitle: "Duplicati Homeserver"
-          logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/adguard-home.svg"
-          url: "http://duplicat.home.lat:8200/"
+    additionalLinks:
+      githubEnvironments:
+        name: "Environments"
+        group: "infrastructure"
+        subtitle: "GitHub"
+        logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/github.svg"
+        url: "https://github.com/zimmermq/homelab-environments"
+      adguardHomeserver:
+        name: "AdGuard"
+        group: "infrastructure"
+        subtitle: "DNS Homeserver"
+        logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/adguard-home.svg"
+        url: "http://adguard.home.lat:7080/"
+      printer:
+        name: "Printer"
+        group: "infrastructure"
+        subtitle: "Printer"
+        logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/printer.svg"
+        url: "http://192.168.0.53/main.asp?Lang=de"
+      scanner:
+        name: "Scanner"
+        group: "infrastructure"
+        subtitle: "Scanner"
+        logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/scanservjs.png"
+        url: "http://192.168.0.124/"
+      duplicateHomeserver:
+        name: "Duplicati Homeserver"
+        group: "infrastructure"
+        subtitle: "Duplicati Homeserver"
+        logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/adguard-home.svg"
+        url: "http://duplicat.home.lat:8200/"
       helm:
         values: {}
   reloader:
