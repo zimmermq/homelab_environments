@@ -211,7 +211,7 @@ apps:
       helm:
         values: {}
   tgtg:
-    enabled: false
+    enabled: true
     argocd:
       targetRevision: ~
       helm:
