@@ -349,3 +349,20 @@ apps:
       targetRevision: ~
       helm:
         values: {}
+
+  groceries:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values:
+          generic:
+            persistentVolumeClaims:
+              library: /mnt/tank1/encrypted/apps/immich/library
+              postgresql: /mnt/tank1/encrypted/apps/immich/postgresql
+              redis: /mnt/tank1/encrypted/apps/immich/redis
+              cli: /mnt/tank1/encrypted/apps/immich-old/library/library/3312b68f-9fa6-48c2-a851-59ae2d764d44/
+          smtp:
+            host: mail.your-server.de
+            from: Groceries <groceries@example.com>
+            user: imichael@zimmermann.lat
