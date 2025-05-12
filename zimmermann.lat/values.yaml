@@ -352,7 +352,7 @@ apps:
   groceries:
     enabled: true
     argocd:
-      targetRevision: ~
+      targetRevision: feature/groceries
       helm:
         values:
           smtp:
