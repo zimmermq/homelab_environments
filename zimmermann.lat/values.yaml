@@ -358,4 +358,4 @@ apps:
           smtp:
             host: mail.your-server.de
             from: Groceries <groceries@example.com>
-            user: imichael@zimmermann.lat
+            user: michael@zimmermann.lat
