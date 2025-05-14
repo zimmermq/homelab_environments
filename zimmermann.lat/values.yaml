@@ -359,3 +359,12 @@ apps:
             host: mail.your-server.de
             from: Groceries <groceries@example.com>
             user: michael@zimmermann.lat
+  couchdb:
+    enabled: true
+    argocd:
+      targetRevision: feature/groceries
+      helm:
+        values:
+          generic:
+            persistentVolumeClaims:
+              data: /mnt/tank1/encrypted/apps/couchdb/data
