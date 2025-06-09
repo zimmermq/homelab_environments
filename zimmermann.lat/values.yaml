@@ -95,10 +95,14 @@ apps:
         values:
           generic:
             persistentVolumeClaims:
-              library: /mnt/tank1/encrypted/apps/immich/library
-              postgresql: /mnt/tank1/encrypted/apps/immich/postgresql
-              redis: /mnt/tank1/encrypted/apps/immich/redis
-              cli: /mnt/tank1/encrypted/apps/immich-old/library/library/3312b68f-9fa6-48c2-a851-59ae2d764d44/
+              library:
+                hostPath: /mnt/tank1/encrypted/apps/immich/library
+              postgresql:
+                hostPath: /mnt/tank1/encrypted/apps/immich/postgresql
+              redis:
+                hostPath: /mnt/tank1/encrypted/apps/immich/redis
+              cli:
+                hostPath: /mnt/tank1/encrypted/apps/immich-old/library/library/3312b68f-9fa6-48c2-a851-59ae2d764d44/
           importJob:
             enabled: false
           smtp:
@@ -229,7 +233,8 @@ apps:
         values:
           generic:
             persistentVolumeClaims:
-              data: /mnt/tank1/encrypted/apps/vaultwarden/data
+              data:
+                hostPath: /mnt/tank1/encrypted/apps/vaultwarden/data
           smtp:
             host: www594.your-server.de
             from: vaultwarden@zimmermann.lat
@@ -250,8 +255,10 @@ apps:
             persistentVolume:
               prometheus: /mnt/tank1/unencrypted/apps/prometheus/data
             persistentVolumeClaims:
-              grafana: /mnt/tank1/unencrypted/apps/prometheus/grafana/data
-              alertmanager: /mnt/tank1/unencrypted/apps/prometheus/alertmanager/data
+              grafana:
+                hostPath: /mnt/tank1/unencrypted/apps/prometheus/grafana/data
+              alertmanager:
+                hostPath: /mnt/tank1/unencrypted/apps/prometheus/alertmanager/data
   sftpgo:
     enabled: true
     argocd:
@@ -285,7 +292,8 @@ apps:
         values:
           generic:
             persistentVolumeClaims:
-              data: /mnt/tank1/unencrypted/apps/traefik/data
+              data:
+                hostPath: /mnt/tank1/unencrypted/apps/traefik/data
           loadBalancerIP: 192.168.0.80
           middlewares:
             cloudflare:
