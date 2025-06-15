@@ -360,7 +360,7 @@ apps:
   restic:
     enabled: true
     argocd:
-      targetRevision: feature/restic_backup
+      targetRevision: ~
       helm:
         values:
           generic:
