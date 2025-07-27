@@ -52,7 +52,7 @@ apps:
           PROMPT_CORRESPONDENT_EXPLANATION: ''
           PROMPT_POSTAMBLE: ''
   duplicati:
-    enabled: true
+    enabled: false
     argocd:
       targetRevision: ~
       helm:
@@ -300,7 +300,7 @@ apps:
               allowedCIDRs:
                 - 192.168.0.0/24
   duplicatiprometheusexporter:
-    enabled: true
+    enabled: false
     argocd:
       targetRevision: ~
       helm:
