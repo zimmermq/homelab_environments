@@ -111,7 +111,7 @@ apps:
             username: michael@zimmermann.lat
             from: Immich Photo Server <michael@zimmermann.lat>
   smarthome3:
-    enabled: true
+    enabled: false
     argocd:
       targetRevision: ~
       helm:
