@@ -159,7 +159,7 @@ apps:
             username: michael
             email: michael@zimmermann.lat
   stirlingpdf:
-    enabled: true
+    enabled: false
     argocd:
       targetRevision: ~
       helm:
