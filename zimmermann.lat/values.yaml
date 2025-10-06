@@ -126,12 +126,6 @@ apps:
       targetRevision: ~
       helm:
         values: {}
-  argoimageupdater:
-    enabled: true
-    argocd:
-      targetRevision: ~
-      helm:
-        values: {}
   gotenberg:
     enabled: true
     argocd:
