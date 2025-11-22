@@ -236,7 +236,7 @@ apps:
   aws:
     enabled: true
     argocd:
-      targetRevision: ~
+      targetRevision: feature/several_aws_ecr
       helm:
         values:
           ecrRegistries:
