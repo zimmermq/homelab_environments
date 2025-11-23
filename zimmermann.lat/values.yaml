@@ -34,7 +34,7 @@ apps:
       helm:
         values: {}
   paperlessgpt:
-    enabled: false
+    enabled: true
     argocd:
       targetRevision: ~
       helm:
