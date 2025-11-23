@@ -113,7 +113,7 @@ apps:
   smarthome3:
     enabled: true
     argocd:
-      targetRevision: ~
+      targetRevision: feature/several_aws_ecr
       helm:
         values:
           hueIp: ''
