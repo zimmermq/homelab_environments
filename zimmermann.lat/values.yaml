@@ -165,7 +165,7 @@ apps:
                   hostPath: /mnt/tank1/encrypted/apps/stirlingpdf/pipeline/watchedFolders/scanner
                 paperlessconsume:
                   hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume
-  treubau-document-downloader:
+  portal-document-downloader:
     enabled: true
     argocd:
       targetRevision: ~
@@ -173,8 +173,16 @@ apps:
         values:
           generic:
             persistentVolumeClaims:
-              downloads:
-                hostPath: /mnt/tank1//encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael
+              downloads-treubau:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Wohnung Berliner Ring Bensheim
+              downloads-facilioo:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Wohnung Wormser Straße Bensheim
+          portalDocumentDownloader:
+            portals:
+              treubau:
+                enabled: true
+              facilioo:
+                enabled: true
   postgres:
     enabled: true
     argocd:
