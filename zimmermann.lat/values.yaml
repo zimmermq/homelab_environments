@@ -69,6 +69,8 @@ apps:
       helm:
         values:
           generic:
+            ghcrSecret:
+              enabled: true
             deployment:
               pvcMounts:
                 config:
