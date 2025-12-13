@@ -113,7 +113,7 @@ apps:
   smarthome3:
     enabled: true
     argocd:
-      targetRevision: feature/several_aws_ecr
+      targetRevision: ~
       helm:
         values:
           hueIp: ''
@@ -177,12 +177,19 @@ apps:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Wohnung Berliner Ring Bensheim
               downloads-facilioo:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Wohnung Wormser Straße Bensheim
+              downloads-vodafone:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Vodafone
           portalDocumentDownloader:
             portals:
               treubau:
                 enabled: true
+                suspend: false
               facilioo:
                 enabled: true
+                suspend: false
+              vodafone:
+                enabled: true
+                suspend: false
   postgres:
     enabled: true
     argocd:
@@ -254,7 +261,7 @@ apps:
   aws:
     enabled: true
     argocd:
-      targetRevision: feature/several_aws_ecr
+      targetRevision: ~
       helm:
         values:
           ecrRegistries:
