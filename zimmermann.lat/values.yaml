@@ -185,7 +185,7 @@ apps:
                 enabled: true
                 suspend: false
               vodafone:
-                enabled: true
+                enabled: false
                 suspend: false
   postgres:
     enabled: true
