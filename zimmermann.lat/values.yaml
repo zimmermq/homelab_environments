@@ -179,6 +179,8 @@ apps:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Wohnung Wormser Straße Bensheim
               downloads-vodafone:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Vodafone
+              downloads-sim24:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Sim24
           portalDocumentDownloader:
             portals:
               treubau:
@@ -189,6 +191,9 @@ apps:
                 suspend: false
               vodafone:
                 enabled: false
+                suspend: false
+              sim24:
+                enabled: true
                 suspend: false
   postgres:
     enabled: true
