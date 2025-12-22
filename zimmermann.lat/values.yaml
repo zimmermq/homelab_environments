@@ -181,6 +181,8 @@ apps:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Vodafone
               downloads-sim24:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Sim24
+              downloads-hrworks:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/HRworks
           portalDocumentDownloader:
             portals:
               treubau:
@@ -190,11 +192,14 @@ apps:
                 enabled: true
                 suspend: false
               vodafone:
-                enabled: false
-                suspend: false
+                enabled: true
+                suspend: true
               sim24:
                 enabled: true
-                suspend: false
+                suspend: true
+              hrworks:
+                enabled: true
+                suspend: true
   postgres:
     enabled: true
     argocd:
