@@ -183,6 +183,8 @@ apps:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Sim24
               downloads-hrworks:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/HRworks
+              downloads-fnz:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/finvesto
           portalDocumentDownloader:
             portals:
               treubau:
@@ -198,6 +200,9 @@ apps:
                 enabled: true
                 suspend: true
               hrworks:
+                enabled: true
+                suspend: true
+              fnz:
                 enabled: true
                 suspend: true
   postgres:
