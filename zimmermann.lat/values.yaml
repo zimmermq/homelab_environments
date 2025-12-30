@@ -186,9 +186,9 @@ apps:
               downloads-fnz:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/finvesto
               downloads-psdbank-ht:
-                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/PsdBank-HT
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/PsdBankHT
               downloads-psdbank-nuernberg:
-                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/PsdBank-Nuernberg
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/PsdBankNuernberg
           portalDocumentDownloader:
             portals:
               treubau:
