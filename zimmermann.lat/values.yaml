@@ -18,13 +18,13 @@ global:
   letsencrypt:
     email: "michael@zimmermann.lat"
 
-  traefik_forward_auth:
+  oauth2_proxy:
     # https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_A6gtz8gw5/.well-known/openid-configuration
     oidc_issuer_url: "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_A6gtz8gw5"
     oidc_client_id: "5vmqlfbdhdrma83s40bnrbb59i"
 
   argocd:
-    targetRevision: main
+    targetRevision: feature/oauth2-proxy
 
 apps:
   mosquitto:
@@ -493,6 +493,12 @@ apps:
             cloudflare:
               allowedCIDRs:
                 - 192.168.0.0/24
+          oauth2-proxy:
+            extraArgs:
+              oidc-issuer-url: "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_A6gtz8gw5"
+              cookie-domain: ".zimmermann.lat"
+              whitelist-domain: ".zimmermann.lat"
+              redirect-url: "https://auth.zimmermann.lat/oauth2/callback"
   duplicatiprometheusexporter:
     enabled: false
     argocd:
