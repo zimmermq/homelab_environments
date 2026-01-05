@@ -495,10 +495,17 @@ apps:
                 - 192.168.0.0/24
           oauth2-proxy:
             extraArgs:
+              provider: oidc
               oidc-issuer-url: "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_A6gtz8gw5"
+              upstream: "static://202"
+              reverse-proxy: "true"
               cookie-domain: ".zimmermann.lat"
+              cookie-samesite: "none"
+              cookie-secure: "true"
               whitelist-domain: ".zimmermann.lat"
+              email-domain: "*"
               redirect-url: "https://auth.zimmermann.lat/oauth2/callback"
+              skip-provider-button: "true"
   duplicatiprometheusexporter:
     enabled: false
     argocd:
