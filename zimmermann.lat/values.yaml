@@ -505,7 +505,7 @@ apps:
               whitelist-domain: ".zimmermann.lat"
               email-domain: "*"
               redirect-url: "https://auth.zimmermann.lat/oauth2/callback"
-              skip-provider-button: "true"
+              skip-provider-button: "false"
   duplicatiprometheusexporter:
     enabled: false
     argocd:
