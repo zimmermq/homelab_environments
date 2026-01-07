@@ -325,6 +325,8 @@ apps:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/HRworks
               downloads-fnz:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/finvesto
+              downloads-fnztati:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Tatjana/ebase
               downloads-psdbank-ht:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/PsdBankHT
               downloads-psdbank-nuernberg:
@@ -347,6 +349,9 @@ apps:
                 enabled: true
                 suspend: true
               fnz:
+                enabled: true
+                suspend: true
+              fnztati:
                 enabled: true
                 suspend: true
               psdbank-ht:
