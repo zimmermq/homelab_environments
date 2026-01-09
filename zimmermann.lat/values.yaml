@@ -335,31 +335,101 @@ apps:
             portals:
               treubau:
                 enabled: true
+                schedule: "0 2 1 * *"
                 suspend: false
+                flat: true
+                env:
+                  PORTAL: "treubau"
+                  TREUBAU_COMPANY: "treubau"
+                secrets:
+                  TREUBAU_KURZNAME: /portal-document-downloader/TREUBAU_KURZNAME
+                  TREUBAU_PASSWORT: /portal-document-downloader/TREUBAU_PASSWORT
+                  TREUBAU_OBJEKT: /portal-document-downloader/TREUBAU_OBJEKT
               facilioo:
                 enabled: true
+                schedule: "0 3 1 * *"
                 suspend: false
+                flat: true
+                env:
+                  PORTAL: "facilioo"
+                secrets:
+                  FACILIOO_EMAIL: /portal-document-downloader/FACILIOO_EMAIL
+                  FACILIOO_PASSWORD: /portal-document-downloader/FACILIOO_PASSWORD
               vodafone:
                 enabled: true
+                schedule: "0 4 1 * *"
                 suspend: true
+                flat: true
+                env:
+                  PORTAL: "vodafone"
+                secrets:
+                  VODAFONE_EMAIL: /portal-document-downloader/VODAFONE_EMAIL
+                  VODAFONE_PASSWORD: /portal-document-downloader/VODAFONE_PASSWORD
               sim24:
                 enabled: true
+                schedule: "0 5 1 * *"
                 suspend: true
+                flat: true
+                env:
+                  PORTAL: "sim24"
+                secrets:
+                  SIM24_USERNAME: /portal-document-downloader/SIM24_USERNAME
+                  SIM24_PASSWORD: /portal-document-downloader/SIM24_PASSWORD
               hrworks:
                 enabled: true
+                schedule: "0 6 1 * *"
                 suspend: true
+                flat: true
+                env:
+                  PORTAL: "hrworks"
+                secrets:
+                  HRWORKS_EMAIL: /portal-document-downloader/HRWORKS_EMAIL
+                  HRWORKS_PASSWORD: /portal-document-downloader/HRWORKS_PASSWORD
+                  HRWORKS_COMPANY_ID: /portal-document-downloader/HRWORKS_COMPANY_ID
               fnz:
                 enabled: true
+                schedule: "0 7 1 * *"
                 suspend: true
+                flat: true
+                env:
+                  PORTAL: "fnz"
+                secrets:
+                  FNZ_USERNAME: /portal-document-downloader/FNZ_USERNAME
+                  FNZ_PASSWORD: /portal-document-downloader/FNZ_PASSWORD
+                  FNZ_AUTH_METHOD: /portal-document-downloader/FNZ_AUTH_METHOD
               fnztati:
                 enabled: true
+                schedule: "0 7 1 * *"
                 suspend: true
+                flat: true
+                env:
+                  PORTAL: "fnz"
+                secrets:
+                  FNZ_USERNAME: /portal-document-downloader/FNZTATI_USERNAME
+                  FNZ_PASSWORD: /portal-document-downloader/FNZTATI_PASSWORD
+                  FNZ_AUTH_METHOD: /portal-document-downloader/FNZTATI_AUTH_METHOD
               psdbank-ht:
                 enabled: true
+                schedule: "0 8 1 * *"
                 suspend: true
+                flat: true
+                env:
+                  PORTAL: "psdbank"
+                secrets:
+                  PSDBANK_USERNAME: /portal-document-downloader/PSDBANK_HT_USERNAME
+                  PSDBANK_PASSWORD: /portal-document-downloader/PSDBANK_HT_PASSWORD
+                  PSDBANK_BASE_URL: /portal-document-downloader/PSDBANK_HT_BASE_URL
               psdbank-nuernberg:
                 enabled: true
+                schedule: "0 9 1 * *"
                 suspend: true
+                flat: true
+                env:
+                  PORTAL: "psdbank"
+                secrets:
+                  PSDBANK_USERNAME: /portal-document-downloader/PSDBANK_NUERNBERG_USERNAME
+                  PSDBANK_PASSWORD: /portal-document-downloader/PSDBANK_NUERNBERG_PASSWORD
+                  PSDBANK_BASE_URL: /portal-document-downloader/PSDBANK_NUERNBERG_BASE_URL
   postgres:
     enabled: true
     argocd:
