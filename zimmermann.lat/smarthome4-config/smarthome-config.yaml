@@ -131,11 +131,11 @@ smartHome:
     # SCHLAFZIMMER (Bedroom) - Main
     # --------------------------------------------------------------------------
     - type: "Light"
-      id: "light_schlafzimmer_2"
+      id: "light_schlafzimmer"
       lookups:
         - type: "staticEntity"
           entityRefs:
-            - "light.schlafzimmer"
+            - "light.schlafzimmer_2"
 
     - type: "Scene"
       id: "scenes_schlafzimmer_light_day"
