@@ -268,13 +268,14 @@ smartHome:
       lookups:
         - type: "staticEntity"
           entityRefs:
-            - "light.kuche"
-            - "light.esszimmer"
-            - "light.flur"
-            - "light.wohnzimmer"
+            - "light.buero"
+            - "light.kueche"
+            - "light.esszimmer_5"
+            - "light.flur_2"
+            - "light.wohnzimmer_2"
             - "light.stehlampe_wozi"
             - "light.aegypten"
-            - "light.schlafzimmer"
+            - "light.schlafzimmer_2"
             - "light.stehlampe_schlafzimmer"
             - "light.tati_schlafzimmer_nachtischlampe"
 
@@ -284,10 +285,10 @@ smartHome:
       lookups:
         - type: "staticEntity"
           entityRefs:
-            - "light.kuche"
-            - "light.esszimmer"
-            - "light.flur"
-            - "light.wohnzimmer"
+            - "light.kueche"
+            - "light.esszimmer_5"
+            - "light.flur_2"
+            - "light.wohnzimmer_2"
             - "light.stehlampe_wozi"
             - "light.aegypten"
 
