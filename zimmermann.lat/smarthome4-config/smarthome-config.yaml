@@ -25,7 +25,7 @@ smartHome:
       lookups:
         - type: "staticEntity"
           entityRefs:
-            - "light.bad"
+            - "light.badezimmer"
 
     - type: "Scene"
       id: "scenes_badezimmer_light_day"
@@ -69,7 +69,7 @@ smartHome:
       lookups:
         - type: "staticEntity"
           entityRefs:
-            - "light.esszimmer"
+            - "light.esszimmer_5"
 
     - type: "Scene"
       id: "scenes_esszimmer_light_day"
@@ -91,7 +91,7 @@ smartHome:
       lookups:
         - type: "staticEntity"
           entityRefs:
-            - "light.flur"
+            - "light.flur_2"
 
     - type: "Scene"
       id: "scenes_flur_light_day"
@@ -113,7 +113,7 @@ smartHome:
       lookups:
         - type: "staticEntity"
           entityRefs:
-            - "light.kuche"
+            - "light.kueche"
 
     - type: "Scene"
       id: "scenes_kueche_light_day"
@@ -131,7 +131,7 @@ smartHome:
     # SCHLAFZIMMER (Bedroom) - Main
     # --------------------------------------------------------------------------
     - type: "Light"
-      id: "light_schlafzimmer"
+      id: "light_schlafzimmer_2"
       lookups:
         - type: "staticEntity"
           entityRefs:
@@ -201,7 +201,7 @@ smartHome:
       lookups:
         - type: "staticEntity"
           entityRefs:
-            - "light.wohnzimmer"
+            - "light.wohnzimmer_2"
 
     - type: "Scene"
       id: "scenes_wohnzimmer_light_day"
