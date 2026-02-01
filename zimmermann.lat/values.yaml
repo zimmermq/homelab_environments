@@ -125,7 +125,11 @@ apps:
     argocd:
       targetRevision: ~
       helm:
-        values: {}
+        values:
+          github:
+            repo: zimmermq/homelab_environments
+            configPath: zimmermann.lat/smarthome4-config/smarthome-config.yaml
+            branch: main
   smarthome4:
     enabled: true
     argocd:
