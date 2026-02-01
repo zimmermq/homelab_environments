@@ -167,42 +167,42 @@ smartHome:
       id: "scenes_badezimmer_dimmerswitch_01_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Badezimmer_DimmerSwitch_01_Day_1"
+          labelRegex: "Badezimmer__DimmerSwitch__01__day__1"
     - type: "Scene"
       id: "scenes_badezimmer_dimmerswitch_01_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Badezimmer_DimmerSwitch_01_Day_2"
+          labelRegex: "Badezimmer__DimmerSwitch__01__day__2"
     - type: "Scene"
       id: "scenes_badezimmer_dimmerswitch_01_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Badezimmer_DimmerSwitch_01_Day_3"
+          labelRegex: "Badezimmer__DimmerSwitch__01__day__3"
     - type: "Scene"
       id: "scenes_badezimmer_dimmerswitch_01_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Badezimmer_DimmerSwitch_01_Day_N"
+          labelRegex: "Badezimmer__DimmerSwitch__01__day__N"
     - type: "Scene"
       id: "scenes_badezimmer_dimmerswitch_01_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Badezimmer_DimmerSwitch_01_Night_1"
+          labelRegex: "Badezimmer__DimmerSwitch__01__night__1"
     - type: "Scene"
       id: "scenes_badezimmer_dimmerswitch_01_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Badezimmer_DimmerSwitch_01_Night_2"
+          labelRegex: "Badezimmer__DimmerSwitch__01__night__2"
     - type: "Scene"
       id: "scenes_badezimmer_dimmerswitch_01_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Badezimmer_DimmerSwitch_01_Night_3"
+          labelRegex: "Badezimmer__DimmerSwitch__01__night__3"
     - type: "Scene"
       id: "scenes_badezimmer_dimmerswitch_01_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Badezimmer_DimmerSwitch_01_Night_N"
+          labelRegex: "Badezimmer__DimmerSwitch__01__night__N"
 
     # ==========================================================================
     # SCENES - Buero DimmerSwitch 01-04
@@ -211,165 +211,165 @@ smartHome:
       id: "scenes_buero_dimmerswitch_01_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_01_Day_1"
+          labelRegex: "Buero__DimmerSwitch__01__day__1"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_01_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_01_Day_2"
+          labelRegex: "Buero__DimmerSwitch__01__day__2"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_01_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_01_Day_3"
+          labelRegex: "Buero__DimmerSwitch__01__day__3"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_01_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_01_Day_N"
+          labelRegex: "Buero__DimmerSwitch__01__day__N"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_01_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_01_Night_1"
+          labelRegex: "Buero__DimmerSwitch__01__night__1"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_01_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_01_Night_2"
+          labelRegex: "Buero__DimmerSwitch__01__night__2"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_01_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_01_Night_3"
+          labelRegex: "Buero__DimmerSwitch__01__night__3"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_01_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_01_Night_N"
+          labelRegex: "Buero__DimmerSwitch__01__night__N"
 
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_02_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_02_Day_1"
+          labelRegex: "Buero__DimmerSwitch__02__day__1"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_02_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_02_Day_2"
+          labelRegex: "Buero__DimmerSwitch__02__day__2"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_02_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_02_Day_3"
+          labelRegex: "Buero__DimmerSwitch__02__day__3"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_02_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_02_Day_N"
+          labelRegex: "Buero__DimmerSwitch__02__day__N"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_02_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_02_Night_1"
+          labelRegex: "Buero__DimmerSwitch__02__night__1"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_02_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_02_Night_2"
+          labelRegex: "Buero__DimmerSwitch__02__night__2"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_02_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_02_Night_3"
+          labelRegex: "Buero__DimmerSwitch__02__night__3"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_02_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_02_Night_N"
+          labelRegex: "Buero__DimmerSwitch__02__night__N"
 
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_03_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_03_Day_1"
+          labelRegex: "Buero__DimmerSwitch__03__day__1"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_03_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_03_Day_2"
+          labelRegex: "Buero__DimmerSwitch__03__day__2"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_03_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_03_Day_3"
+          labelRegex: "Buero__DimmerSwitch__03__day__3"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_03_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_03_Day_N"
+          labelRegex: "Buero__DimmerSwitch__03__day__N"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_03_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_03_Night_1"
+          labelRegex: "Buero__DimmerSwitch__03__night__1"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_03_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_03_Night_2"
+          labelRegex: "Buero__DimmerSwitch__03__night__2"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_03_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_03_Night_3"
+          labelRegex: "Buero__DimmerSwitch__03__night__3"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_03_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_03_Night_N"
+          labelRegex: "Buero__DimmerSwitch__03__night__N"
 
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_04_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_04_Day_1"
+          labelRegex: "Buero__DimmerSwitch__04__day__1"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_04_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_04_Day_2"
+          labelRegex: "Buero__DimmerSwitch__04__day__2"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_04_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_04_Day_3"
+          labelRegex: "Buero__DimmerSwitch__04__day__3"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_04_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_04_Day_N"
+          labelRegex: "Buero__DimmerSwitch__04__day__N"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_04_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_04_Night_1"
+          labelRegex: "Buero__DimmerSwitch__04__night__1"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_04_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_04_Night_2"
+          labelRegex: "Buero__DimmerSwitch__04__night__2"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_04_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_04_Night_3"
+          labelRegex: "Buero__DimmerSwitch__04__night__3"
     - type: "Scene"
       id: "scenes_buero_dimmerswitch_04_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Buero_DimmerSwitch_04_Night_N"
+          labelRegex: "Buero__DimmerSwitch__04__night__N"
 
     # ==========================================================================
     # SCENES - Esszimmer DimmerSwitch 01-04
@@ -378,165 +378,165 @@ smartHome:
       id: "scenes_esszimmer_dimmerswitch_01_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_01_Day_1"
+          labelRegex: "Esszimmer__DimmerSwitch__01__day__1"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_01_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_01_Day_2"
+          labelRegex: "Esszimmer__DimmerSwitch__01__day__2"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_01_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_01_Day_3"
+          labelRegex: "Esszimmer__DimmerSwitch__01__day__3"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_01_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_01_Day_N"
+          labelRegex: "Esszimmer__DimmerSwitch__01__day__N"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_01_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_01_Night_1"
+          labelRegex: "Esszimmer__DimmerSwitch__01__night__1"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_01_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_01_Night_2"
+          labelRegex: "Esszimmer__DimmerSwitch__01__night__2"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_01_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_01_Night_3"
+          labelRegex: "Esszimmer__DimmerSwitch__01__night__3"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_01_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_01_Night_N"
+          labelRegex: "Esszimmer__DimmerSwitch__01__night__N"
 
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_02_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_02_Day_1"
+          labelRegex: "Esszimmer__DimmerSwitch__02__day__1"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_02_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_02_Day_2"
+          labelRegex: "Esszimmer__DimmerSwitch__02__day__2"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_02_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_02_Day_3"
+          labelRegex: "Esszimmer__DimmerSwitch__02__day__3"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_02_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_02_Day_N"
+          labelRegex: "Esszimmer__DimmerSwitch__02__day__N"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_02_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_02_Night_1"
+          labelRegex: "Esszimmer__DimmerSwitch__02__night__1"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_02_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_02_Night_2"
+          labelRegex: "Esszimmer__DimmerSwitch__02__night__2"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_02_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_02_Night_3"
+          labelRegex: "Esszimmer__DimmerSwitch__02__night__3"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_02_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_02_Night_N"
+          labelRegex: "Esszimmer__DimmerSwitch__02__night__N"
 
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_03_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_03_Day_1"
+          labelRegex: "Esszimmer__DimmerSwitch__03__day__1"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_03_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_03_Day_2"
+          labelRegex: "Esszimmer__DimmerSwitch__03__day__2"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_03_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_03_Day_3"
+          labelRegex: "Esszimmer__DimmerSwitch__03__day__3"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_03_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_03_Day_N"
+          labelRegex: "Esszimmer__DimmerSwitch__03__day__N"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_03_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_03_Night_1"
+          labelRegex: "Esszimmer__DimmerSwitch__03__night__1"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_03_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_03_Night_2"
+          labelRegex: "Esszimmer__DimmerSwitch__03__night__2"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_03_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_03_Night_3"
+          labelRegex: "Esszimmer__DimmerSwitch__03__night__3"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_03_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_03_Night_N"
+          labelRegex: "Esszimmer__DimmerSwitch__03__night__N"
 
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_04_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_04_Day_1"
+          labelRegex: "Esszimmer__DimmerSwitch__04__day__1"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_04_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_04_Day_2"
+          labelRegex: "Esszimmer__DimmerSwitch__04__day__2"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_04_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_04_Day_3"
+          labelRegex: "Esszimmer__DimmerSwitch__04__day__3"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_04_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_04_Day_N"
+          labelRegex: "Esszimmer__DimmerSwitch__04__day__N"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_04_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_04_Night_1"
+          labelRegex: "Esszimmer__DimmerSwitch__04__night__1"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_04_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_04_Night_2"
+          labelRegex: "Esszimmer__DimmerSwitch__04__night__2"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_04_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_04_Night_3"
+          labelRegex: "Esszimmer__DimmerSwitch__04__night__3"
     - type: "Scene"
       id: "scenes_esszimmer_dimmerswitch_04_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Esszimmer_DimmerSwitch_04_Night_N"
+          labelRegex: "Esszimmer__DimmerSwitch__04__night__N"
 
     # ==========================================================================
     # SCENES - Flur DimmerSwitch 01, 02, 04
@@ -545,124 +545,124 @@ smartHome:
       id: "scenes_flur_dimmerswitch_01_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_01_Day_1"
+          labelRegex: "Flur__DimmerSwitch__01__day__1"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_01_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_01_Day_2"
+          labelRegex: "Flur__DimmerSwitch__01__day__2"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_01_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_01_Day_3"
+          labelRegex: "Flur__DimmerSwitch__01__day__3"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_01_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_01_Day_N"
+          labelRegex: "Flur__DimmerSwitch__01__day__N"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_01_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_01_Night_1"
+          labelRegex: "Flur__DimmerSwitch__01__night__1"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_01_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_01_Night_2"
+          labelRegex: "Flur__DimmerSwitch__01__night__2"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_01_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_01_Night_3"
+          labelRegex: "Flur__DimmerSwitch__01__night__3"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_01_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_01_Night_N"
+          labelRegex: "Flur__DimmerSwitch__01__night__N"
 
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_02_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_02_Day_1"
+          labelRegex: "Flur__DimmerSwitch__02__day__1"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_02_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_02_Day_2"
+          labelRegex: "Flur__DimmerSwitch__02__day__2"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_02_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_02_Day_3"
+          labelRegex: "Flur__DimmerSwitch__02__day__3"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_02_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_02_Day_N"
+          labelRegex: "Flur__DimmerSwitch__02__day__N"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_02_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_02_Night_1"
+          labelRegex: "Flur__DimmerSwitch__02__night__1"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_02_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_02_Night_2"
+          labelRegex: "Flur__DimmerSwitch__02__night__2"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_02_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_02_Night_3"
+          labelRegex: "Flur__DimmerSwitch__02__night__3"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_02_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_02_Night_N"
+          labelRegex: "Flur__DimmerSwitch__02__night__N"
 
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_04_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_04_Day_1"
+          labelRegex: "Flur__DimmerSwitch__04__day__1"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_04_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_04_Day_2"
+          labelRegex: "Flur__DimmerSwitch__04__day__2"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_04_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_04_Day_3"
+          labelRegex: "Flur__DimmerSwitch__04__day__3"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_04_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_04_Day_N"
+          labelRegex: "Flur__DimmerSwitch__04__day__N"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_04_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_04_Night_1"
+          labelRegex: "Flur__DimmerSwitch__04__night__1"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_04_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_04_Night_2"
+          labelRegex: "Flur__DimmerSwitch__04__night__2"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_04_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_04_Night_3"
+          labelRegex: "Flur__DimmerSwitch__04__night__3"
     - type: "Scene"
       id: "scenes_flur_dimmerswitch_04_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Flur_DimmerSwitch_04_Night_N"
+          labelRegex: "Flur__DimmerSwitch__04__night__N"
 
     # ==========================================================================
     # SCENES - Kueche DimmerSwitch 01
@@ -671,42 +671,42 @@ smartHome:
       id: "scenes_kueche_dimmerswitch_01_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Kueche_DimmerSwitch_01_Day_1"
+          labelRegex: "Kueche__DimmerSwitch__01__day__1"
     - type: "Scene"
       id: "scenes_kueche_dimmerswitch_01_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Kueche_DimmerSwitch_01_Day_2"
+          labelRegex: "Kueche__DimmerSwitch__01__day__2"
     - type: "Scene"
       id: "scenes_kueche_dimmerswitch_01_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Kueche_DimmerSwitch_01_Day_3"
+          labelRegex: "Kueche__DimmerSwitch__01__day__3"
     - type: "Scene"
       id: "scenes_kueche_dimmerswitch_01_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Kueche_DimmerSwitch_01_Day_N"
+          labelRegex: "Kueche__DimmerSwitch__01__day__N"
     - type: "Scene"
       id: "scenes_kueche_dimmerswitch_01_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Kueche_DimmerSwitch_01_Night_1"
+          labelRegex: "Kueche__DimmerSwitch__01__night__1"
     - type: "Scene"
       id: "scenes_kueche_dimmerswitch_01_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Kueche_DimmerSwitch_01_Night_2"
+          labelRegex: "Kueche__DimmerSwitch__01__night__2"
     - type: "Scene"
       id: "scenes_kueche_dimmerswitch_01_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Kueche_DimmerSwitch_01_Night_3"
+          labelRegex: "Kueche__DimmerSwitch__01__night__3"
     - type: "Scene"
       id: "scenes_kueche_dimmerswitch_01_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Kueche_DimmerSwitch_01_Night_N"
+          labelRegex: "Kueche__DimmerSwitch__01__night__N"
 
     # ==========================================================================
     # SCENES - Schlafzimmer_Tati DimmerSwitch 01-03
@@ -715,124 +715,124 @@ smartHome:
       id: "scenes_schlafzimmer_tati_dimmerswitch_01_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_01_Day_1"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__01__day__1"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_01_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_01_Day_2"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__01__day__2"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_01_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_01_Day_3"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__01__day__3"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_01_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_01_Day_N"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__01__day__N"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_01_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_01_Night_1"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__01__night__1"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_01_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_01_Night_2"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__01__night__2"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_01_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_01_Night_3"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__01__night__3"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_01_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_01_Night_N"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__01__night__N"
 
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_02_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_02_Day_1"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__02__day__1"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_02_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_02_Day_2"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__02__day__2"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_02_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_02_Day_3"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__02__day__3"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_02_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_02_Day_N"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__02__day__N"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_02_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_02_Night_1"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__02__night__1"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_02_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_02_Night_2"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__02__night__2"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_02_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_02_Night_3"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__02__night__3"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_02_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_02_Night_N"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__02__night__N"
 
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_03_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_03_Day_1"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__03__day__1"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_03_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_03_Day_2"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__03__day__2"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_03_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_03_Day_3"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__03__day__3"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_03_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_03_Day_N"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__03__day__N"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_03_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_03_Night_1"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__03__night__1"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_03_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_03_Night_2"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__03__night__2"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_03_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_03_Night_3"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__03__night__3"
     - type: "Scene"
       id: "scenes_schlafzimmer_tati_dimmerswitch_03_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_Tati_DimmerSwitch_03_Night_N"
+          labelRegex: "Schlafzimmer_Tati__DimmerSwitch__03__night__N"
 
     # ==========================================================================
     # SCENES - Schlafzimmer DimmerSwitch 01, 02, 04
@@ -841,124 +841,124 @@ smartHome:
       id: "scenes_schlafzimmer_dimmerswitch_01_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_01_Day_1"
+          labelRegex: "Schlafzimmer__DimmerSwitch__01__day__1"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_01_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_01_Day_2"
+          labelRegex: "Schlafzimmer__DimmerSwitch__01__day__2"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_01_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_01_Day_3"
+          labelRegex: "Schlafzimmer__DimmerSwitch__01__day__3"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_01_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_01_Day_N"
+          labelRegex: "Schlafzimmer__DimmerSwitch__01__day__N"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_01_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_01_Night_1"
+          labelRegex: "Schlafzimmer__DimmerSwitch__01__night__1"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_01_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_01_Night_2"
+          labelRegex: "Schlafzimmer__DimmerSwitch__01__night__2"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_01_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_01_Night_3"
+          labelRegex: "Schlafzimmer__DimmerSwitch__01__night__3"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_01_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_01_Night_N"
+          labelRegex: "Schlafzimmer__DimmerSwitch__01__night__N"
 
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_02_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_02_Day_1"
+          labelRegex: "Schlafzimmer__DimmerSwitch__02__day__1"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_02_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_02_Day_2"
+          labelRegex: "Schlafzimmer__DimmerSwitch__02__day__2"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_02_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_02_Day_3"
+          labelRegex: "Schlafzimmer__DimmerSwitch__02__day__3"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_02_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_02_Day_N"
+          labelRegex: "Schlafzimmer__DimmerSwitch__02__day__N"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_02_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_02_Night_1"
+          labelRegex: "Schlafzimmer__DimmerSwitch__02__night__1"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_02_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_02_Night_2"
+          labelRegex: "Schlafzimmer__DimmerSwitch__02__night__2"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_02_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_02_Night_3"
+          labelRegex: "Schlafzimmer__DimmerSwitch__02__night__3"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_02_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_02_Night_N"
+          labelRegex: "Schlafzimmer__DimmerSwitch__02__night__N"
 
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_04_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_04_Day_1"
+          labelRegex: "Schlafzimmer__DimmerSwitch__04__day__1"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_04_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_04_Day_2"
+          labelRegex: "Schlafzimmer__DimmerSwitch__04__day__2"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_04_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_04_Day_3"
+          labelRegex: "Schlafzimmer__DimmerSwitch__04__day__3"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_04_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_04_Day_N"
+          labelRegex: "Schlafzimmer__DimmerSwitch__04__day__N"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_04_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_04_Night_1"
+          labelRegex: "Schlafzimmer__DimmerSwitch__04__night__1"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_04_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_04_Night_2"
+          labelRegex: "Schlafzimmer__DimmerSwitch__04__night__2"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_04_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_04_Night_3"
+          labelRegex: "Schlafzimmer__DimmerSwitch__04__night__3"
     - type: "Scene"
       id: "scenes_schlafzimmer_dimmerswitch_04_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Schlafzimmer_DimmerSwitch_04_Night_N"
+          labelRegex: "Schlafzimmer__DimmerSwitch__04__night__N"
 
     # ==========================================================================
     # SCENES - Wohnzimmer DimmerSwitch 01-04
@@ -967,165 +967,165 @@ smartHome:
       id: "scenes_wohnzimmer_dimmerswitch_01_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_01_Day_1"
+          labelRegex: "Wohnzimmer__DimmerSwitch__01__day__1"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_01_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_01_Day_2"
+          labelRegex: "Wohnzimmer__DimmerSwitch__01__day__2"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_01_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_01_Day_3"
+          labelRegex: "Wohnzimmer__DimmerSwitch__01__day__3"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_01_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_01_Day_N"
+          labelRegex: "Wohnzimmer__DimmerSwitch__01__day__N"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_01_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_01_Night_1"
+          labelRegex: "Wohnzimmer__DimmerSwitch__01__night__1"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_01_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_01_Night_2"
+          labelRegex: "Wohnzimmer__DimmerSwitch__01__night__2"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_01_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_01_Night_3"
+          labelRegex: "Wohnzimmer__DimmerSwitch__01__night__3"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_01_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_01_Night_N"
+          labelRegex: "Wohnzimmer__DimmerSwitch__01__night__N"
 
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_02_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_02_Day_1"
+          labelRegex: "Wohnzimmer__DimmerSwitch__02__day__1"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_02_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_02_Day_2"
+          labelRegex: "Wohnzimmer__DimmerSwitch__02__day__2"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_02_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_02_Day_3"
+          labelRegex: "Wohnzimmer__DimmerSwitch__02__day__3"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_02_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_02_Day_N"
+          labelRegex: "Wohnzimmer__DimmerSwitch__02__day__N"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_02_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_02_Night_1"
+          labelRegex: "Wohnzimmer__DimmerSwitch__02__night__1"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_02_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_02_Night_2"
+          labelRegex: "Wohnzimmer__DimmerSwitch__02__night__2"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_02_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_02_Night_3"
+          labelRegex: "Wohnzimmer__DimmerSwitch__02__night__3"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_02_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_02_Night_N"
+          labelRegex: "Wohnzimmer__DimmerSwitch__02__night__N"
 
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_03_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_03_Day_1"
+          labelRegex: "Wohnzimmer__DimmerSwitch__03__day__1"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_03_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_03_Day_2"
+          labelRegex: "Wohnzimmer__DimmerSwitch__03__day__2"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_03_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_03_Day_3"
+          labelRegex: "Wohnzimmer__DimmerSwitch__03__day__3"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_03_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_03_Day_N"
+          labelRegex: "Wohnzimmer__DimmerSwitch__03__day__N"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_03_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_03_Night_1"
+          labelRegex: "Wohnzimmer__DimmerSwitch__03__night__1"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_03_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_03_Night_2"
+          labelRegex: "Wohnzimmer__DimmerSwitch__03__night__2"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_03_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_03_Night_3"
+          labelRegex: "Wohnzimmer__DimmerSwitch__03__night__3"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_03_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_03_Night_N"
+          labelRegex: "Wohnzimmer__DimmerSwitch__03__night__N"
 
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_04_day_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_04_Day_1"
+          labelRegex: "Wohnzimmer__DimmerSwitch__04__day__1"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_04_day_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_04_Day_2"
+          labelRegex: "Wohnzimmer__DimmerSwitch__04__day__2"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_04_day_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_04_Day_3"
+          labelRegex: "Wohnzimmer__DimmerSwitch__04__day__3"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_04_day_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_04_Day_N"
+          labelRegex: "Wohnzimmer__DimmerSwitch__04__day__N"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_04_night_1"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_04_Night_1"
+          labelRegex: "Wohnzimmer__DimmerSwitch__04__night__1"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_04_night_2"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_04_Night_2"
+          labelRegex: "Wohnzimmer__DimmerSwitch__04__night__2"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_04_night_3"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_04_Night_3"
+          labelRegex: "Wohnzimmer__DimmerSwitch__04__night__3"
     - type: "Scene"
       id: "scenes_wohnzimmer_dimmerswitch_04_night_n"
       lookups:
         - type: "labelRegex"
-          labelRegex: "Wohnzimmer_DimmerSwitch_04_Night_N"
+          labelRegex: "Wohnzimmer__DimmerSwitch__04__night__N"
 
   # ============================================================================
   # SENSORS
