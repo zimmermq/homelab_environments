@@ -47,7 +47,7 @@ smartHome:
       lookups:
         - type: "staticEntity"
           entityRefs:
-            - "light.buro"
+            - "light.buero"
 
     - type: "Scene"
       id: "scenes_buero_light_day"
