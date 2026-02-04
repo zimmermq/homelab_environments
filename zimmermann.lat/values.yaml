@@ -620,7 +620,11 @@ apps:
                 # External URL for browser to access Collabora
                 - name: COLLABORA_PUBLIC_URL
                   value: "https://office.zimmermann.lat"
+                # Internal callback URL for Collabora -> Nextcloud communication
+                - name: NEXTCLOUD_CALLBACK_URL
+                  value: "http://nextcloud:8080"
             collabora:
               collabora:
-                domain: nextcloud\\.zimmermann\\.lat
+                # Regex pattern: allow both external domain and internal K8s service name
+                domain: nextcloud\\.zimmermann\\.lat|nextcloud
                 server_name: office.zimmermann.lat
