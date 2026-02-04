@@ -632,4 +632,13 @@ apps:
                   - host: "http://nextcloud:8080"
                 server_name: office.zimmermann.lat
                 # CSP frame-ancestors must include Nextcloud domain to allow iframe embedding
-                extra_params: --o:ssl.enable=false --o:ssl.termination=true --o:net.frame_ancestors=nextcloud.zimmermann.lat
+                # security.capabilities=false disables seccomp/capabilities checks for Kubernetes
+                extra_params: --o:ssl.enable=false --o:ssl.termination=true --o:net.frame_ancestors=nextcloud.zimmermann.lat --o:security.capabilities=false
+              # Required for Collabora to work in Kubernetes without privileged mode
+              securityContext:
+                allowPrivilegeEscalation: true
+                capabilities:
+                  add:
+                    - MKNOD
+                    - SYS_CHROOT
+                    - FOWNER
