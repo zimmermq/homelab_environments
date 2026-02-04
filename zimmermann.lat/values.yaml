@@ -71,11 +71,39 @@ apps:
       targetRevision: ~
       helm:
         values:
+          externalConfig:
+            repoURL: "https://github.com/zimmermq/homelab_environments.git"
+            targetRevision: "main"
+            path: "zimmermann.lat/homeassistant-config"
+            configMapName: "homeassistant-app-config"
           generic:
             deployment:
               pvcMounts:
                 config:
                   hostPath: /mnt/tank1/unencrypted/apps/homeassistant/config
+              # Init container copies config files from ConfigMap to PVC on every startup
+              initContainers:
+                - name: copy-config
+                  image: busybox:1.36
+                  command:
+                    - sh
+                    - -c
+                    - |
+                      echo "Copying config files from ConfigMap to /config..."
+                      cp /configmap/*.yaml /config/
+                      mkdir -p /config/packages
+                      cp /configmap/packages/*.yaml /config/packages/ 2>/dev/null || true
+                      echo "Config files copied successfully"
+                  volumeMounts:
+                    - name: homeassistant-config-volume
+                      mountPath: /config
+                    - name: homeassistant-configmap-volume
+                      mountPath: /configmap
+              # ConfigMap mount for init container to read from
+              configMapMounts:
+                configmap:
+                  mountPath: /configmap
+                  configMapName: homeassistant-app-config
   redis:
     enabled: true
     argocd:
