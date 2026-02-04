@@ -607,34 +607,23 @@ apps:
                 - nextcloud.zimmermann.lat
                 - office.zimmermann.lat
                 - nextcloud
-              # Environment-specific extraEnv (replaces base values, must include all vars)
-              # NOTE: OVERWRITEPROTOCOL removed - relying on X-Forwarded-Proto from Traefik
-              # This allows internal requests (from Collabora) to use HTTP while external requests use HTTPS
+              # Environment-specific extraEnv (replaces base values - Helm arrays don't merge)
               extraEnv:
                 - name: TRUSTED_PROXIES
                   value: "10.0.0.0/8"
-                - name: NC_loglevel
-                  value: "2"
-                # Internal service URL for Nextcloud -> Collabora server communication
                 - name: COLLABORA_URL
                   value: "http://nextcloud-collabora:9980"
-                # External URL for browser to access Collabora
                 - name: COLLABORA_PUBLIC_URL
                   value: "https://office.zimmermann.lat"
-                # Internal callback URL for Collabora -> Nextcloud communication
                 - name: NEXTCLOUD_CALLBACK_URL
                   value: "http://nextcloud:8080"
             collabora:
               collabora:
-                # Allow both external domain and internal K8s service for WOPI callbacks
                 aliasgroups:
                   - host: "https://nextcloud.zimmermann.lat:443"
                   - host: "http://nextcloud:8080"
                 server_name: office.zimmermann.lat
-                # CSP frame-ancestors must include Nextcloud domain to allow iframe embedding
-                # security.capabilities=false disables seccomp/capabilities checks for Kubernetes
                 extra_params: --o:ssl.enable=false --o:ssl.termination=true --o:net.frame_ancestors=nextcloud.zimmermann.lat --o:security.capabilities=false
-              # Required for Collabora to work in Kubernetes without privileged mode
               securityContext:
                 allowPrivilegeEscalation: true
                 capabilities:
