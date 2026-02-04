@@ -614,7 +614,11 @@ apps:
                   value: "https"
                 - name: NC_loglevel
                   value: "2"
+                # Internal service URL for Nextcloud -> Collabora server communication
                 - name: COLLABORA_URL
+                  value: "http://nextcloud-collabora:9980"
+                # External URL for browser to access Collabora
+                - name: COLLABORA_PUBLIC_URL
                   value: "https://office.zimmermann.lat"
             collabora:
               collabora:
