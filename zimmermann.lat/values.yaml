@@ -606,6 +606,7 @@ apps:
               trustedDomains:
                 - nextcloud.zimmermann.lat
                 - office.zimmermann.lat
+                - nextcloud
               # Environment-specific extraEnv (replaces base values, must include all vars)
               extraEnv:
                 - name: TRUSTED_PROXIES
