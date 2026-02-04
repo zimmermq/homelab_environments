@@ -631,3 +631,5 @@ apps:
                   - host: "https://nextcloud.zimmermann.lat:443"
                   - host: "http://nextcloud:8080"
                 server_name: office.zimmermann.lat
+                # CSP frame-ancestors must include Nextcloud domain to allow iframe embedding
+                extra_params: --o:ssl.enable=false --o:ssl.termination=true --o:net.frame_ancestors=nextcloud.zimmermann.lat
