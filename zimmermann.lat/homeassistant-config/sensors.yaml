@@ -19,7 +19,7 @@
             {% set ns.values = ns.values + [val | float] %}
           {% endif %}
         {% endfor %}
-        {{ ns.values | max | round(1) if ns.values else 'unavailable' }}
+        {{ ns.values | max | round(1) if ns.values else None }}
       attributes:
         entity_id: >
           {{ [
