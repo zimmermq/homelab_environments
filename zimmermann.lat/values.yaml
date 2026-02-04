@@ -588,3 +588,25 @@ apps:
                 hostPath: /mnt/tank1/encrypted/apps/backrest/tmp
               restore:
                 hostPath: /mnt/tank1/encrypted/apps/backrest/restore
+  nextcloud:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values:
+          generic:
+            persistentVolumeClaims:
+              data:
+                hostPath: /mnt/tank1/encrypted/apps/nextcloud/data
+              postgresql:
+                hostPath: /mnt/tank1/encrypted/apps/nextcloud/postgresql
+          nextcloud:
+            nextcloud:
+              host: nextcloud.zimmermann.lat
+              trustedDomains:
+                - nextcloud.zimmermann.lat
+                - office.zimmermann.lat
+            collabora:
+              collabora:
+                domain: nextcloud\\.zimmermann\\.lat
+                server_name: office.zimmermann.lat
