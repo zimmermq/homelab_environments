@@ -1,0 +1,98 @@
+# Constants for Automations
+#
+# These input_number helpers allow adjusting automation behavior without editing code.
+# After changing values, automations will use the new values immediately (no restart needed).
+# Values can be adjusted in: Settings → Devices & Services → Helpers
+
+# Window Open Automation - Trigger Time
+# Used by: automation.fenster_zu_lange_offen
+# Purpose: How long a window must be open before the first notification is sent
+# Default: 10 minutes
+window_open_trigger_minutes:
+  name: "Fenster offen - Wartezeit bis Benachrichtigung"
+  min: 1
+  max: 60
+  step: 1
+  unit_of_measurement: "min"
+  icon: mdi:window-open
+  initial: 10
+
+# Window Open Automation - Repeat Interval
+# Used by: automation.fenster_zu_lange_offen
+# Purpose: How long to wait between repeated notifications while window remains open
+# Special: Set to 0 to disable repeating notifications (only notify once)
+# Default: 60 minutes (1 hour)
+window_notification_repeat_minutes:
+  name: "Fenster offen - Wiederholungsintervall"
+  min: 0
+  max: 360
+  step: 5
+  unit_of_measurement: "min"
+  icon: mdi:clock-alert
+  initial: 60
+
+# Humidity Automation - Humidity Threshold
+# Used by: automation.wohnraumfeuchtigkeit
+# Purpose: Humidity percentage threshold that triggers notifications
+# Default: 60%
+humidity_threshold_percent:
+  name: "Luftfeuchtigkeit - Schwellenwert"
+  min: 0
+  max: 100
+  step: 1
+  unit_of_measurement: "%"
+  icon: mdi:water-percent
+  initial: 60
+
+# Humidity Automation - Trigger Time
+# Used by: automation.wohnraumfeuchtigkeit
+# Purpose: How long humidity must be above threshold before first notification
+# Default: 15 minutes
+humidity_trigger_minutes:
+  name: "Luftfeuchtigkeit - Wartezeit bis Benachrichtigung"
+  min: 5
+  max: 60
+  step: 5
+  unit_of_measurement: "min"
+  icon: mdi:clock-outline
+  initial: 15
+
+# Humidity Automation - Repeat Interval
+# Used by: automation.wohnraumfeuchtigkeit
+# Purpose: How long to wait between repeated notifications while humidity remains high
+# Special: Set to 0 to disable repeating notifications (only notify once)
+# Default: 360 minutes (6 hours)
+humidity_notification_repeat_minutes:
+  name: "Luftfeuchtigkeit - Wiederholungsintervall"
+  min: 0
+  max: 720
+  step: 30
+  unit_of_measurement: "min"
+  icon: mdi:clock-alert
+  initial: 360
+
+# Window Open Automation - All Clear Notification Toggle
+# Used by: automation.fenster_zu_lange_offen
+# Purpose: Whether to send a notification when all windows are closed
+# Default: 1 (enabled)
+window_send_allclear_notification:
+  name: "Fenster offen - 'Alles OK' Benachrichtigung senden"
+  min: 0
+  max: 1
+  step: 1
+  icon: mdi:check-circle
+  initial: 1
+  mode: box
+
+# Humidity Automation - All Clear Notification Toggle
+# Used by: automation.wohnraumfeuchtigkeit
+# Purpose: Whether to send a notification when humidity returns to normal
+# Default: 1 (enabled)
+humidity_send_allclear_notification:
+  name: "Luftfeuchtigkeit - 'Alles OK' Benachrichtigung senden"
+  min: 0
+  max: 1
+  step: 1
+  icon: mdi:check-circle
+  initial: 1
+  mode: box

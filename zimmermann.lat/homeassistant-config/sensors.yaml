@@ -1,0 +1,30 @@
+# Template Sensors
+
+- sensor:
+    - name: "Feuchtigkeitssensoren"
+      unique_id: feuchtigkeitssensoren_template
+      device_class: humidity
+      unit_of_measurement: "%"
+      state: >
+        {% set sensors = [
+          'sensor.tuya_klein_buero_humidity',
+          'sensor.tuya_gross_wohnzimmer_humidity',
+          'sensor.tuya_gross_bad_humidity',
+          'sensor.tuya_gross_schlafzimmer_humidity'
+        ] %}
+        {% set ns = namespace(values=[]) %}
+        {% for s in sensors %}
+          {% set val = states(s) %}
+          {% if val not in ['unknown', 'unavailable'] %}
+            {% set ns.values = ns.values + [val | float] %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.values | max | round(1) if ns.values else 'unavailable' }}
+      attributes:
+        entity_id: >
+          {{ [
+            'sensor.tuya_klein_buero_humidity',
+            'sensor.tuya_gross_wohnzimmer_humidity',
+            'sensor.tuya_gross_bad_humidity',
+            'sensor.tuya_gross_schlafzimmer_humidity'
+          ] }}

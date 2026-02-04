@@ -1,0 +1,44 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+# Scripts, scenes, Alexa
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+alexa: !include alexa.yaml
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 127.0.0.1
+    - 10.1.0.0/16
+    - ::1
+
+api:
+
+notify:
+  - name: ALL_DEVICES
+    platform: group
+    services:
+      - service: mobile_app_pixel_8_pro
+      - service: mobile_app_xiaomi_13_pro
+
+# Config Editor
+config_editor:
+
+# Constants (Input Numbers)
+input_number: !include constants.yaml
+
+# Boolean Helpers
+input_boolean: !include input_boolean.yaml
+
+# Template Sensors
+template: !include sensors.yaml
+
+# Packages for modular configuration
+homeassistant:
+  packages: !include_dir_named packages

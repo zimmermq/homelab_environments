@@ -1,0 +1,353 @@
+# Automations
+#
+# All time-based values are configurable via input_number helpers in constants.yaml
+# Adjust values in: Settings → Devices & Services → Helpers
+
+# ============================================================================
+# Humidity Monitoring Automation
+# ============================================================================
+- id: '1712403069016'
+  alias: WohnraumFeuchtigkeit
+  description: Feuchtigkeit in allen Wohnräumen überwachen - konfigurierbare Benachrichtigungen
+  trigger:
+  - platform: template
+    value_template: >
+      {% set group = 'sensor.feuchtigkeitssensoren' %}
+      {% set st_objs = expand(state_attr(group, 'entity_id') | select('has_value')) %}
+      {% set threshold = states('input_number.humidity_threshold_percent') | int %}
+      {% set humid_count = st_objs | map(attribute='state') | map('float') | select('gt', threshold) | list | count %}
+      {{ humid_count > 0 }}
+    for:
+      minutes: "{{ states('input_number.humidity_trigger_minutes') | int }}"
+  condition: []
+  action:
+  - service: notify.all_devices
+    data:
+      title: Es sind Zimmer zu feucht.
+      message: >
+        {%- set group = 'sensor.feuchtigkeitssensoren' %}
+        {%- set st_objs = expand(state_attr(group, 'entity_id') | select('has_value')) %}
+        {% set threshold = states('input_number.humidity_threshold_percent') | int %}
+        {%- set ns = namespace(rooms=[]) %}
+        {%- for sensor in st_objs %}
+          {%- if sensor.state | float(0) > threshold %}
+            {%- set ns.rooms = ns.rooms + [sensor.entity_id | area_name ~ ' (' ~ (sensor.state | float | round(0) | int) ~ '%)'] %}
+          {%- endif %}
+        {%- endfor %}
+        Die Zimmer {{ ns.rooms | join(', ') }} sind zu feucht.
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.humidity_alert_active
+  - repeat:
+      while:
+      - condition: template
+        value_template: >
+          {% set group = 'sensor.feuchtigkeitssensoren' %}
+          {% set st_objs = expand(state_attr(group, 'entity_id') | select('has_value')) %}
+          {% set threshold = states('input_number.humidity_threshold_percent') | int %}
+          {% set humid_count = st_objs | map(attribute='state') | map('float') | select('gt', threshold) | list | count %}
+          {{ (humid_count > 0) and (states('input_number.humidity_notification_repeat_minutes') | int > 0) }}
+      sequence:
+      - delay:
+          minutes: "{{ states('input_number.humidity_notification_repeat_minutes') | int }}"
+      - condition: template
+        value_template: >
+          {% set group = 'sensor.feuchtigkeitssensoren' %}
+          {% set st_objs = expand(state_attr(group, 'entity_id') | select('has_value')) %}
+          {% set threshold = states('input_number.humidity_threshold_percent') | int %}
+          {% set humid_count = st_objs | map(attribute='state') | map('float') | select('gt', threshold) | list | count %}
+          {{ humid_count > 0 }}
+      - service: notify.all_devices
+        data:
+          title: Es sind Zimmer zu feucht.
+          message: >
+            {%- set group = 'sensor.feuchtigkeitssensoren' %}
+            {%- set st_objs = expand(state_attr(group, 'entity_id') | select('has_value')) %}
+            {% set threshold = states('input_number.humidity_threshold_percent') | int %}
+            {%- set ns = namespace(rooms=[]) %}
+            {%- for sensor in st_objs %}
+              {%- if sensor.state | float(0) > threshold %}
+                {%- set ns.rooms = ns.rooms + [sensor.entity_id | area_name ~ ' (' ~ (sensor.state | float | round(0) | int) ~ '%)'] %}
+              {%- endif %}
+            {%- endfor %}
+            Die Zimmer {{ ns.rooms | join(', ') }} sind zu feucht.
+  - condition: template
+    value_template: >
+      {{ (states('input_number.humidity_send_allclear_notification') | int == 1) and
+         (is_state('input_boolean.humidity_alert_active', 'on')) }}
+  - service: notify.all_devices
+    data:
+      title: Luftfeuchtigkeit normalisiert
+      message: Die Luftfeuchtigkeit ist in allen Räumen wieder normal.
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.humidity_alert_active
+  mode: single
+
+# ============================================================================
+# Window Open Monitoring Automation
+# ============================================================================
+# Alexa devices configurable via input_boolean helpers:
+#   - fenster_alexa_enabled: Master switch for all Alexa announcements
+#   - fenster_alexa_buero: Alexa Büro
+#   - fenster_alexa_echo_studio: Alexa Echo Studio
+#   - fenster_alexa_echo_dot: Alexa Echo Dot
+#   - fenster_alexa_schlafzimmer: Alexa Schlafzimmer
+# ============================================================================
+- id: '1760352904001'
+  alias: Fenster zu lange offen
+  description: Benachrichtigung nach konfigurierbarer Zeit, dann optional wiederholen (wenn Intervall > 0)
+  trigger:
+  - platform: template
+    value_template: >
+      {{ expand(states.binary_sensor)
+         | selectattr('attributes.device_class', 'eq', 'window')
+         | selectattr('state', 'eq', 'on')
+         | selectattr('last_changed', 'lt', now() - timedelta(minutes=states('input_number.window_open_trigger_minutes') | int))
+         | list | count > 0 }}
+    for:
+      seconds: 10
+  condition: []
+  action:
+  - service: notify.all_devices
+    data:
+      title: Fenster zu lange offen!
+      message: >
+        {% set windows = expand(states.binary_sensor)
+           | selectattr('attributes.device_class', 'eq', 'window')
+           | selectattr('state', 'eq', 'on')
+           | map(attribute='name') | list %}
+        Die folgenden Fenster sind geöffnet: {{ windows | join(', ') }}
+  - if:
+    - condition: state
+      entity_id: input_boolean.fenster_alexa_enabled
+      state: "on"
+    then:
+    - if:
+      - condition: state
+        entity_id: input_boolean.fenster_alexa_buero
+        state: "on"
+      then:
+      - service: notify.send_message
+        target:
+          entity_id: notify.buro_sprechen
+        data:
+          message: >
+            {% set windows = expand(states.binary_sensor)
+               | selectattr('attributes.device_class', 'eq', 'window')
+               | selectattr('state', 'eq', 'on')
+               | map(attribute='name') | list %}
+            Achtung! Die folgenden Fenster sind zu lange geöffnet: {{ windows | join(', ') }}
+    - if:
+      - condition: state
+        entity_id: input_boolean.fenster_alexa_echo_studio
+        state: "on"
+      then:
+      - service: notify.send_message
+        target:
+          entity_id: notify.michaels_echo_studio_sprechen
+        data:
+          message: >
+            {% set windows = expand(states.binary_sensor)
+               | selectattr('attributes.device_class', 'eq', 'window')
+               | selectattr('state', 'eq', 'on')
+               | map(attribute='name') | list %}
+            Achtung! Die folgenden Fenster sind zu lange geöffnet: {{ windows | join(', ') }}
+    - if:
+      - condition: state
+        entity_id: input_boolean.fenster_alexa_echo_dot
+        state: "on"
+      then:
+      - service: notify.send_message
+        target:
+          entity_id: notify.michaels_echo_dot_sprechen
+        data:
+          message: >
+            {% set windows = expand(states.binary_sensor)
+               | selectattr('attributes.device_class', 'eq', 'window')
+               | selectattr('state', 'eq', 'on')
+               | map(attribute='name') | list %}
+            Achtung! Die folgenden Fenster sind zu lange geöffnet: {{ windows | join(', ') }}
+    - if:
+      - condition: state
+        entity_id: input_boolean.fenster_alexa_schlafzimmer
+        state: "on"
+      then:
+      - service: notify.send_message
+        target:
+          entity_id: notify.schlafzimmer_sprechen
+        data:
+          message: >
+            {% set windows = expand(states.binary_sensor)
+               | selectattr('attributes.device_class', 'eq', 'window')
+               | selectattr('state', 'eq', 'on')
+               | map(attribute='name') | list %}
+            Achtung! Die folgenden Fenster sind zu lange geöffnet: {{ windows | join(', ') }}
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.window_alert_active
+  - repeat:
+      while:
+      - condition: template
+        value_template: >
+          {{ (expand(states.binary_sensor)
+             | selectattr('attributes.device_class', 'eq', 'window')
+             | selectattr('state', 'eq', 'on')
+             | list | count > 0) and
+             (states('input_number.window_notification_repeat_minutes') | int > 0) }}
+      sequence:
+      - delay:
+          minutes: "{{ states('input_number.window_notification_repeat_minutes') | int }}"
+      - condition: template
+        value_template: >
+          {{ expand(states.binary_sensor)
+             | selectattr('attributes.device_class', 'eq', 'window')
+             | selectattr('state', 'eq', 'on')
+             | list | count > 0 }}
+      - service: notify.all_devices
+        data:
+          title: Fenster zu lange offen!
+          message: >
+            {% set windows = expand(states.binary_sensor)
+               | selectattr('attributes.device_class', 'eq', 'window')
+               | selectattr('state', 'eq', 'on')
+               | map(attribute='name') | list %}
+            Die folgenden Fenster sind geöffnet: {{ windows | join(', ') }}
+      - if:
+        - condition: state
+          entity_id: input_boolean.fenster_alexa_enabled
+          state: "on"
+        then:
+        - if:
+          - condition: state
+            entity_id: input_boolean.fenster_alexa_buero
+            state: "on"
+          then:
+          - service: notify.send_message
+            target:
+              entity_id: notify.buro_sprechen
+            data:
+              message: >
+                {% set windows = expand(states.binary_sensor)
+                   | selectattr('attributes.device_class', 'eq', 'window')
+                   | selectattr('state', 'eq', 'on')
+                   | map(attribute='name') | list %}
+                Achtung! Die folgenden Fenster sind zu lange geöffnet: {{ windows | join(', ') }}
+        - if:
+          - condition: state
+            entity_id: input_boolean.fenster_alexa_echo_studio
+            state: "on"
+          then:
+          - service: notify.send_message
+            target:
+              entity_id: notify.michaels_echo_studio_sprechen
+            data:
+              message: >
+                {% set windows = expand(states.binary_sensor)
+                   | selectattr('attributes.device_class', 'eq', 'window')
+                   | selectattr('state', 'eq', 'on')
+                   | map(attribute='name') | list %}
+                Achtung! Die folgenden Fenster sind zu lange geöffnet: {{ windows | join(', ') }}
+        - if:
+          - condition: state
+            entity_id: input_boolean.fenster_alexa_echo_dot
+            state: "on"
+          then:
+          - service: notify.send_message
+            target:
+              entity_id: notify.michaels_echo_dot_sprechen
+            data:
+              message: >
+                {% set windows = expand(states.binary_sensor)
+                   | selectattr('attributes.device_class', 'eq', 'window')
+                   | selectattr('state', 'eq', 'on')
+                   | map(attribute='name') | list %}
+                Achtung! Die folgenden Fenster sind zu lange geöffnet: {{ windows | join(', ') }}
+        - if:
+          - condition: state
+            entity_id: input_boolean.fenster_alexa_schlafzimmer
+            state: "on"
+          then:
+          - service: notify.send_message
+            target:
+              entity_id: notify.schlafzimmer_sprechen
+            data:
+              message: >
+                {% set windows = expand(states.binary_sensor)
+                   | selectattr('attributes.device_class', 'eq', 'window')
+                   | selectattr('state', 'eq', 'on')
+                   | map(attribute='name') | list %}
+                Achtung! Die folgenden Fenster sind zu lange geöffnet: {{ windows | join(', ') }}
+  - condition: template
+    value_template: >
+      {{ (states('input_number.window_send_allclear_notification') | int == 1) and
+         (is_state('input_boolean.window_alert_active', 'on')) }}
+  - service: notify.all_devices
+    data:
+      title: Alle Fenster geschlossen
+      message: Alle Fenster sind jetzt geschlossen.
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.window_alert_active
+  mode: single
+
+# ============================================================================
+# Humidity TTS Announcement via Alexa
+# ============================================================================
+# Triggered by Alexa routine turning on a device-specific input_boolean.
+# Announces current humidity and lists rooms above threshold (sorted high to low).
+# ============================================================================
+- id: '1736512800000'
+  alias: Luftfeuchtigkeit Alexa Ansage
+  description: Sagt die aktuelle Luftfeuchtigkeit auf dem anfragenden Alexa-Gerät an
+  trigger:
+  - platform: state
+    entity_id:
+      - input_boolean.humidity_request_buero
+      - input_boolean.humidity_request_wohnzimmer
+      - input_boolean.humidity_request_badezimmer
+      - input_boolean.humidity_request_schlafzimmer
+    to: "on"
+  condition: []
+  action:
+  - variables:
+      notify_target: >
+        {% set mapping = {
+          'input_boolean.humidity_request_buero': 'notify.buro_sprechen',
+          'input_boolean.humidity_request_wohnzimmer': 'notify.michaels_echo_studio_sprechen',
+          'input_boolean.humidity_request_badezimmer': 'notify.michaels_echo_dot_sprechen',
+          'input_boolean.humidity_request_schlafzimmer': 'notify.schlafzimmer_sprechen'
+        } %}
+        {{ mapping.get(trigger.entity_id, 'notify.buro_sprechen') }}
+      humidity_message: >
+        {%- set max_humidity = states('sensor.feuchtigkeitssensoren') | float(0) | round(0) | int %}
+        {%- set group = 'sensor.feuchtigkeitssensoren' %}
+        {%- set sensors = state_attr(group, 'entity_id') %}
+        {%- set threshold = states('input_number.humidity_threshold_percent') | float(60) %}
+        {%- set ns = namespace(room_data=[]) %}
+        {%- if sensors %}
+          {%- for sensor_id in sensors %}
+            {%- set sensor_state = states(sensor_id) %}
+            {%- if sensor_state not in ['unknown', 'unavailable'] and sensor_state | float(0) > threshold %}
+              {%- set room_name = sensor_id | area_name %}
+              {%- set humidity_val = sensor_state | float | round(0) | int %}
+              {%- set ns.room_data = ns.room_data + [{'name': room_name, 'value': humidity_val}] %}
+            {%- endif %}
+          {%- endfor %}
+        {%- endif %}
+        {%- set sorted_rooms = ns.room_data | sort(attribute='value', reverse=true) %}
+        {%- set ns2 = namespace(room_strings=[]) %}
+        {%- for room in sorted_rooms %}
+          {%- set ns2.room_strings = ns2.room_strings + [room.name ~ ' ' ~ room.value ~ ' Prozent'] %}
+        {%- endfor %}
+        Die Luftfeuchtigkeit beträgt {{ max_humidity }} Prozent.{% if ns2.room_strings | length > 0 %} {{ ns2.room_strings | join(', ') }}.{% endif %}
+  - service: notify.send_message
+    target:
+      entity_id: "{{ notify_target }}"
+    data:
+      message: "{{ humidity_message }}"
+  - service: input_boolean.turn_off
+    target:
+      entity_id: "{{ trigger.entity_id }}"
+  mode: parallel
+  max: 4

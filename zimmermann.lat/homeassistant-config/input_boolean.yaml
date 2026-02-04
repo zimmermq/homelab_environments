@@ -1,0 +1,62 @@
+# Boolean Helpers for Automations
+#
+# These track the state of automations to enable "all clear" notifications
+# Managed automatically by automations - do not modify manually
+
+# Window Open Alert State Tracker
+window_alert_active:
+  name: "Fenster Alarm aktiv"
+  icon: mdi:window-open-variant
+  initial: false
+
+# Humidity Alert State Tracker
+humidity_alert_active:
+  name: "Luftfeuchtigkeit Alarm aktiv"
+  icon: mdi:water-alert
+  initial: false
+
+# ============================================================================
+# Fenster Alarm - Alexa Geräte Auswahl
+# ============================================================================
+fenster_alexa_enabled:
+  name: "Fenster Alarm - Alexa Ankündigung"
+  icon: mdi:account-voice
+
+fenster_alexa_buero:
+  name: "Fenster Alarm - Alexa Büro"
+  icon: mdi:speaker
+
+fenster_alexa_echo_studio:
+  name: "Fenster Alarm - Alexa Wohnzimmer"
+  icon: mdi:speaker
+
+fenster_alexa_echo_dot:
+  name: "Fenster Alarm - Alexa Bad"
+  icon: mdi:speaker
+
+fenster_alexa_schlafzimmer:
+  name: "Fenster Alarm - Alexa Schlafzimmer"
+  icon: mdi:speaker
+
+# ============================================================================
+# Luftfeuchtigkeit Abfrage - Alexa Trigger
+# ============================================================================
+humidity_request_buero:
+  name: "Luftfeuchtigkeit Abfrage - Büro"
+  icon: mdi:water-percent
+  initial: false
+
+humidity_request_wohnzimmer:
+  name: "Luftfeuchtigkeit Abfrage - Wohnzimmer"
+  icon: mdi:water-percent
+  initial: false
+
+humidity_request_badezimmer:
+  name: "Luftfeuchtigkeit Abfrage - Badezimmer"
+  icon: mdi:water-percent
+  initial: false
+
+humidity_request_schlafzimmer:
+  name: "Luftfeuchtigkeit Abfrage - Schlafzimmer"
+  icon: mdi:water-percent
+  initial: false
