@@ -83,3 +83,26 @@ fenster_request_schlafzimmer:
   name: "Fenster Abfrage - Schlafzimmer"
   icon: mdi:window-open-variant
   initial: false
+
+# ============================================================================
+# Außentemperatur Abfrage - Alexa Trigger
+# ============================================================================
+temperatur_request_buero:
+  name: "Außentemperatur Abfrage - Büro"
+  icon: mdi:thermometer
+  initial: false
+
+temperatur_request_wohnzimmer:
+  name: "Außentemperatur Abfrage - Wohnzimmer"
+  icon: mdi:thermometer
+  initial: false
+
+temperatur_request_badezimmer:
+  name: "Außentemperatur Abfrage - Badezimmer"
+  icon: mdi:thermometer
+  initial: false
+
+temperatur_request_schlafzimmer:
+  name: "Außentemperatur Abfrage - Schlafzimmer"
+  icon: mdi:thermometer
+  initial: false

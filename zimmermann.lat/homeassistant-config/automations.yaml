@@ -377,3 +377,37 @@
       message: "{{ fenster_message }}"
   mode: parallel
   max: 4
+
+# ============================================================================
+# Outside Temperature TTS Announcement via Alexa
+# ============================================================================
+# Triggered by Alexa routine turning on a device-specific input_boolean.
+# Announces the current outside temperature.
+# ============================================================================
+- id: '1738531200001'
+  alias: Außentemperatur Alexa Ansage
+  description: Sagt die aktuelle Außentemperatur auf dem anfragenden Alexa-Gerät an
+  trigger:
+  - platform: state
+    entity_id:
+      - input_boolean.temperatur_request_buero
+      - input_boolean.temperatur_request_wohnzimmer
+      - input_boolean.temperatur_request_badezimmer
+      - input_boolean.temperatur_request_schlafzimmer
+    to: "on"
+  condition: []
+  action:
+  - variables:
+      temperatur_message: >
+        {%- set temp = states('sensor.aussenthermometer_temperature') %}
+        {%- if temp in ['unknown', 'unavailable'] %}
+        Die Außentemperatur ist momentan nicht verfügbar.
+        {%- else %}
+        Die Außentemperatur beträgt {{ temp | float | round(1) }} Grad.
+        {%- endif %}
+  - service: script.alexa_room_announce
+    data:
+      trigger_entity: "{{ trigger.entity_id }}"
+      message: "{{ temperatur_message }}"
+  mode: parallel
+  max: 4

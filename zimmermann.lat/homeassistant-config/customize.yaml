@@ -24,3 +24,15 @@ input_boolean.fenster_request_badezimmer:
 
 input_boolean.fenster_request_schlafzimmer:
   notify_target: notify.schlafzimmer_sprechen
+
+input_boolean.temperatur_request_buero:
+  notify_target: notify.buro_sprechen
+
+input_boolean.temperatur_request_wohnzimmer:
+  notify_target: notify.michaels_echo_studio_sprechen
+
+input_boolean.temperatur_request_badezimmer:
+  notify_target: notify.michaels_echo_dot_sprechen
+
+input_boolean.temperatur_request_schlafzimmer:
+  notify_target: notify.schlafzimmer_sprechen
