@@ -34,6 +34,32 @@ GetHumidityIntent:
       Die Luftfeuchtigkeit beträgt {{ max_humidity }} Prozent.
       {%- if ns2.room_strings | length > 0 %} {{ ns2.room_strings | join(', ') }}.{% endif %}
 
+GetWindowOpenDurationIntent:
+  speech:
+    text: >
+      {%- set windows = expand(states.binary_sensor)
+         | selectattr('attributes.device_class', 'eq', 'window')
+         | selectattr('state', 'eq', 'on')
+         | list %}
+      {%- if windows | length > 0 %}
+        {%- set ns = namespace(parts=[]) %}
+        {%- for w in windows %}
+          {%- set delta = now() - w.last_changed %}
+          {%- set total_minutes = (delta.total_seconds() / 60) | int %}
+          {%- set hours = (total_minutes / 60) | int %}
+          {%- set minutes = total_minutes % 60 %}
+          {%- if hours > 0 %}
+            {%- set duration = hours ~ ' ' ~ ('Stunde' if hours == 1 else 'Stunden') ~ ' und ' ~ minutes ~ ' ' ~ ('Minute' if minutes == 1 else 'Minuten') %}
+          {%- else %}
+            {%- set duration = minutes ~ ' ' ~ ('Minute' if minutes == 1 else 'Minuten') %}
+          {%- endif %}
+          {%- set ns.parts = ns.parts + [w.name ~ ' seit ' ~ duration] %}
+        {%- endfor %}
+      {{ ns.parts | join(', ') }}.
+      {%- else %}
+      Alle Fenster sind geschlossen.
+      {%- endif %}
+
 GetWindowStatusIntent:
   speech:
     text: >
