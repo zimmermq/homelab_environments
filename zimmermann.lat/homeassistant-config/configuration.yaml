@@ -10,6 +10,7 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 alexa: !include alexa.yaml
+intent_script: !include intent_script.yaml
 
 http:
   use_x_forwarded_for: true
@@ -41,5 +42,4 @@ template: !include sensors.yaml
 
 # Packages for modular configuration
 homeassistant:
-  customize: !include customize.yaml
   packages: !include_dir_named packages

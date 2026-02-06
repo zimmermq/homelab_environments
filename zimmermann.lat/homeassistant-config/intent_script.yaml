@@ -1,0 +1,49 @@
+GetOutsideTemperatureIntent:
+  speech:
+    text: >
+      {%- set temp = states('sensor.aussenthermometer_temperature') %}
+      {%- if temp in ['unknown', 'unavailable'] %}
+      Die Außentemperatur ist momentan nicht verfügbar.
+      {%- else %}
+      Die Außentemperatur beträgt {{ temp | float | round(1) }} Grad.
+      {%- endif %}
+
+GetHumidityIntent:
+  speech:
+    text: >
+      {%- set max_humidity = states('sensor.feuchtigkeitssensoren') | float(0) | round(0) | int %}
+      {%- set group = 'sensor.feuchtigkeitssensoren' %}
+      {%- set sensors = state_attr(group, 'entity_id') %}
+      {%- set threshold = states('input_number.humidity_threshold_percent') | float(60) %}
+      {%- set ns = namespace(room_data=[]) %}
+      {%- if sensors %}
+        {%- for sensor_id in sensors %}
+          {%- set sensor_state = states(sensor_id) %}
+          {%- if sensor_state not in ['unknown', 'unavailable'] and sensor_state | float(0) > threshold %}
+            {%- set room_name = sensor_id | area_name %}
+            {%- set humidity_val = sensor_state | float | round(0) | int %}
+            {%- set ns.room_data = ns.room_data + [{'name': room_name, 'value': humidity_val}] %}
+          {%- endif %}
+        {%- endfor %}
+      {%- endif %}
+      {%- set sorted_rooms = ns.room_data | sort(attribute='value', reverse=true) %}
+      {%- set ns2 = namespace(room_strings=[]) %}
+      {%- for room in sorted_rooms %}
+        {%- set ns2.room_strings = ns2.room_strings + [room.name ~ ' ' ~ room.value ~ ' Prozent'] %}
+      {%- endfor %}
+      Die Luftfeuchtigkeit beträgt {{ max_humidity }} Prozent.
+      {%- if ns2.room_strings | length > 0 %} {{ ns2.room_strings | join(', ') }}.{% endif %}
+
+GetWindowStatusIntent:
+  speech:
+    text: >
+      {%- set windows = expand(states.binary_sensor)
+         | selectattr('attributes.device_class', 'eq', 'window')
+         | selectattr('state', 'eq', 'on')
+         | list %}
+      {%- if windows | length > 0 %}
+        {%- set names = windows | map(attribute='name') | list %}
+      Ja, {{ windows | length }} {{ 'Fenster ist' if windows | length == 1 else 'Fenster sind' }} geöffnet: {{ names | join(', ') }}.
+      {%- else %}
+      Nein, alle Fenster sind geschlossen.
+      {%- endif %}

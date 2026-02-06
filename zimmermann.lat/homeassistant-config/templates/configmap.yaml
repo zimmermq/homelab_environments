@@ -20,8 +20,8 @@ data:
 {{ .Files.Get "scenes.yaml" | indent 4 }}
   scripts.yaml: |
 {{ .Files.Get "scripts.yaml" | indent 4 }}
-  customize.yaml: |
-{{ .Files.Get "customize.yaml" | indent 4 }}
+  intent_script.yaml: |
+{{ .Files.Get "intent_script.yaml" | indent 4 }}
 {{- range $path, $_ := .Files.Glob "packages/*.yaml" }}
   {{ $path | base }}: |
 {{ $.Files.Get $path | indent 4 }}
