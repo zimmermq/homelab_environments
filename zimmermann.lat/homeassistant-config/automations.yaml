@@ -351,3 +351,53 @@
       entity_id: "{{ trigger.entity_id }}"
   mode: parallel
   max: 4
+
+# ============================================================================
+# Window Status TTS Announcement via Alexa
+# ============================================================================
+# Triggered by Alexa routine turning on a device-specific input_boolean.
+# Announces whether any windows are open and lists them by name.
+# ============================================================================
+- id: '1738531200000'
+  alias: Fenster offen Alexa Ansage
+  description: Sagt auf dem anfragenden Alexa-Gerät an, ob und welche Fenster geöffnet sind
+  trigger:
+  - platform: state
+    entity_id:
+      - input_boolean.fenster_request_buero
+      - input_boolean.fenster_request_wohnzimmer
+      - input_boolean.fenster_request_badezimmer
+      - input_boolean.fenster_request_schlafzimmer
+    to: "on"
+  condition: []
+  action:
+  - variables:
+      notify_target: >
+        {% set mapping = {
+          'input_boolean.fenster_request_buero': 'notify.buro_sprechen',
+          'input_boolean.fenster_request_wohnzimmer': 'notify.michaels_echo_studio_sprechen',
+          'input_boolean.fenster_request_badezimmer': 'notify.michaels_echo_dot_sprechen',
+          'input_boolean.fenster_request_schlafzimmer': 'notify.schlafzimmer_sprechen'
+        } %}
+        {{ mapping.get(trigger.entity_id, 'notify.buro_sprechen') }}
+      fenster_message: >
+        {%- set windows = expand(states.binary_sensor)
+           | selectattr('attributes.device_class', 'eq', 'window')
+           | selectattr('state', 'eq', 'on')
+           | list %}
+        {%- if windows | length > 0 %}
+          {%- set names = windows | map(attribute='name') | list %}
+        Ja, {{ windows | length }} {{ 'Fenster ist' if windows | length == 1 else 'Fenster sind' }} geöffnet: {{ names | join(', ') }}.
+        {%- else %}
+        Nein, alle Fenster sind geschlossen.
+        {%- endif %}
+  - service: notify.send_message
+    target:
+      entity_id: "{{ notify_target }}"
+    data:
+      message: "{{ fenster_message }}"
+  - service: input_boolean.turn_off
+    target:
+      entity_id: "{{ trigger.entity_id }}"
+  mode: parallel
+  max: 4

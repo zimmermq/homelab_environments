@@ -60,3 +60,26 @@ humidity_request_schlafzimmer:
   name: "Luftfeuchtigkeit Abfrage - Schlafzimmer"
   icon: mdi:water-percent
   initial: false
+
+# ============================================================================
+# Fenster Abfrage - Alexa Trigger
+# ============================================================================
+fenster_request_buero:
+  name: "Fenster Abfrage - Büro"
+  icon: mdi:window-open-variant
+  initial: false
+
+fenster_request_wohnzimmer:
+  name: "Fenster Abfrage - Wohnzimmer"
+  icon: mdi:window-open-variant
+  initial: false
+
+fenster_request_badezimmer:
+  name: "Fenster Abfrage - Badezimmer"
+  icon: mdi:window-open-variant
+  initial: false
+
+fenster_request_schlafzimmer:
+  name: "Fenster Abfrage - Schlafzimmer"
+  icon: mdi:window-open-variant
+  initial: false
