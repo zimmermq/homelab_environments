@@ -311,14 +311,6 @@
   condition: []
   action:
   - variables:
-      notify_target: >
-        {% set mapping = {
-          'input_boolean.humidity_request_buero': 'notify.buro_sprechen',
-          'input_boolean.humidity_request_wohnzimmer': 'notify.michaels_echo_studio_sprechen',
-          'input_boolean.humidity_request_badezimmer': 'notify.michaels_echo_dot_sprechen',
-          'input_boolean.humidity_request_schlafzimmer': 'notify.schlafzimmer_sprechen'
-        } %}
-        {{ mapping.get(trigger.entity_id, 'notify.buro_sprechen') }}
       humidity_message: >
         {%- set max_humidity = states('sensor.feuchtigkeitssensoren') | float(0) | round(0) | int %}
         {%- set group = 'sensor.feuchtigkeitssensoren' %}
@@ -341,14 +333,10 @@
           {%- set ns2.room_strings = ns2.room_strings + [room.name ~ ' ' ~ room.value ~ ' Prozent'] %}
         {%- endfor %}
         Die Luftfeuchtigkeit beträgt {{ max_humidity }} Prozent.{% if ns2.room_strings | length > 0 %} {{ ns2.room_strings | join(', ') }}.{% endif %}
-  - service: notify.send_message
-    target:
-      entity_id: "{{ notify_target }}"
+  - service: script.alexa_room_announce
     data:
+      trigger_entity: "{{ trigger.entity_id }}"
       message: "{{ humidity_message }}"
-  - service: input_boolean.turn_off
-    target:
-      entity_id: "{{ trigger.entity_id }}"
   mode: parallel
   max: 4
 
@@ -372,14 +360,6 @@
   condition: []
   action:
   - variables:
-      notify_target: >
-        {% set mapping = {
-          'input_boolean.fenster_request_buero': 'notify.buro_sprechen',
-          'input_boolean.fenster_request_wohnzimmer': 'notify.michaels_echo_studio_sprechen',
-          'input_boolean.fenster_request_badezimmer': 'notify.michaels_echo_dot_sprechen',
-          'input_boolean.fenster_request_schlafzimmer': 'notify.schlafzimmer_sprechen'
-        } %}
-        {{ mapping.get(trigger.entity_id, 'notify.buro_sprechen') }}
       fenster_message: >
         {%- set windows = expand(states.binary_sensor)
            | selectattr('attributes.device_class', 'eq', 'window')
@@ -391,13 +371,9 @@
         {%- else %}
         Nein, alle Fenster sind geschlossen.
         {%- endif %}
-  - service: notify.send_message
-    target:
-      entity_id: "{{ notify_target }}"
+  - service: script.alexa_room_announce
     data:
+      trigger_entity: "{{ trigger.entity_id }}"
       message: "{{ fenster_message }}"
-  - service: input_boolean.turn_off
-    target:
-      entity_id: "{{ trigger.entity_id }}"
   mode: parallel
   max: 4
