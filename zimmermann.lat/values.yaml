@@ -588,6 +588,146 @@ apps:
                 hostPath: /mnt/tank1/encrypted/apps/backrest/tmp
               restore:
                 hostPath: /mnt/tank1/encrypted/apps/backrest/restore
+  alexa-custom-skill:
+    enabled: true
+    argocd:
+      namespace: "homeassistant"
+      targetRevision: ~
+      helm:
+        values:
+          skillId: "amzn1.ask.skill.4c138782-0d00-42f8-9255-f588b18cd6e3"
+          lambdaArn: "arn:aws:lambda:eu-west-1:339712710461:function:HomeAssistantCustomSkill"
+          lambdaRegion: "eu-west-1"
+          homeAssistantUrl: "https://homeassistant.zimmermann.lat"
+          files:
+            skillJson: |
+              {
+                "manifest": {
+                  "manifestVersion": "1.0",
+                  "publishingInformation": {
+                    "locales": {
+                      "de-DE": {
+                        "name": "Mein Zuhause",
+                        "summary": "Steuert und fragt Smart Home Informationen ab",
+                        "description": "Ermöglicht das Abfragen von Temperatur, Luftfeuchtigkeit und Fensterstatus über Home Assistant.",
+                        "examplePhrases": [
+                          "Alexa, frage mein Zuhause wie warm es draußen ist",
+                          "Alexa, frage mein Zuhause ob Fenster offen sind",
+                          "Alexa, frage mein Zuhause wie die Luftfeuchtigkeit ist"
+                        ],
+                        "keywords": [
+                          "smart home",
+                          "home assistant",
+                          "temperatur",
+                          "fenster",
+                          "luftfeuchtigkeit"
+                        ]
+                      }
+                    },
+                    "isAvailableWorldwide": false,
+                    "distributionCountries": ["DE"],
+                    "distributionMode": "PRIVATE",
+                    "category": "SMART_HOME",
+                    "testingInstructions": "This is a private skill for personal use."
+                  },
+                  "apis": {
+                    "custom": {
+                      "endpoint": {
+                        "uri": "{{ .Values.lambdaArn }}"
+                      },
+                      "interfaces": []
+                    }
+                  },
+                  "permissions": [],
+                  "privacyAndCompliance": {
+                    "allowsPurchases": false,
+                    "locales": {
+                      "de-DE": {
+                        "privacyPolicyUrl": ""
+                      }
+                    },
+                    "isExportCompliant": true,
+                    "containsAds": false,
+                    "isChildDirected": false,
+                    "usesPersonalInfo": false
+                  }
+                }
+              }
+            deDE: |
+              {
+                "interactionModel": {
+                  "languageModel": {
+                    "invocationName": "mein zuhause",
+                    "intents": [
+                      {
+                        "name": "GetOutsideTemperatureIntent",
+                        "slots": [],
+                        "samples": [
+                          "wie ist die außentemperatur",
+                          "wie warm ist es draußen",
+                          "wie kalt ist es draußen",
+                          "sag mir die temperatur draußen",
+                          "wie ist die temperatur draußen",
+                          "außentemperatur",
+                          "temperatur draußen"
+                        ]
+                      },
+                      {
+                        "name": "GetHumidityIntent",
+                        "slots": [],
+                        "samples": [
+                          "wie ist die luftfeuchtigkeit",
+                          "wie feucht ist es",
+                          "sag mir die luftfeuchtigkeit",
+                          "wie hoch ist die luftfeuchtigkeit",
+                          "luftfeuchtigkeit"
+                        ]
+                      },
+                      {
+                        "name": "GetWindowStatusIntent",
+                        "slots": [],
+                        "samples": [
+                          "sind fenster offen",
+                          "welche fenster sind offen",
+                          "ist ein fenster offen",
+                          "fenster status",
+                          "sind alle fenster zu",
+                          "fenster offen"
+                        ]
+                      },
+                      {
+                        "name": "GetWindowOpenDurationIntent",
+                        "slots": [],
+                        "samples": [
+                          "seit wann sind fenster offen",
+                          "wie lange sind fenster offen",
+                          "wie lange ist das fenster offen",
+                          "seit wann ist ein fenster offen",
+                          "wie lange sind die fenster schon offen",
+                          "seit wann sind die fenster offen"
+                        ]
+                      },
+                      {
+                        "name": "AMAZON.HelpIntent",
+                        "samples": []
+                      },
+                      {
+                        "name": "AMAZON.StopIntent",
+                        "samples": []
+                      },
+                      {
+                        "name": "AMAZON.CancelIntent",
+                        "samples": []
+                      },
+                      {
+                        "name": "AMAZON.FallbackIntent",
+                        "samples": []
+                      }
+                    ],
+                    "types": []
+                  }
+                }
+              }
   nextcloud:
     enabled: true
     argocd:
