@@ -14,18 +14,6 @@ smart_home:
       - light.wohnzimmer_2
       - light.stehlampe_schlafzimmer
       - light.stehlampe_wozi
-      - input_boolean.humidity_request_buero
-      - input_boolean.humidity_request_wohnzimmer
-      - input_boolean.humidity_request_badezimmer
-      - input_boolean.humidity_request_schlafzimmer
-      - input_boolean.fenster_request_buero
-      - input_boolean.fenster_request_wohnzimmer
-      - input_boolean.fenster_request_badezimmer
-      - input_boolean.fenster_request_schlafzimmer
-      - input_boolean.temperatur_request_buero
-      - input_boolean.temperatur_request_wohnzimmer
-      - input_boolean.temperatur_request_badezimmer
-      - input_boolean.temperatur_request_schlafzimmer
   entity_config:
     light.aegypten:
       name: "Ägyptenlampe"
@@ -60,39 +48,3 @@ smart_home:
     light.stehlampe_wozi:
       name: "Stehlampe Wohnzimmer"
       description: "Die Stehlampe im Wohnzimmer"
-    input_boolean.humidity_request_buero:
-      name: "Luftfeuchtigkeit Büro"
-      description: "Trigger für Luftfeuchtigkeit Abfrage vom Büro"
-    input_boolean.humidity_request_wohnzimmer:
-      name: "Luftfeuchtigkeit Wohnzimmer"
-      description: "Trigger für Luftfeuchtigkeit Abfrage vom Wohnzimmer"
-    input_boolean.humidity_request_badezimmer:
-      name: "Luftfeuchtigkeit Badezimmer"
-      description: "Trigger für Luftfeuchtigkeit Abfrage vom Badezimmer"
-    input_boolean.humidity_request_schlafzimmer:
-      name: "Luftfeuchtigkeit Schlafzimmer"
-      description: "Trigger für Luftfeuchtigkeit Abfrage vom Schlafzimmer"
-    input_boolean.fenster_request_buero:
-      name: "Fenster offen Büro"
-      description: "Trigger für Fenster Abfrage vom Büro"
-    input_boolean.fenster_request_wohnzimmer:
-      name: "Fenster offen Wohnzimmer"
-      description: "Trigger für Fenster Abfrage vom Wohnzimmer"
-    input_boolean.fenster_request_badezimmer:
-      name: "Fenster offen Badezimmer"
-      description: "Trigger für Fenster Abfrage vom Badezimmer"
-    input_boolean.fenster_request_schlafzimmer:
-      name: "Fenster offen Schlafzimmer"
-      description: "Trigger für Fenster Abfrage vom Schlafzimmer"
-    input_boolean.temperatur_request_buero:
-      name: "Außentemperatur Büro"
-      description: "Trigger für Außentemperatur Abfrage vom Büro"
-    input_boolean.temperatur_request_wohnzimmer:
-      name: "Außentemperatur Wohnzimmer"
-      description: "Trigger für Außentemperatur Abfrage vom Wohnzimmer"
-    input_boolean.temperatur_request_badezimmer:
-      name: "Außentemperatur Badezimmer"
-      description: "Trigger für Außentemperatur Abfrage vom Badezimmer"
-    input_boolean.temperatur_request_schlafzimmer:
-      name: "Außentemperatur Schlafzimmer"
-      description: "Trigger für Außentemperatur Abfrage vom Schlafzimmer"
