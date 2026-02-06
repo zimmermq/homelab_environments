@@ -60,6 +60,19 @@ GetWindowOpenDurationIntent:
       Alle Fenster sind geschlossen.
       {%- endif %}
 
+GetLightStatusIntent:
+  speech:
+    text: >
+      {%- set lights = expand(states.light)
+         | selectattr('state', 'eq', 'on')
+         | list %}
+      {%- if lights | length > 0 %}
+        {%- set names = lights | map(attribute='name') | list %}
+      {{ lights | length }} {{ 'Licht ist' if lights | length == 1 else 'Lichter sind' }} an: {{ names | join(', ') }}.
+      {%- else %}
+      Alle Lichter sind aus.
+      {%- endif %}
+
 GetWindowStatusIntent:
   speech:
     text: >

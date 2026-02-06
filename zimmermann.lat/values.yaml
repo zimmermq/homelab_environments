@@ -707,6 +707,20 @@ apps:
                         ]
                       },
                       {
+                        "name": "GetLightStatusIntent",
+                        "slots": [],
+                        "samples": [
+                          "welche lichter sind an",
+                          "sind lichter an",
+                          "ist licht an",
+                          "welche lampen sind an",
+                          "sind lampen an",
+                          "welches licht ist an",
+                          "lichter status",
+                          "licht status"
+                        ]
+                      },
+                      {
                         "name": "AMAZON.HelpIntent",
                         "samples": []
                       },
