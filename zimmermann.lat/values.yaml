@@ -625,7 +625,6 @@ apps:
                       }
                     },
                     "isAvailableWorldwide": false,
-                    "distributionCountries": ["DE"],
                     "distributionMode": "PRIVATE",
                     "category": "SMART_HOME",
                     "testingInstructions": "This is a private skill for personal use."
