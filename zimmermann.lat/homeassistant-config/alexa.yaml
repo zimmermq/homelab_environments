@@ -18,6 +18,10 @@ smart_home:
       - input_boolean.humidity_request_wohnzimmer
       - input_boolean.humidity_request_badezimmer
       - input_boolean.humidity_request_schlafzimmer
+      - input_boolean.fenster_request_buero
+      - input_boolean.fenster_request_wohnzimmer
+      - input_boolean.fenster_request_badezimmer
+      - input_boolean.fenster_request_schlafzimmer
   entity_config:
     light.aegypten:
       name: "Ägyptenlampe"
@@ -64,3 +68,15 @@ smart_home:
     input_boolean.humidity_request_schlafzimmer:
       name: "Luftfeuchtigkeit Schlafzimmer"
       description: "Trigger für Luftfeuchtigkeit Abfrage vom Schlafzimmer"
+    input_boolean.fenster_request_buero:
+      name: "Fenster offen Büro"
+      description: "Trigger für Fenster Abfrage vom Büro"
+    input_boolean.fenster_request_wohnzimmer:
+      name: "Fenster offen Wohnzimmer"
+      description: "Trigger für Fenster Abfrage vom Wohnzimmer"
+    input_boolean.fenster_request_badezimmer:
+      name: "Fenster offen Badezimmer"
+      description: "Trigger für Fenster Abfrage vom Badezimmer"
+    input_boolean.fenster_request_schlafzimmer:
+      name: "Fenster offen Schlafzimmer"
+      description: "Trigger für Fenster Abfrage vom Schlafzimmer"
