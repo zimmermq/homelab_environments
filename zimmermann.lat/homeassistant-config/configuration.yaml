@@ -41,4 +41,5 @@ template: !include sensors.yaml
 
 # Packages for modular configuration
 homeassistant:
+  customize: !include customize.yaml
   packages: !include_dir_named packages
