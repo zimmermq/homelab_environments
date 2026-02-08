@@ -741,6 +741,39 @@ apps:
                   }
                 }
               }
+  alexa-smarthome-skill:
+    enabled: true
+    argocd:
+      namespace: "homeassistant"
+      targetRevision: ~
+      helm:
+        values:
+          skillId: "amzn1.ask.skill.c1703948-2593-4948-9373-0d8fcf739b94"
+          lambdaArn: "arn:aws:lambda:eu-west-1:339712710461:function:HomeAssistant"
+          lambdaRegion: "eu-west-1"
+          homeAssistantUrl: "https://homeassistant.zimmermann.lat"
+          files:
+            skillJson: |
+              {
+                "manifest": {
+                  "apis": {
+                    "smartHome": {
+                      "endpoint": {
+                        "uri": "{{ .Values.lambdaArn }}"
+                      },
+                      "protocolVersion": "3"
+                    }
+                  },
+                  "manifestVersion": "1.0",
+                  "publishingInformation": {
+                    "locales": {
+                      "de-DE": {
+                        "name": "HomeAssistant2"
+                      }
+                    }
+                  }
+                }
+              }
   nextcloud:
     enabled: true
     argocd:
