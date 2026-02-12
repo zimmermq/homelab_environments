@@ -157,6 +157,7 @@ apps:
           github:
             repo: zimmermq/homelab_environments
             configPath: zimmermann.lat/smarthome4-config/smarthome-config.yaml
+            alexaConfigPath: zimmermann.lat/homeassistant-config/alexa.yaml
             branch: main
   smarthome4:
     enabled: true
