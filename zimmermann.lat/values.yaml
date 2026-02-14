@@ -144,10 +144,13 @@ apps:
       targetRevision: ~
       helm:
         values:
-          hueIp: ''
-          mqttUrl: tcp://mosquitto-service:1883
-          homeAssistantIp: ws://homeassistant-service:8123
-          profilesActive: michael
+          generic:
+            configMaps:
+              smarthome3-config-map:
+                HUE_IP: ""
+                MQTT_URL: "tcp://mosquitto-service:1883"
+                HOME_ASSISTANT_IP: "ws://homeassistant-service:8123"
+                spring.profiles.active: "michael"
   smarthome4-ui:
     enabled: true
     argocd:
