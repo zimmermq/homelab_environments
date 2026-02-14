@@ -154,11 +154,13 @@ apps:
       targetRevision: ~
       helm:
         values:
-          github:
-            repo: zimmermq/homelab_environments
-            configPath: zimmermann.lat/smarthome4-config/smarthome-config.yaml
-            alexaConfigPath: zimmermann.lat/homeassistant-config/alexa.yaml
-            branch: main
+          generic:
+            configMaps:
+              smarthome4-ui-config-map:
+                GITHUB_REPO: "zimmermq/homelab_environments"
+                GITHUB_CONFIG_PATH: "zimmermann.lat/smarthome4-config/smarthome-config.yaml"
+                GITHUB_ALEXA_CONFIG_PATH: "zimmermann.lat/homeassistant-config/alexa.yaml"
+                GITHUB_BRANCH: "main"
   smarthome4:
     enabled: true
     argocd:
