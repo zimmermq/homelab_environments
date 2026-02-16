@@ -15,6 +15,7 @@ smart_home:
     - light.stehlampe_schlafzimmer
     - light.stehlampe_wozi
     - light.wohnzimmer_haengelampen
+    - light.bad
   entity_config:
     light.aegypten:
       name: Ägyptenlampe
@@ -52,3 +53,6 @@ smart_home:
     light.wohnzimmer_haengelampen:
       name: Wohnzimmer_Haengelampen
       description: Die Haengelampen im Wohnzimmer
+    light.bad:
+      name: Bad
+      description: Das Deckenlicht im Badezimmer
