@@ -4,7 +4,6 @@ smart_home:
   filter:
     include_entities:
     - light.aegypten
-    - light.badezimmer
     - light.buero
     - light.esszimmer_5
     - light.flur_2
@@ -20,9 +19,6 @@ smart_home:
     light.aegypten:
       name: Ägyptenlampe
       description: Die Ägyptenlampe
-    light.badezimmer:
-      name: Badlicht
-      description: Das Deckenlicht im Badezimmer
     light.buero:
       name: Bürolicht
       description: Das Deckenlicht im Büro
