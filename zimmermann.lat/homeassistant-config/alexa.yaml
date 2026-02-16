@@ -47,7 +47,7 @@ smart_home:
       name: Stehlampe Wohnzimmer
       description: Die Stehlampe im Wohnzimmer
     light.wohnzimmer_haengelampen:
-      name: Wohnzimmer_Haengelampen
+      name: Haengelampen
       description: Die Haengelampen im Wohnzimmer
     light.bad:
       name: Bad
