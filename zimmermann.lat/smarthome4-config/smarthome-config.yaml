@@ -101,46 +101,6 @@ smartHome:
       - light.stehlampe_wozi
       - light.aegypten
   - type: Scene
-    id: scenes_badezimmer_dimmerswitch_01_day_1
-    lookups:
-    - type: labelRegex
-      labelRegex: Badezimmer__DimmerSwitch__01__day__1
-  - type: Scene
-    id: scenes_badezimmer_dimmerswitch_01_day_2
-    lookups:
-    - type: labelRegex
-      labelRegex: Badezimmer__DimmerSwitch__01__day__2
-  - type: Scene
-    id: scenes_badezimmer_dimmerswitch_01_day_3
-    lookups:
-    - type: labelRegex
-      labelRegex: Badezimmer__DimmerSwitch__01__day__3
-  - type: Scene
-    id: scenes_badezimmer_dimmerswitch_01_day_n
-    lookups:
-    - type: labelRegex
-      labelRegex: Badezimmer__DimmerSwitch__01__day__N
-  - type: Scene
-    id: scenes_badezimmer_dimmerswitch_01_night_1
-    lookups:
-    - type: labelRegex
-      labelRegex: Badezimmer__DimmerSwitch__01__night__1
-  - type: Scene
-    id: scenes_badezimmer_dimmerswitch_01_night_2
-    lookups:
-    - type: labelRegex
-      labelRegex: Badezimmer__DimmerSwitch__01__night__2
-  - type: Scene
-    id: scenes_badezimmer_dimmerswitch_01_night_3
-    lookups:
-    - type: labelRegex
-      labelRegex: Badezimmer__DimmerSwitch__01__night__3
-  - type: Scene
-    id: scenes_badezimmer_dimmerswitch_01_night_n
-    lookups:
-    - type: labelRegex
-      labelRegex: Badezimmer__DimmerSwitch__01__night__N
-  - type: Scene
     id: scenes_buero_dimmerswitch_01_day_1
     lookups:
     - type: labelRegex
@@ -381,16 +341,6 @@ smartHome:
     - type: labelRegex
       labelRegex: Wohnzimmer__DimmerSwitch__01__night__N
   - type: Scene
-    id: Badezimmer DimmerSwitch 01 Night
-    lookups:
-    - type: labelRegex
-      labelRegex: Badezimmer__DimmerSwitch__01__night__.*
-  - type: Scene
-    id: Badezimmer DimmerSwitch 01 Day
-    lookups:
-    - type: labelRegex
-      labelRegex: Badezimmer__DimmerSwitch__01__day__.*
-  - type: Scene
     id: Buero DimmerSwitch 01 Day
     lookups:
     - type: labelRegex
@@ -430,16 +380,6 @@ smartHome:
     lookups:
     - type: labelRegex
       labelRegex: Kueche__DimmerSwitch__01__night__.*
-  - type: Scene
-    id: Schlafzimmer DimmerSwitch 02 Day
-    lookups:
-    - type: labelRegex
-      labelRegex: Schlafzimmer__DimmerSwitch__02__day__.*
-  - type: Scene
-    id: Schlafzimmer DimmerSwitch 02 Night
-    lookups:
-    - type: labelRegex
-      labelRegex: Schlafzimmer__DimmerSwitch__02__night__.*
   - type: Scene
     id: Schlafzimmer DimmerSwitch 01 Day
     lookups:
