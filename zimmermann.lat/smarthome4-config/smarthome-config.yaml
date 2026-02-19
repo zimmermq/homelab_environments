@@ -460,6 +460,16 @@ smartHome:
     lookups:
     - type: labelRegex
       labelRegex: Wohnzimmer__DimmerSwitch__01__night__.*
+  - type: Scene
+    id: Tati Nachttischlampe DimmerSwitch 01 Day
+    lookups:
+    - type: labelRegex
+      labelRegex: Tati_Nachttischlampe__DimmerSwitch__01__day__.*
+  - type: Scene
+    id: Tati Nachttischlampe DimmerSwitch 01 Night
+    lookups:
+    - type: labelRegex
+      labelRegex: Tati_Nachttischlampe__DimmerSwitch__01__night__.*
   sensors:
   - name: Badezimmer_Dimmer_Switch
     type: HueDimmerSwitch
@@ -645,7 +655,9 @@ smartHome:
       - trigger: BUTTON_1
         sequences:
         - homeAssistantResources:
-          - Schlafzimmer DimmerSwitch 02 Day
+          - Tati Nachttischlampe DimmerSwitch 01 Day
+          cycleStart: i:1
+          cycleEnd: i:N
     - position: '1'
       profile: HUE_DIMMER_SWITCH_LIGHT_DEFAULT
       homeAssistantResources:
@@ -655,7 +667,7 @@ smartHome:
       - trigger: BUTTON_1
         sequences:
         - homeAssistantResources:
-          - Schlafzimmer DimmerSwitch 02 Night
+          - Tati Nachttischlampe DimmerSwitch 01 Night
           cycleStart: i:1
           cycleEnd: i:N
   - name: Schlafzimmer_Dimmer_Switches
