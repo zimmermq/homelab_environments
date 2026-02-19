@@ -13,7 +13,7 @@ smartHome:
     lookups:
     - type: staticEntity
       entityRefs:
-      - light.badezimmer
+      - light.bad
   - type: Light
     id: light_buero
     lookups:
@@ -1028,6 +1028,9 @@ smartHome:
     groups:
     - position: '1'
       profile: HUE_DIMMER_SWITCH_LIGHT_DEFAULT
+      homeAssistantResources:
+      - light_badezimmer
+      condition: day
       triggers:
       - trigger: BUTTON_1
         sequences:
@@ -1038,9 +1041,6 @@ smartHome:
           - scenes_badezimmer_dimmerswitch_01_day_n
           cycleStart: i:1
           cycleEnd: i:N
-      condition: day
-      homeAssistantResources:
-      - light_badezimmer
     - position: '1'
       profile: HUE_DIMMER_SWITCH_LIGHT_DEFAULT
       homeAssistantResources:
