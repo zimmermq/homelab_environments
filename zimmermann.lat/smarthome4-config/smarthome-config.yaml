@@ -547,10 +547,7 @@ smartHome:
       - trigger: BUTTON_1
         sequences:
         - homeAssistantResources:
-          - scenes_flur_dimmerswitch_01_day_1
-          - scenes_flur_dimmerswitch_01_day_2
-          - scenes_flur_dimmerswitch_01_day_3
-          - scenes_flur_dimmerswitch_01_day_n
+          - Flur DimmerSwitch 01 Day
           cycleStart: i:1
           cycleEnd: i:N
     - position: '1'
@@ -562,70 +559,7 @@ smartHome:
       - trigger: BUTTON_1
         sequences:
         - homeAssistantResources:
-          - scenes_flur_dimmerswitch_01_night_1
-          - scenes_flur_dimmerswitch_01_night_2
-          - scenes_flur_dimmerswitch_01_night_3
-          - scenes_flur_dimmerswitch_01_night_n
-          cycleStart: i:1
-          cycleEnd: i:N
-    - position: '2'
-      profile: HUE_DIMMER_SWITCH_LIGHT_DEFAULT
-      homeAssistantResources:
-      - light_aegypten
-      condition: day
-      triggers:
-      - trigger: BUTTON_1
-        sequences:
-        - homeAssistantResources:
-          - scenes_flur_dimmerswitch_02_day_1
-          - scenes_flur_dimmerswitch_02_day_2
-          - scenes_flur_dimmerswitch_02_day_3
-          - scenes_flur_dimmerswitch_02_day_n
-          cycleStart: i:1
-          cycleEnd: i:N
-    - position: '2'
-      profile: HUE_DIMMER_SWITCH_LIGHT_DEFAULT
-      homeAssistantResources:
-      - light_aegypten
-      condition: night
-      triggers:
-      - trigger: BUTTON_1
-        sequences:
-        - homeAssistantResources:
-          - scenes_flur_dimmerswitch_02_night_1
-          - scenes_flur_dimmerswitch_02_night_2
-          - scenes_flur_dimmerswitch_02_night_3
-          - scenes_flur_dimmerswitch_02_night_n
-          cycleStart: i:1
-          cycleEnd: i:N
-    - position: '4'
-      profile: HUE_DIMMER_SWITCH_LIGHT_DEFAULT
-      homeAssistantResources:
-      - light_all
-      condition: day
-      triggers:
-      - trigger: BUTTON_1
-        sequences:
-        - homeAssistantResources:
-          - scenes_flur_dimmerswitch_04_day_1
-          - scenes_flur_dimmerswitch_04_day_2
-          - scenes_flur_dimmerswitch_04_day_3
-          - scenes_flur_dimmerswitch_04_day_n
-          cycleStart: i:1
-          cycleEnd: i:N
-    - position: '4'
-      profile: HUE_DIMMER_SWITCH_LIGHT_DEFAULT
-      homeAssistantResources:
-      - light_all
-      condition: night
-      triggers:
-      - trigger: BUTTON_1
-        sequences:
-        - homeAssistantResources:
-          - scenes_flur_dimmerswitch_04_night_1
-          - scenes_flur_dimmerswitch_04_night_2
-          - scenes_flur_dimmerswitch_04_night_3
-          - scenes_flur_dimmerswitch_04_night_n
+          - Flur DimmerSwitch 01 Night
           cycleStart: i:1
           cycleEnd: i:N
   - name: Kueche_Dimmer_Switch
