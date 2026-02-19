@@ -613,14 +613,7 @@ smartHome:
       condition: day
       triggers:
       - trigger: BUTTON_1
-        sequences:
-        - homeAssistantResources:
-          - scenes_schlafzimmer_tati_dimmerswitch_01_day_1
-          - scenes_schlafzimmer_tati_dimmerswitch_01_day_2
-          - scenes_schlafzimmer_tati_dimmerswitch_01_day_3
-          - scenes_schlafzimmer_tati_dimmerswitch_01_day_n
-          cycleStart: i:1
-          cycleEnd: i:N
+        sequences: []
     - position: '1'
       profile: HUE_DIMMER_SWITCH_LIGHT_DEFAULT
       homeAssistantResources:
@@ -628,74 +621,7 @@ smartHome:
       condition: night
       triggers:
       - trigger: BUTTON_1
-        sequences:
-        - homeAssistantResources:
-          - scenes_schlafzimmer_tati_dimmerswitch_01_night_1
-          - scenes_schlafzimmer_tati_dimmerswitch_01_night_2
-          - scenes_schlafzimmer_tati_dimmerswitch_01_night_3
-          - scenes_schlafzimmer_tati_dimmerswitch_01_night_n
-          cycleStart: i:1
-          cycleEnd: i:N
-    - position: '2'
-      profile: HUE_DIMMER_SWITCH_LIGHT_DEFAULT
-      homeAssistantResources:
-      - light_schlafzimmer
-      condition: day
-      triggers:
-      - trigger: BUTTON_1
-        sequences:
-        - homeAssistantResources:
-          - scenes_schlafzimmer_tati_dimmerswitch_02_day_1
-          - scenes_schlafzimmer_tati_dimmerswitch_02_day_2
-          - scenes_schlafzimmer_tati_dimmerswitch_02_day_3
-          - scenes_schlafzimmer_tati_dimmerswitch_02_day_n
-          cycleStart: i:1
-          cycleEnd: i:N
-    - position: '2'
-      profile: HUE_DIMMER_SWITCH_LIGHT_DEFAULT
-      homeAssistantResources:
-      - light_schlafzimmer
-      condition: night
-      triggers:
-      - trigger: BUTTON_1
-        sequences:
-        - homeAssistantResources:
-          - scenes_schlafzimmer_tati_dimmerswitch_02_night_1
-          - scenes_schlafzimmer_tati_dimmerswitch_02_night_2
-          - scenes_schlafzimmer_tati_dimmerswitch_02_night_3
-          - scenes_schlafzimmer_tati_dimmerswitch_02_night_n
-          cycleStart: i:1
-          cycleEnd: i:N
-    - position: '3'
-      profile: HUE_DIMMER_SWITCH_LIGHT_DEFAULT
-      homeAssistantResources:
-      - light_stehlampe_schlafzimmer
-      condition: day
-      triggers:
-      - trigger: BUTTON_1
-        sequences:
-        - homeAssistantResources:
-          - scenes_schlafzimmer_tati_dimmerswitch_03_day_1
-          - scenes_schlafzimmer_tati_dimmerswitch_03_day_2
-          - scenes_schlafzimmer_tati_dimmerswitch_03_day_3
-          - scenes_schlafzimmer_tati_dimmerswitch_03_day_n
-          cycleStart: i:1
-          cycleEnd: i:N
-    - position: '3'
-      profile: HUE_DIMMER_SWITCH_LIGHT_DEFAULT
-      homeAssistantResources:
-      - light_stehlampe_schlafzimmer
-      condition: night
-      triggers:
-      - trigger: BUTTON_1
-        sequences:
-        - homeAssistantResources:
-          - scenes_schlafzimmer_tati_dimmerswitch_03_night_1
-          - scenes_schlafzimmer_tati_dimmerswitch_03_night_2
-          - scenes_schlafzimmer_tati_dimmerswitch_03_night_3
-          - scenes_schlafzimmer_tati_dimmerswitch_03_night_n
-          cycleStart: i:1
-          cycleEnd: i:N
+        sequences: []
   - name: Schlafzimmer_Dimmer_Switches
     type: HueDimmerSwitch
     devices:
