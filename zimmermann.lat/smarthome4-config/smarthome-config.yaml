@@ -390,6 +390,16 @@ smartHome:
     lookups:
     - type: labelRegex
       labelRegex: Badezimmer__DimmerSwitch__01__day__.*
+  - type: Scene
+    id: Buero DimmerSwitch 01 Day
+    lookups:
+    - type: labelRegex
+      labelRegex: Buero__DimmerSwitch__01__day__.*
+  - type: Scene
+    id: Buero DimmerSwitch 01 Night
+    lookups:
+    - type: labelRegex
+      labelRegex: Buero__DimmerSwitch__01__night__.*
   sensors:
   - name: Badezimmer_Dimmer_Switch
     type: HueDimmerSwitch
@@ -436,10 +446,7 @@ smartHome:
       - trigger: BUTTON_1
         sequences:
         - homeAssistantResources:
-          - scenes_buero_dimmerswitch_01_day_1
-          - scenes_buero_dimmerswitch_01_day_2
-          - scenes_buero_dimmerswitch_01_day_3
-          - scenes_buero_dimmerswitch_01_day_n
+          - Buero DimmerSwitch 01 Day
           cycleStart: i:1
           cycleEnd: i:N
     - position: '1'
@@ -451,10 +458,7 @@ smartHome:
       - trigger: BUTTON_1
         sequences:
         - homeAssistantResources:
-          - scenes_buero_dimmerswitch_01_night_1
-          - scenes_buero_dimmerswitch_01_night_2
-          - scenes_buero_dimmerswitch_01_night_3
-          - scenes_buero_dimmerswitch_01_night_n
+          - Buero DimmerSwitch 01 Night
           cycleStart: i:1
           cycleEnd: i:N
     - position: '2'
