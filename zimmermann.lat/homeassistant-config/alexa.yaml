@@ -16,6 +16,7 @@ smart_home:
     - light.wohnzimmer_haengelampen
     - light.bad
     - light.schlafzimmer_deckenlicht
+    - light.fernsehlicht
   entity_config:
     light.aegypten:
       name: Ägyptenlampe
@@ -56,3 +57,6 @@ smart_home:
     light.schlafzimmer_deckenlicht:
       name: Schlafzimmer Deckenlicht
       description: Das Deckenlicht im Schlafzimmer
+    light.fernsehlicht:
+      name: Fernsehlicht
+      description: Stehlampe hinter Fernseher
