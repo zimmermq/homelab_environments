@@ -420,6 +420,16 @@ smartHome:
     lookups:
     - type: labelRegex
       labelRegex: Bad__DimmerSwitch__01__night__.*
+  - type: Scene
+    id: Schlafzimmer Deckenlicht DimmerSwitch 01 Day
+    lookups:
+    - type: labelRegex
+      labelRegex: Schlafzimmer_Deckenlicht__DimmerSwitch__01__day__.*
+  - type: Scene
+    id: Schlafzimmer Deckenlicht DimmerSwitch 01 Night
+    lookups:
+    - type: labelRegex
+      labelRegex: Schlafzimmer_Deckenlicht__DimmerSwitch__01__night__.*
   sensors:
   - name: Badezimmer_Dimmer_Switch
     type: HueDimmerSwitch
@@ -635,7 +645,7 @@ smartHome:
       - trigger: BUTTON_1
         sequences:
         - homeAssistantResources:
-          - Schlafzimmer DimmerSwitch 01 Day
+          - Schlafzimmer Deckenlicht DimmerSwitch 01 Day
           cycleStart: i:1
           cycleEnd: i:N
     - position: '1'
@@ -647,7 +657,7 @@ smartHome:
       - trigger: BUTTON_1
         sequences:
         - homeAssistantResources:
-          - Schlafzimmer DimmerSwitch 01 Night
+          - Schlafzimmer Deckenlicht DimmerSwitch 01 Night
           cycleStart: i:1
           cycleEnd: i:N
   - name: Wohnzimmer_Dimmer_Switch
