@@ -1,1 +1,15 @@
-{}
+turn_on_all_lights:
+  alias: Turn on all lights
+  description: Turns on every light entity in the house
+  sequence:
+    - action: light.turn_on
+      target:
+        entity_id: all
+
+turn_off_all_lights:
+  alias: Turn off all lights
+  description: Turns off every light entity in the house
+  sequence:
+    - action: light.turn_off
+      target:
+        entity_id: all
