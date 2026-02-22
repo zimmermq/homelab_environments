@@ -3,48 +3,60 @@ smart_home:
   endpoint: https://api.eu.amazonalexa.com/v3/events
   filter:
     include_entities:
-      - light.aegypten
-      - light.badezimmer
-      - light.buero
-      - light.esszimmer_5
-      - light.flur_2
-      - light.kueche
-      - light.tati_schlafzimmer_nachtischlampe
-      - light.schlafzimmer_2
-      - light.wohnzimmer_2
-      - light.stehlampe_schlafzimmer
-      - light.stehlampe_wozi
+    - light.aegypten
+    - light.buero
+    - light.esszimmer_5
+    - light.flur_2
+    - light.kueche
+    - light.tati_schlafzimmer_nachtischlampe
+    - light.schlafzimmer_2
+    - light.wohnzimmer_2
+    - light.stehlampe_schlafzimmer
+    - light.stehlampe_wozi
+    - light.wohnzimmer_haengelampen
+    - light.bad
+    - light.schlafzimmer_deckenlicht
+    - light.fernsehlicht
   entity_config:
     light.aegypten:
-      name: "Ägyptenlampe"
-      description: "Die Ägyptenlampe"
-    light.badezimmer:
-      name: "Badlicht"
-      description: "Das Deckenlicht im Badezimmer"
+      name: Ägyptenlampe
+      description: Die Ägyptenlampe
     light.buero:
-      name: "Bürolicht"
-      description: "Das Deckenlicht im Büro"
+      name: Bürolicht
+      description: Das Deckenlicht im Büro
     light.esszimmer_5:
-      name: "Esszimmer"
-      description: "Das Deckenlicht im Esszimmer"
+      name: Esszimmer
+      description: Das Deckenlicht im Esszimmer
     light.flur_2:
-      name: "Flur"
-      description: "Das Deckenlicht im Flur"
+      name: Flur
+      description: Das Deckenlicht im Flur
     light.kueche:
-      name: "Küche"
-      description: "Das Deckenlicht in der Küche"
+      name: Küche
+      description: Das Deckenlicht in der Küche
     light.tati_schlafzimmer_nachtischlampe:
-      name: "Tatis Nachttischlampe"
-      description: "Nachttischlampe auf Tatis Seite"
+      name: Tatis Nachttischlampe
+      description: Nachttischlampe auf Tatis Seite
     light.schlafzimmer_2:
-      name: "Schlafzimmer Lichter"
-      description: "Alle Lichter im Schlafzimmer"
+      name: Schlafzimmer Lichter
+      description: Alle Lichter im Schlafzimmer
     light.wohnzimmer_2:
-      name: "Wohnzimmer-Hängelampen"
-      description: "Die Hängelampen im Wohnzimmer"
+      name: Wohnzimmer
+      description: Alle Lampen im Wohnzimmer
     light.stehlampe_schlafzimmer:
-      name: "Stehlampe Schlafzimmer"
-      description: "Die Stehlampe im Schlafzimmer"
+      name: Stehlampe Schlafzimmer
+      description: Die Stehlampe im Schlafzimmer
     light.stehlampe_wozi:
-      name: "Stehlampe Wohnzimmer"
-      description: "Die Stehlampe im Wohnzimmer"
+      name: Stehlampe Wohnzimmer
+      description: Die Stehlampe im Wohnzimmer
+    light.wohnzimmer_haengelampen:
+      name: Haengelampen
+      description: Die Haengelampen im Wohnzimmer
+    light.bad:
+      name: Bad
+      description: Das Deckenlicht im Badezimmer
+    light.schlafzimmer_deckenlicht:
+      name: Schlafzimmer Deckenlicht
+      description: Das Deckenlicht im Schlafzimmer
+    light.fernsehlicht:
+      name: Fernsehlicht
+      description: Stehlampe hinter Fernseher
