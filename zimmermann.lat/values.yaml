@@ -165,7 +165,7 @@ apps:
                 GITHUB_ALEXA_CONFIG_PATH: "zimmermann.lat/homeassistant-config/alexa.yaml"
                 GITHUB_BRANCH: "main"
   smarthome4:
-    enabled: false
+    enabled: true
     argocd:
       targetRevision: ~
       helm:
