@@ -136,6 +136,12 @@ smartHome:
     lookups:
     - type: labelRegex
       labelRegex: Schlafzimmer_Deckenlicht__DimmerSwitch__01__night__.*
+  - type: Script
+    id: Script Turn Off All Lights
+    lookups:
+    - type: staticEntity
+      entityRefs:
+      - script.turn_off_all_lights
   sensors:
   - name: Badezimmer_Dimmer_Switch
     type: HueDimmerSwitch
@@ -185,6 +191,12 @@ smartHome:
           - Buero DimmerSwitch 01 Day
           cycleStart: i:1
           cycleEnd: i:N
+      - trigger: BUTTON_4
+        sequences:
+        - homeAssistantResources:
+          - Script Turn Off All Lights
+          cycleStart: i:2
+          cycleEnd: i:2
     - position: '1'
       profile: HUE_DIMMER_SWITCH_LIGHT_DEFAULT
       homeAssistantResources:
@@ -197,6 +209,12 @@ smartHome:
           - Buero DimmerSwitch 01 Night
           cycleStart: i:1
           cycleEnd: i:N
+      - trigger: BUTTON_4
+        sequences:
+        - homeAssistantResources:
+          - Script Turn Off All Lights
+          cycleStart: i:2
+          cycleEnd: i:2
   - name: Esszimmer_Dimmer_Switches
     type: HueDimmerSwitch
     devices:
