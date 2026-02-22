@@ -197,28 +197,6 @@ smartHome:
           - Buero DimmerSwitch 01 Night
           cycleStart: i:1
           cycleEnd: i:N
-    - position: '2'
-      profile: HUE_DIMMER_SWITCH_LIGHT_DEFAULT
-      homeAssistantResources:
-      - light_flur
-      condition: day
-      triggers:
-      - trigger: BUTTON_1
-        sequences:
-        - homeAssistantResources:
-          - Flur DimmerSwitch 01 Day
-    - position: '2'
-      profile: HUE_DIMMER_SWITCH_LIGHT_DEFAULT
-      homeAssistantResources:
-      - light_flur
-      condition: night
-      triggers:
-      - trigger: BUTTON_1
-        sequences:
-        - homeAssistantResources:
-          - Flur DimmerSwitch 01 Night
-          cycleStart: i:1
-          cycleEnd: i:N
   - name: Esszimmer_Dimmer_Switches
     type: HueDimmerSwitch
     devices:
