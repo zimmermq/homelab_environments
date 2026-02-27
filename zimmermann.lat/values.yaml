@@ -386,8 +386,10 @@ apps:
       targetRevision: ~
       helm:
         values:
-          devicePath: "tcp://192.168.0.125:6638"
           generic:
+            configMaps:
+              zigbee2mqtt-config-map:
+                ZIGBEE2MQTT_CONFIG_SERIAL_PORT: "tcp://192.168.0.125:6638"
             deployment:
               pvcMounts:
                 data:
