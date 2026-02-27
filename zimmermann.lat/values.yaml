@@ -381,17 +381,19 @@ apps:
       helm:
         values: {}
   zigbee2mqtt:
-    enabled: true
+    enabled: false
     argocd:
       targetRevision: ~
       helm:
         values:
-          devicePath: "tcp://192.168.0.125:6638"
           generic:
             deployment:
               pvcMounts:
                 data:
                   hostPath: /mnt/tank1/unencrypted/apps/zigbee2mqtt/data
+              deviceMounts:
+                zigbeeusb:
+                  hostPath: /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20231101104222-if00
   asn:
     enabled: true
     argocd:
