@@ -103,10 +103,9 @@
       {{ expand(states.binary_sensor)
          | selectattr('attributes.device_class', 'eq', 'window')
          | selectattr('state', 'eq', 'on')
-         | selectattr('last_changed', 'lt', now() - timedelta(minutes=states('input_number.window_open_trigger_minutes') | int))
          | list | count > 0 }}
     for:
-      seconds: 10
+      minutes: "{{ states('input_number.window_open_trigger_minutes') | int }}"
   condition: []
   action:
   - service: notify.all_devices
