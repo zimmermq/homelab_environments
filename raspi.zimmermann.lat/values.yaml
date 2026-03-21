@@ -1,0 +1,72 @@
+global:
+  cluster:
+    serverip: 192.168.0.15
+    username: ubuntu
+    cluster-name: raspi.zimmermann.lat
+    ip-range: 192.168.0.91-192.168.0.99
+
+  domain: "raspi.zimmermann.lat"
+  akeyless:
+    path: "/raspi.zimmermann.lat"
+  email: "michael@zimmermann.lat"
+
+  cloudflare:
+    email: "michael@zimmermann.lat"
+
+  letsencrypt:
+    email: "michael@zimmermann.lat"
+
+  oauth2_proxy:
+    oidc_issuer_url: "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_A6gtz8gw5"
+    oidc_client_id: "5vmqlfbdhdrma83s40bnrbb59i"
+
+  argocd:
+    targetRevision: main
+
+apps:
+  adguard:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values:
+          generic:
+            deployment:
+              pvcMounts:
+                config:
+                  hostPath: /mnt/data/apps/adguard/config
+                data:
+                  hostPath: /mnt/data/apps/adguard/data
+  argocd:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values: {}
+  akeyless:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values: {}
+  traefik:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values:
+          generic:
+            persistentVolumeClaims:
+              data:
+                hostPath: /mnt/data/apps/traefik
+          loadBalancerIP: 192.168.0.91
+          middlewares:
+            cloudflare:
+              allowedCIDRs:
+                - 192.168.0.0/24
+          oauth2-proxy:
+            extraArgs:
+              oidc-issuer-url: "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_A6gtz8gw5"
+              cookie-domain: ".raspi.zimmermann.lat"
+              whitelist-domain: ".raspi.zimmermann.lat"
+              redirect-url: "https://auth.raspi.zimmermann.lat/oauth2/callback"
