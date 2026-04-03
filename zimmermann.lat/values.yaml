@@ -742,7 +742,7 @@ apps:
                 }
               }
   alexa-smarthome-skill:
-    enabled: false
+    enabled: true
     argocd:
       namespace: "homeassistant"
       targetRevision: ~
