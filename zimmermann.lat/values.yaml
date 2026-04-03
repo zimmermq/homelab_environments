@@ -45,7 +45,7 @@ apps:
                 prompts:
                   hostPath: /mnt/tank1/encrypted/apps/paperless-gpt/prompts
           LLM_PROVIDER: openai
-          LLM_MODEL: gpt-4.1-mini
+          LLM_MODEL: gpt-5.4-mini
           AWS_OCR_BUCKET_NAME: zimmermann.lat-paperless-ocr
           PROMPT_TITLE_EXPLANATION: ''
           PROMPT_DOCUMENT_TYPE_EXPLANATION: ''
