@@ -44,8 +44,8 @@ apps:
               pvcMounts:
                 prompts:
                   hostPath: /mnt/tank1/encrypted/apps/paperless-gpt/prompts
-          LLM_PROVIDER: anthropic
-          LLM_MODEL: claude-sonnet-4-6
+          LLM_PROVIDER: openai
+          LLM_MODEL: gpt-4.1-mini
           AWS_OCR_BUCKET_NAME: zimmermann.lat-paperless-ocr
           PROMPT_TITLE_EXPLANATION: ''
           PROMPT_DOCUMENT_TYPE_EXPLANATION: ''
