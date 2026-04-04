@@ -357,6 +357,30 @@ apps:
                   PSDBANK_USERNAME: /portal-document-downloader/PSDBANK_NUERNBERG_USERNAME
                   PSDBANK_PASSWORD: /portal-document-downloader/PSDBANK_NUERNBERG_PASSWORD
                   PSDBANK_BASE_URL: /portal-document-downloader/PSDBANK_NUERNBERG_BASE_URL
+  pytr:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values:
+          generic:
+            persistentVolumeClaims:
+              credentials:
+                hostPath: /mnt/tank1/encrypted/apps/pytr/credentials
+              downloads:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/TradeRepublic
+            externalSecrets:
+              pytr-credentials:
+                - PHONE_NUMBER: /pytr/PHONE_NUMBER
+                - PIN: /pytr/PIN
+          pytr:
+            pytrVersion: "0.4.7"
+            login:
+              schedule: "0 0 1 1 *"
+              suspend: true
+            download:
+              schedule: "0 2 1 * *"
+              suspend: false
   postgres:
     enabled: true
     argocd:
