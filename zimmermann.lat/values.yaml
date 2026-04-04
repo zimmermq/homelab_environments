@@ -374,7 +374,31 @@ apps:
                 - PHONE_NUMBER: /pytr/PHONE_NUMBER
                 - PIN: /pytr/PIN
           pytr:
-            pytrVersion: "0.4.7"
+            login:
+              schedule: "0 0 1 1 *"
+              suspend: true
+            download:
+              schedule: "0 2 1 * *"
+              suspend: false
+  pytr-tatjana:
+    enabled: true
+    argocd:
+      path: apps/pytr
+      targetRevision: ~
+      helm:
+        values:
+          generic:
+            persistentVolumeClaims:
+              credentials:
+                hostPath: /mnt/tank1/encrypted/apps/pytr-tatjana/credentials
+              downloads:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Tatjana/TradeRepublic
+            externalSecrets:
+              pytr-tatjana-credentials:
+                - PHONE_NUMBER: /pytr-tatjana/PHONE_NUMBER
+                - PIN: /pytr-tatjana/PIN
+          pytr:
+            subdomain: tr-tatjana
             login:
               schedule: "0 0 1 1 *"
               suspend: true
