@@ -536,12 +536,29 @@ apps:
                   hostPath: /mnt/tank1
           samba:
             serverString: "Homeserver"
+            groups:
+              - name: family
+                gid: 1500
+              - name: admin
+                gid: 1501
+              - name: friends
+                gid: 1502
+            users:
+              - name: michael
+                akeylessPath: "/samba/password-michael"
+                uid: 1000
+                groups: [family, admin]
+              - name: tatjana
+                akeylessPath: "/samba/password-tatjana"
+                uid: 1001
+                groups: [family]
             shares:
               - name: tank1
                 path: /shares/tank1
-                guest: true
+                guest: false
                 readOnly: true
                 browseable: true
+                writeList: ["@admin"]
             avahi:
               enabled: true
               publishIP: "192.168.0.80"
