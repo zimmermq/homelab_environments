@@ -531,14 +531,14 @@ apps:
           generic:
             deployment:
               pvcMounts:
-                tank0:
-                  mountPath: shares/tank0
-                  hostPath: /mnt/tank0
+                tank1:
+                  mountPath: shares/tank1
+                  hostPath: /mnt/tank1
           samba:
             serverString: "Homeserver"
             shares:
-              - name: tank0
-                path: /shares/tank0
+              - name: tank1
+                path: /shares/tank1
                 guest: true
                 readOnly: true
                 browseable: true
