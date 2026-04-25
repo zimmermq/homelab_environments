@@ -1,0 +1,81 @@
+# Holiday Mode (Urlaubsmodus)
+#
+# Triggers HmIP "Urlaub" mode at the CCU on all HmIP climate entities.
+# CCU suspends the heating schedule and holds the chosen temperature
+# until the end date — so it survives the daily heating profile resets.
+#
+# Helpers (configurable in Settings → Devices & Services → Helpers):
+#   - input_boolean.holiday_mode          → master on/off switch
+#   - input_number.holiday_temperature    → target temperature (°C)
+#   - input_datetime.holiday_end          → optional end (date+time);
+#                                           if empty/past, falls back to 2099-12-31
+
+input_boolean:
+  holiday_mode:
+    name: "Urlaubsmodus"
+    icon: mdi:beach
+
+input_number:
+  holiday_temperature:
+    name: "Urlaubstemperatur"
+    min: 4.5
+    max: 25
+    step: 0.5
+    initial: 16
+    unit_of_measurement: "°C"
+    icon: mdi:thermometer
+
+input_datetime:
+  holiday_end:
+    name: "Urlaubsende (optional)"
+    has_date: true
+    has_time: true
+    icon: mdi:calendar-end
+
+automation:
+  - id: holiday_mode_activate
+    alias: "Urlaubsmodus aktivieren"
+    description: >
+      Sets all HmIP climate entities to CCU holiday/away mode at the configured
+      temperature, until the configured end date (or 2099-12-31 if unset).
+    trigger:
+      - platform: state
+        entity_id: input_boolean.holiday_mode
+        to: "on"
+    action:
+      - variables:
+          end_value: "{{ states('input_datetime.holiday_end') }}"
+          end_dt: >-
+            {% if end_value in ['unknown', 'unavailable']
+                or as_timestamp(end_value, default=0) < now().timestamp() + 60 %}
+              2099-12-31 23:59:00
+            {% else %}
+              {{ end_value }}
+            {% endif %}
+          climates: >-
+            {{ integration_entities('homematicip_local')
+               | select('match', '^climate\\.') | list }}
+      - service: homematicip_local.enable_away_mode_by_calendar
+        data:
+          end: "{{ end_dt }}"
+          away_temperature: "{{ states('input_number.holiday_temperature') | float }}"
+        target:
+          entity_id: "{{ climates }}"
+
+  - id: holiday_mode_deactivate
+    alias: "Urlaubsmodus deaktivieren"
+    description: >
+      Cancels CCU holiday mode on all HmIP climate entities. The heating
+      profile from the CCU resumes immediately.
+    trigger:
+      - platform: state
+        entity_id: input_boolean.holiday_mode
+        to: "off"
+    action:
+      - variables:
+          climates: >-
+            {{ integration_entities('homematicip_local')
+               | select('match', '^climate\\.') | list }}
+      - service: homematicip_local.disable_away_mode
+        target:
+          entity_id: "{{ climates }}"
