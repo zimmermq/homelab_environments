@@ -23,6 +23,6 @@ data:
   intent_script.yaml: |
 {{ .Files.Get "intent_script.yaml" | indent 4 }}
 {{- range $path, $_ := .Files.Glob "packages/*.yaml" }}
-  {{ $path | base }}: |
+  {{ printf "packages_%s" ($path | base) }}: |
 {{ $.Files.Get $path | indent 4 }}
 {{- end }}

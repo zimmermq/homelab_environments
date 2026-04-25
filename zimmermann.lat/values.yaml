@@ -92,9 +92,15 @@ apps:
                     - -c
                     - |
                       echo "Copying config files from ConfigMap to /config..."
-                      cp /configmap/*.yaml /config/
                       mkdir -p /config/packages
-                      cp /configmap/packages/*.yaml /config/packages/ 2>/dev/null || true
+                      for f in /configmap/*.yaml; do
+                        [ -f "$f" ] || continue
+                        name=$(basename "$f")
+                        case "$name" in
+                          packages_*) cp "$f" "/config/packages/${name#packages_}" ;;
+                          *)          cp "$f" "/config/$name" ;;
+                        esac
+                      done
                       echo "Config files copied successfully"
                   volumeMounts:
                     - name: homeassistant-config-volume
