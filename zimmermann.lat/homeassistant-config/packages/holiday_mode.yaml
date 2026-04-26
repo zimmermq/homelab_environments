@@ -52,9 +52,14 @@ automation:
             {% else %}
               {{ end_value }}
             {% endif %}
+          # Target only HmIP heating groups; individual radiators (HmIP-eTRV-B)
+          # are skipped because the group owns the schedule and CCU Urlaub mode.
+          # Filter by entity attribute `model == HmIP-HEATING` — robust to
+          # entity_id renames.
           climates: >-
             {{ integration_entities('homematicip_local')
-               | select('match', '^climate\\.') | list }}
+               | select('match', '^climate\\.')
+               | select('is_state_attr', 'model', 'HmIP-HEATING') | list }}
       - service: homematicip_local.enable_away_mode_by_calendar
         data:
           end: "{{ end_dt }}"
@@ -73,9 +78,14 @@ automation:
         to: "off"
     action:
       - variables:
+          # Target only HmIP heating groups; individual radiators (HmIP-eTRV-B)
+          # are skipped because the group owns the schedule and CCU Urlaub mode.
+          # Filter by entity attribute `model == HmIP-HEATING` — robust to
+          # entity_id renames.
           climates: >-
             {{ integration_entities('homematicip_local')
-               | select('match', '^climate\\.') | list }}
+               | select('match', '^climate\\.')
+               | select('is_state_attr', 'model', 'HmIP-HEATING') | list }}
       - service: homematicip_local.disable_away_mode
         target:
           entity_id: "{{ climates }}"
