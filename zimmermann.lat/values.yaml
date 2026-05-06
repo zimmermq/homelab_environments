@@ -254,8 +254,6 @@ apps:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Wohnung Wormser Straße Bensheim
               downloads-vodafone:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Vodafone
-              downloads-sim24:
-                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Sim24
               downloads-hrworks:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/HRworks
               downloads-fnz:
@@ -300,16 +298,6 @@ apps:
                 secrets:
                   VODAFONE_EMAIL: /portal-document-downloader/VODAFONE_EMAIL
                   VODAFONE_PASSWORD: /portal-document-downloader/VODAFONE_PASSWORD
-              sim24:
-                enabled: true
-                schedule: "0 5 1 * *"
-                suspend: true
-                flat: true
-                env:
-                  PORTAL: "sim24"
-                secrets:
-                  SIM24_USERNAME: /portal-document-downloader/SIM24_USERNAME
-                  SIM24_PASSWORD: /portal-document-downloader/SIM24_PASSWORD
               hrworks:
                 enabled: true
                 schedule: "0 6 1 * *"
