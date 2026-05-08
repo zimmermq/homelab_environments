@@ -585,6 +585,8 @@ apps:
               cookie-domain: ".zimmermann.lat"
               whitelist-domain: ".zimmermann.lat"
               redirect-url: "https://auth.zimmermann.lat/oauth2/callback"
+              cookie-refresh: "55m"
+              cookie-expire: "168h"
   duplicatiprometheusexporter:
     enabled: false
     argocd:
