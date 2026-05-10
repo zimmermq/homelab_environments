@@ -861,7 +861,7 @@ apps:
                 }
               }
   nextcloud:
-    enabled: true
+    enabled: false
     argocd:
       targetRevision: ~
       helm:
