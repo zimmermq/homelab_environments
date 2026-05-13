@@ -266,6 +266,8 @@ apps:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/PsdBankNuernberg
               downloads-mainova:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Mainova
+              downloads-comdirect:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Comdirect
           portalDocumentDownloader:
             portals:
               treubau:
@@ -365,6 +367,18 @@ apps:
                 secrets:
                   MAINOVA_USERNAME: /portal-document-downloader/MAINOVA_USERNAME
                   MAINOVA_PASSWORD: /portal-document-downloader/MAINOVA_PASSWORD
+              comdirect:
+                enabled: true
+                schedule: "0 11 1 * *"
+                suspend: true
+                flat: true
+                env:
+                  PORTAL: "comdirect"
+                secrets:
+                  COMDIRECT_ZUGANGSNUMMER: /portal-document-downloader/COMDIRECT_ZUGANGSNUMMER
+                  COMDIRECT_PIN: /portal-document-downloader/COMDIRECT_PIN
+                  COMDIRECT_CLIENT_ID: /portal-document-downloader/COMDIRECT_CLIENT_ID
+                  COMDIRECT_CLIENT_SECRET: /portal-document-downloader/COMDIRECT_CLIENT_SECRET
   pytr:
     enabled: true
     argocd:
