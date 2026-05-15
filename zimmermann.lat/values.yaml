@@ -495,6 +495,11 @@ apps:
             configMaps:
               radicale-config-files:
                 rights: |
+                  [root]
+                  user = .+
+                  collection =
+                  permissions = R
+
                   [owner-full-access]
                   user = .+
                   collection = {user}(/.*)?
