@@ -481,6 +481,29 @@ apps:
               pvcMounts:
                 tokens:
                   hostPath: /mnt/tank1/unencrypted/apps/tgtg/tokens
+  radicale:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values:
+          generic:
+            deployment:
+              pvcMounts:
+                data:
+                  hostPath: /mnt/tank1/encrypted/apps/radicale/data
+            configMaps:
+              radicale-config-files:
+                rights: |
+                  [owner-full-access]
+                  user = .+
+                  collection = {user}(/.*)?
+                  permissions = RrWw
+
+                  [tatjana-access-shared]
+                  user = tatjana
+                  collection = michael/shared-(contacts|calendar)
+                  permissions = RrWw
   vaultwarden:
     enabled: true
     argocd:
