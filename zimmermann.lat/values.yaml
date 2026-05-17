@@ -18,10 +18,54 @@ global:
   letsencrypt:
     email: "michael@zimmermann.lat"
 
-  oauth2_proxy:
-    # https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_A6gtz8gw5/.well-known/openid-configuration
-    oidc_issuer_url: "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_A6gtz8gw5"
-    oidc_client_id: "5vmqlfbdhdrma83s40bnrbb59i"
+  # OIDC provider for the Gateway-level SecurityPolicy.oidc. The Envoy OAuth2
+  # filter signs cookies with one HMAC and shares them across *.zimmermann.lat
+  # via cookieDomain, so a single Cognito callback URL covers every protected
+  # subdomain. Reuses the existing Cognito app client.
+  oidc:
+    issuerUrl: "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_A6gtz8gw5"
+    clientId: "5vmqlfbdhdrma83s40bnrbb59i"
+    cookieDomain: "zimmermann.lat"   # NO leading dot — Envoy rejects it
+
+  # Cloudflare Authenticated Origin Pulls. The Gateway has two HTTPS listener
+  # pairs: a LAN-only one on :443 (reachable only because the router doesn't
+  # NAT WAN traffic to it) and a Cloudflare-only one on :4443 requiring mTLS.
+  # Cloudflare presents a leaf cert signed by the CA below; Envoy validates it.
+  # ca.key is kept offline — the cluster only ever holds this public ca.crt.
+  security:
+    cloudflareOriginCA: |
+      -----BEGIN CERTIFICATE-----
+      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
+      ZHrX
+      -----END CERTIFICATE-----
 
   argocd:
     targetRevision: main
@@ -618,29 +662,15 @@ apps:
       targetRevision: ~
       helm:
         values: {}
-  traefik:
+  envoy-gateway:
     enabled: true
     argocd:
       targetRevision: ~
       helm:
         values:
-          generic:
-            persistentVolumeClaims:
-              data:
-                hostPath: /mnt/tank1/unencrypted/apps/traefik/data
+          additionalExposedPorts:
+            dns: null  # AdGuard not deployed here; remove the chart default to avoid an unprogrammable UDP listener
           loadBalancerIP: 192.168.0.80
-          middlewares:
-            cloudflare:
-              allowedCIDRs:
-                - 192.168.0.0/24
-          oauth2-proxy:
-            extraArgs:
-              oidc-issuer-url: "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_A6gtz8gw5"
-              cookie-domain: ".zimmermann.lat"
-              whitelist-domain: ".zimmermann.lat"
-              redirect-url: "https://auth.zimmermann.lat/oauth2/callback"
-              cookie-refresh: "55m"
-              cookie-expire: "168h"
   duplicatiprometheusexporter:
     enabled: false
     argocd:
