@@ -662,6 +662,11 @@ apps:
       targetRevision: ~
       helm:
         values: {}
+  cert-manager:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm: {}
   envoy-gateway:
     enabled: true
     argocd:
