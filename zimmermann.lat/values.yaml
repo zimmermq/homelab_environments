@@ -299,6 +299,8 @@ apps:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Mainova
               downloads-comdirect:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Comdirect
+              downloads-neodigital:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Neodigital
           portalDocumentDownloader:
             portals:
               treubau:
@@ -410,6 +412,16 @@ apps:
                   COMDIRECT_PIN: /portal-document-downloader/COMDIRECT_PIN
                   COMDIRECT_CLIENT_ID: /portal-document-downloader/COMDIRECT_CLIENT_ID
                   COMDIRECT_CLIENT_SECRET: /portal-document-downloader/COMDIRECT_CLIENT_SECRET
+              neodigital:
+                enabled: true
+                schedule: "0 12 1 * *"
+                suspend: true
+                flat: true
+                env:
+                  PORTAL: "neodigital"
+                secrets:
+                  NEODIGITAL_USERNAME: /portal-document-downloader/NEODIGITAL_USERNAME
+                  NEODIGITAL_PASSWORD: /portal-document-downloader/NEODIGITAL_PASSWORD
   pytr:
     enabled: true
     argocd:
