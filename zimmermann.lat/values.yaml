@@ -190,19 +190,6 @@ apps:
             host: mail.your-server.de
             username: michael@zimmermann.lat
             from: Immich Photo Server <michael@zimmermann.lat>
-  smarthome3:
-    enabled: false
-    argocd:
-      targetRevision: ~
-      helm:
-        values:
-          generic:
-            configMaps:
-              smarthome3-config-map:
-                HUE_IP: ""
-                MQTT_URL: "tcp://mosquitto-service:1883"
-                HOME_ASSISTANT_IP: "ws://homeassistant-service:8123"
-                spring.profiles.active: "michael"
   smarthome4-ui:
     enabled: true
     argocd:
