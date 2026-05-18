@@ -16,9 +16,17 @@ global:
   letsencrypt:
     email: "michael@zimmermann.lat"
 
-  oauth2_proxy:
-    oidc_issuer_url: "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_A6gtz8gw5"
-    oidc_client_id: "5vmqlfbdhdrma83s40bnrbb59i"
+  # Envoy Gateway native OIDC (AWS Cognito). Reuses the shared Cognito app
+  # client — the auth.raspi.zimmermann.lat callback is already registered on
+  # it (the old oauth2-proxy used the same one).
+  oidc:
+    issuerUrl: "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_A6gtz8gw5"
+    clientId: "5vmqlfbdhdrma83s40bnrbb59i"
+    cookieDomain: "raspi.zimmermann.lat"   # NO leading dot — Envoy rejects it
+
+  # No global.security.cloudflareOriginCA on purpose: raspi is LAN-only
+  # (grey-cloud DNS, LAN IP). The gateway then runs with just the LAN listener
+  # — no public/mTLS listener, no router NAT, no Cloudflare AOP needed.
 
   argocd:
     targetRevision: main
@@ -49,24 +57,22 @@ apps:
       targetRevision: ~
       helm:
         values: {}
-  traefik:
+  cert-manager:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values: {}
+  envoy-gateway:
     enabled: true
     argocd:
       targetRevision: ~
       helm:
         values:
-          generic:
-            persistentVolumeClaims:
-              data:
-                hostPath: /mnt/data/apps/traefik
           loadBalancerIP: 192.168.0.91
-          middlewares:
-            cloudflare:
-              allowedCIDRs:
-                - 192.168.0.0/24
-          oauth2-proxy:
-            extraArgs:
-              oidc-issuer-url: "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_A6gtz8gw5"
-              cookie-domain: ".raspi.zimmermann.lat"
-              whitelist-domain: ".raspi.zimmermann.lat"
-              redirect-url: "https://auth.raspi.zimmermann.lat/oauth2/callback"
+          additionalExposedPorts:
+            # Keep the chart-default dns listener (53/UDP) — AdGuard's UDPRoute
+            # attaches to it. sftpgo/ftp/samba defaults removed; unused here.
+            sftpgo: null
+            ftp: null
+            samba: null
