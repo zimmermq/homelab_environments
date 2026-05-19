@@ -301,6 +301,10 @@ apps:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Comdirect
               downloads-neodigital:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Neodigital
+              downloads-pkdw:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Tatjana/PKDW
+              downloads-bvv:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/BVV
           portalDocumentDownloader:
             portals:
               treubau:
@@ -422,6 +426,26 @@ apps:
                 secrets:
                   NEODIGITAL_USERNAME: /portal-document-downloader/NEODIGITAL_USERNAME
                   NEODIGITAL_PASSWORD: /portal-document-downloader/NEODIGITAL_PASSWORD
+              pkdw:
+                enabled: true
+                schedule: "0 13 1 * *"
+                suspend: true
+                flat: true
+                env:
+                  PORTAL: "pkdw"
+                secrets:
+                  PKDW_EMAIL: /portal-document-downloader/PKDW_EMAIL
+                  PKDW_PASSWORD: /portal-document-downloader/PKDW_PASSWORD
+              bvv:
+                enabled: true
+                schedule: "0 14 1 * *"
+                suspend: true
+                flat: true
+                env:
+                  PORTAL: "bvv"
+                secrets:
+                  BVV_EMAIL: /portal-document-downloader/BVV_EMAIL
+                  BVV_PASSWORD: /portal-document-downloader/BVV_PASSWORD
   pytr:
     enabled: true
     argocd:
