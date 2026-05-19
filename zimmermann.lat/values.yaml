@@ -694,11 +694,19 @@ apps:
     enabled: true
     argocd:
       targetRevision: ~
+      # Gateway CR + all envoy-gateway resources live here; global.gateway.namespace
+      # is derived from this, so every app's HTTPRoute follows automatically.
+      # The &envoyNamespace anchor is reused below for the controller, so the
+      # namespace is written exactly once.
+      namespace: &envoyNamespace "envoy-gateway"
       helm:
         values:
           additionalExposedPorts:
             dns: null  # AdGuard not deployed here; remove the chart default to avoid an unprogrammable UDP listener
           loadBalancerIP: 192.168.0.80
+          # Controller + proxy fleet share the gateway's namespace (retires envoy-gateway-system).
+          envoyGateway:
+            namespace: *envoyNamespace
   duplicatiprometheusexporter:
     enabled: false
     argocd:
