@@ -68,7 +68,7 @@ global:
       -----END CERTIFICATE-----
 
   argocd:
-    targetRevision: main
+    targetRevision: envoy-migration-followups
 
 apps:
   mosquitto:
