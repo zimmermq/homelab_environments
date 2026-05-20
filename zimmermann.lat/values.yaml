@@ -67,6 +67,20 @@ global:
       ZHrX
       -----END CERTIFICATE-----
 
+  # Gateway LB IP — single source of truth. Pins Envoy's proxy Service via
+  # spec.addresses, and is also the IP the lanDnsCheck probe expects internal
+  # DNS to return for *.zimmermann.lat.
+  gateway:
+    loadBalancerIP: "192.168.0.80"
+
+  # Monitor that AdGuard still resolves *.zimmermann.lat to the gateway LB IP.
+  # Activates: a dns_lan_gateway module in blackbox-exporter, a Probe against
+  # dnsServer, and a LanInternalDnsBroken alert when the answer is not
+  # global.gateway.loadBalancerIP. Catches silent LAN→Cloudflare hairpinning.
+  lanDnsCheck:
+    dnsServer: "192.168.0.91"           # AdGuard
+    queryName: "argocd.zimmermann.lat"  # any hostname covered by the wildcard rewrite
+
   argocd:
     targetRevision: envoy-migration-followups
 
@@ -703,7 +717,7 @@ apps:
         values:
           additionalExposedPorts:
             dns: null  # AdGuard not deployed here; remove the chart default to avoid an unprogrammable UDP listener
-          loadBalancerIP: 192.168.0.80
+          # loadBalancerIP is now set in global.gateway.loadBalancerIP (single source of truth).
           # Controller + proxy fleet share the gateway's namespace (retires envoy-gateway-system).
           envoyGateway:
             namespace: *envoyNamespace
