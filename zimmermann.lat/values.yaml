@@ -692,7 +692,6 @@ apps:
                 writeList: ["@admin"]
             avahi:
               enabled: true
-              publishIP: "192.168.0.80"
   cloudflareddns:
     enabled: true
     argocd:
