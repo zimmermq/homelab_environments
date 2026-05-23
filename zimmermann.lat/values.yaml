@@ -319,6 +319,8 @@ apps:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Tatjana/PKDW
               downloads-bvv:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/BVV
+              downloads-entega:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Entega
           portalDocumentDownloader:
             portals:
               treubau:
@@ -460,6 +462,16 @@ apps:
                 secrets:
                   BVV_EMAIL: /portal-document-downloader/BVV_EMAIL
                   BVV_PASSWORD: /portal-document-downloader/BVV_PASSWORD
+              entega:
+                enabled: true
+                schedule: "0 15 1 * *"
+                suspend: true
+                flat: true
+                env:
+                  PORTAL: "entega"
+                secrets:
+                  ENTEGA_USERNAME: /portal-document-downloader/ENTEGA_USERNAME
+                  ENTEGA_PASSWORD: /portal-document-downloader/ENTEGA_PASSWORD
   pytr:
     enabled: true
     argocd:
