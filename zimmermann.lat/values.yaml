@@ -5,6 +5,11 @@ global:
     cluster-name: zimmermann.lat
     ip-range: 192.168.0.80-192.168.0.90
 
+  # No kube-prometheus-stack in this environment — suppress all
+  # monitoring.coreos.com resources to avoid CRD-not-found sync errors.
+  monitoring:
+    enabled: false
+
   domain: "zimmermann.lat"
 
   akeyless:
