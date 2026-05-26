@@ -28,6 +28,12 @@ global:
   # (grey-cloud DNS, LAN IP). The gateway then runs with just the LAN listener
   # — no public/mTLS listener, no router NAT, no Cloudflare AOP needed.
 
+  # Gateway LB IP — single source of truth. Pins Envoy's proxy Service via
+  # spec.addresses; without this the IP would just be whatever MetalLB happens
+  # to hand out first from global.cluster.ip-range.
+  gateway:
+    loadBalancerIP: "192.168.0.91"
+
   argocd:
     targetRevision: main
 
@@ -69,7 +75,7 @@ apps:
       targetRevision: ~
       helm:
         values:
-          loadBalancerIP: 192.168.0.91
+          # loadBalancerIP is now set in global.gateway.loadBalancerIP (single source of truth).
           additionalExposedPorts:
             # Keep the chart-default dns listener (53/UDP) — AdGuard's UDPRoute
             # attaches to it. sftpgo/ftp/samba defaults removed; unused here.
