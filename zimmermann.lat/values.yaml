@@ -82,7 +82,7 @@ global:
     queryName: "argocd.zimmermann.lat"  # any hostname covered by the wildcard rewrite
 
   argocd:
-    targetRevision: envoy-migration-followups
+    targetRevision: main
 
 apps:
   mosquitto:
