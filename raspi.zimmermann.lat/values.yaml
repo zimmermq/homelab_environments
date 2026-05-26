@@ -10,6 +10,11 @@ global:
     path: "/raspi.zimmermann.lat"
   email: "michael@zimmermann.lat"
 
+  # No kube-prometheus-stack in this environment — suppress all
+  # monitoring.coreos.com resources to avoid CRD-not-found sync errors.
+  monitoring:
+    enabled: false
+
   cloudflare:
     email: "michael@zimmermann.lat"
 
