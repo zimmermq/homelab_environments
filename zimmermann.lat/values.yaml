@@ -598,6 +598,14 @@ apps:
                   collection = {user}(/.*)?
                   permissions = RrWw
 
+                  # Lets any authenticated user PROPFIND /michael/ to discover shared
+                  # collections (DAVx5 etc.). R is metadata-only — items in private
+                  # collections (calendar, contacts) stay gated by the rules below.
+                  [discover-michael]
+                  user = .+
+                  collection = michael
+                  permissions = R
+
                   [tatjana-shared-calendar]
                   user = tatjana
                   collection = michael/shared-calendar
