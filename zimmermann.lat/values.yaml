@@ -598,9 +598,19 @@ apps:
                   collection = {user}(/.*)?
                   permissions = RrWw
 
-                  [tatjana-access-shared]
+                  [tatjana-shared-calendar]
                   user = tatjana
-                  collection = michael/shared-(contacts|calendar)
+                  collection = michael/shared-calendar
+                  permissions = RrWw
+
+                  [tatjana-shared-tatjanamichael-contacts]
+                  user = tatjana
+                  collection = michael/shared-tatjanamichael-contacts
+                  permissions = RrWw
+
+                  [family-shared-contacts]
+                  user = tatjana
+                  collection = michael/shared-family-contacts
                   permissions = RrWw
   vaultwarden:
     enabled: true
