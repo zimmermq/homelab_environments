@@ -620,6 +620,12 @@ apps:
                   user = tatjana
                   collection = michael/shared-family-contacts
                   permissions = RrWw
+  infcloud:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values: {}
   vaultwarden:
     enabled: true
     argocd:
