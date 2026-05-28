@@ -625,7 +625,12 @@ apps:
     argocd:
       targetRevision: ~
       helm:
-        values: {}
+        values:
+          generic:
+            # michael owns the principal that holds the shared collections
+            # tatjana is granted access to via apps/radicale rights file.
+            additionalResources:
+              - michael
   vaultwarden:
     enabled: true
     argocd:
