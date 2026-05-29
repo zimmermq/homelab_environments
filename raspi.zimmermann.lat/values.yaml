@@ -95,3 +95,33 @@ apps:
             samba: null
           envoyGateway:
             namespace: *envoyNamespace
+  beszel:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values:
+          generic:
+            deployment:
+              pvcMounts:
+                data:
+                  hostPath: /mnt/data/apps/beszel/data
+          # microk8s exposes its containerd socket here, not the standard
+          # /var/run/docker.sock. Beszel's agent still falls back to host
+          # CPU/RAM/disk metrics if the mount type doesn't match.
+          agent:
+            enabled: true
+            containerSocket: /var/snap/microk8s/common/run/containerd.sock
+  homer:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values: {}
+    additionalLinks:
+      githubEnvironments:
+        name: "Environments"
+        group: "infrastructure"
+        subtitle: "GitHub"
+        logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/github.svg"
+        url: "https://github.com/zimmermq/homelab_environments"
