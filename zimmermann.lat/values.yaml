@@ -479,6 +479,9 @@ apps:
       helm:
         values:
           generic:
+            configMaps:
+              c24-document-downloader-config:
+                C24_FLAT_STRUCTURE: "true"
             deployment:
               pvcMounts:
                 downloads:
