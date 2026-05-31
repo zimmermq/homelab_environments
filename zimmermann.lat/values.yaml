@@ -485,7 +485,7 @@ apps:
             deployment:
               pvcMounts:
                 downloads:
-                  hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/C24Bank
+                  hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/C24
   pytr:
     enabled: true
     argocd:
