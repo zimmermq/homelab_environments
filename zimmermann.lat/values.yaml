@@ -472,6 +472,17 @@ apps:
                 secrets:
                   ENTEGA_USERNAME: /portal-document-downloader/ENTEGA_USERNAME
                   ENTEGA_PASSWORD: /portal-document-downloader/ENTEGA_PASSWORD
+  c24-document-downloader:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values:
+          generic:
+            deployment:
+              pvcMounts:
+                downloads:
+                  hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/C24Bank
   pytr:
     enabled: true
     argocd:
