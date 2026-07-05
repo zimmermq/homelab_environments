@@ -184,10 +184,7 @@ apps:
   immich:
     enabled: true
     argocd:
-      # immich VectorChord migration, Phase B: server/ML/CLI on v3.0.1, which runs
-      # the one-way vectors -> vchord migration on first startup. Reset to ~ after
-      # merging immich-v3-vectorchord into homelab-iac main.
-      targetRevision: immich-v3-vectorchord
+      targetRevision: ~
       helm:
         values:
           generic:
