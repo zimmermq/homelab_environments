@@ -184,9 +184,7 @@ apps:
   immich:
     enabled: true
     argocd:
-      # Pinned to the immich VectorChord migration, Phase A (Postgres image swap,
-      # server still v2.7.5). Move to branch immich-v3-vectorchord for Phase A+B.
-      targetRevision: 1713fe757743c042a0daa594d07732fd134acc75
+      targetRevision: ~
       helm:
         values:
           generic:
