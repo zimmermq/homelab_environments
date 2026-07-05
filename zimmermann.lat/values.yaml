@@ -184,9 +184,10 @@ apps:
   immich:
     enabled: true
     argocd:
-      # Pinned to the immich VectorChord migration, Phase A (Postgres image swap,
-      # server still v2.7.5). Move to branch immich-v3-vectorchord for Phase A+B.
-      targetRevision: 1713fe757743c042a0daa594d07732fd134acc75
+      # immich VectorChord migration, Phase B: server/ML/CLI on v3.0.1, which runs
+      # the one-way vectors -> vchord migration on first startup. Reset to ~ after
+      # merging immich-v3-vectorchord into homelab-iac main.
+      targetRevision: immich-v3-vectorchord
       helm:
         values:
           generic:
