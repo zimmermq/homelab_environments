@@ -1,0 +1,149 @@
+# Irrigation (Bewässerung)
+#
+# Weather-aware, soil-guarded irrigation for the Sonoff dual valve.
+#
+# Roles:
+#   - Smart Irrigation (UI-configured, HACS): computes each zone's watering
+#     duration from evapotranspiration incl. rainfall. Its per-zone duration is
+#     injected into the run below via the adjust_time `actual:` field.
+#   - Irrigation Unlimited (this file): schedules and runs the valves as one
+#     sequence, zone after zone — never both at once (shared supply).
+#   - Soil sensors (H01/H02 -> Zone A avg, H03 -> Zone B): veto + dry alarm.
+#     A zone whose soil already sits at/above its target is skipped for the day.
+#
+# Zone map:
+#   Zone A -> switch.sonoff_valve_1, soil = mean(H01, H02)
+#   Zone B -> switch.sonoff_valve_2, soil = sensor.h03_soil_moisture
+#
+# Control model:
+#   Irrigation Unlimited owns the static schedule (start time + base duration).
+#   Dynamic behaviour (skip when wet / master off, and later the Smart
+#   Irrigation duration) is applied via the irrigation_unlimited.adjust_time
+#   service in the pre-run automation. Config values in irrigation_unlimited are
+#   static — only service-call fields accept templates.
+#
+# Start time is the schedule `time` below. The pre-run automation fires five
+# minutes earlier; keep that lead if you change the start time.
+
+input_boolean:
+  irrigation_enable:
+    name: "Bewässerung aktiv"
+    icon: mdi:water-pump
+
+input_number:
+  # Skip a zone when its soil moisture already sits at/above this value.
+  irrigation_zone_a_soil_target:
+    name: "Bewässerung Zone A - Boden-Zielwert"
+    min: 0
+    max: 100
+    step: 1
+    initial: 40
+    unit_of_measurement: "%"
+    icon: mdi:water-percent
+  irrigation_zone_b_soil_target:
+    name: "Bewässerung Zone B - Boden-Zielwert"
+    min: 0
+    max: 100
+    step: 1
+    initial: 40
+    unit_of_measurement: "%"
+    icon: mdi:water-percent
+
+sensor:
+  - platform: min_max
+    name: "Zone A Soil Moisture Avg"
+    type: mean
+    round_digits: 0
+    entity_ids:
+      - sensor.h01_soil_moisture
+      - sensor.h02_soil_moisture
+
+irrigation_unlimited:
+  controllers:
+    - name: "Garten"
+      zones:
+        - name: "Zone A"
+          entity_id: switch.sonoff_valve_1
+          # Hard cap: force-closes the valve regardless of requested duration.
+          maximum: "00:20:00"
+        - name: "Zone B"
+          entity_id: switch.sonoff_valve_2
+          maximum: "00:20:00"
+      sequences:
+        - name: "Bewässerungslauf"
+          schedules:
+            - name: "Start"
+              time: "05:30"
+          zones:
+            # Base run time per zone. adjust_time scales this to 0% (skip) or
+            # 100% each morning, and later to the Smart Irrigation duration.
+            - zone_id: 1
+              duration: "00:05:00"
+            - zone_id: 2
+              duration: "00:05:00"
+
+automation:
+  - id: irrigation_pre_run_adjust
+    alias: "Bewässerung - Lauf vorbereiten (Boden-Veto)"
+    description: >
+      Runs five minutes before the scheduled sequence. Sets each sequence zone
+      to 100% (water) when the master switch is on and the zone's soil is below
+      its target, otherwise 0% (skip). To let Smart Irrigation drive the run
+      time, replace the 100 with its per-zone duration via `actual:` instead of
+      `percentage:`.
+    mode: single
+    trigger:
+      - platform: time
+        at: "05:25:00"
+    action:
+      - service: irrigation_unlimited.adjust_time
+        data:
+          entity_id: binary_sensor.irrigation_unlimited_c1_m
+          sequence_id: 1
+          zones: [1]
+          percentage: >-
+            {% set soil = states('sensor.zone_a_soil_moisture_avg') | float(0) %}
+            {% set target = states('input_number.irrigation_zone_a_soil_target') | float(100) %}
+            {{ 100 if (is_state('input_boolean.irrigation_enable', 'on') and soil < target) else 0 }}
+      - service: irrigation_unlimited.adjust_time
+        data:
+          entity_id: binary_sensor.irrigation_unlimited_c1_m
+          sequence_id: 1
+          zones: [2]
+          percentage: >-
+            {% set soil = states('sensor.h03_soil_moisture') | float(0) %}
+            {% set target = states('input_number.irrigation_zone_b_soil_target') | float(100) %}
+            {{ 100 if (is_state('input_boolean.irrigation_enable', 'on') and soil < target) else 0 }}
+
+  - id: irrigation_dry_alarm
+    alias: "Bewässerung - Trockenalarm"
+    description: >
+      Warns when a zone's soil is still below its target well after the daily
+      watering window — a sign the line is clogged, the supply is empty, a valve
+      is stuck, or a soil sensor has failed. A zone skipped because it was
+      already wet sits above target, so it does not alarm.
+    mode: single
+    trigger:
+      - platform: time
+        at: "09:00:00"
+    condition:
+      - condition: state
+        entity_id: input_boolean.irrigation_enable
+        state: "on"
+    action:
+      - variables:
+          zone_a_soil: "{{ states('sensor.zone_a_soil_moisture_avg') | float(0) }}"
+          zone_a_target: "{{ states('input_number.irrigation_zone_a_soil_target') | float(100) }}"
+          zone_b_soil: "{{ states('sensor.h03_soil_moisture') | float(0) }}"
+          zone_b_target: "{{ states('input_number.irrigation_zone_b_soil_target') | float(100) }}"
+          dry_zones: >-
+            {{ (['Zone A'] if zone_a_soil < zone_a_target else [])
+             + (['Zone B'] if zone_b_soil < zone_b_target else []) }}
+      - condition: template
+        value_template: "{{ dry_zones | length > 0 }}"
+      - service: notify.ALL_DEVICES
+        data:
+          title: "Bewässerung: Boden noch trocken"
+          message: >-
+            {{ dry_zones | join(' und ') }} liegt nach dem Bewässerungsfenster
+            noch unter dem Zielwert. Wasserzufuhr, Ventil oder Bodensensor prüfen.
