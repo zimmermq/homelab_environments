@@ -86,11 +86,10 @@ automation:
   - id: irrigation_pre_run_adjust
     alias: "Bewässerung - Lauf vorbereiten (Boden-Veto)"
     description: >
-      Runs five minutes before the scheduled sequence. Sets each sequence zone
-      to 100% (water) when the master switch is on and the zone's soil is below
-      its target, otherwise 0% (skip). To let Smart Irrigation drive the run
-      time, replace the 100 with its per-zone duration via `actual:` instead of
-      `percentage:`.
+      Runs five minutes before the scheduled sequence. Sets each sequence zone's
+      run time to the Smart Irrigation duration (evapotranspiration incl. rain),
+      or to zero when the master switch is off or the zone's soil already meets
+      its target.
     mode: single
     trigger:
       - platform: time
@@ -101,19 +100,23 @@ automation:
           entity_id: binary_sensor.irrigation_unlimited_c1_m
           sequence_id: 1
           zones: [1]
-          percentage: >-
+          actual: >-
             {% set soil = states('sensor.zone_a_soil_moisture_avg') | float(0) %}
             {% set target = states('input_number.irrigation_zone_a_soil_target') | float(100) %}
-            {{ 100 if (is_state('input_boolean.irrigation_enable', 'on') and soil < target) else 0 }}
+            {% set on = is_state('input_boolean.irrigation_enable', 'on') %}
+            {% set secs = states('sensor.smart_irrigation_zone_a') | int(0) %}
+            {{ timedelta(seconds=(secs if (on and soil < target) else 0)) }}
       - service: irrigation_unlimited.adjust_time
         data:
           entity_id: binary_sensor.irrigation_unlimited_c1_m
           sequence_id: 1
           zones: [2]
-          percentage: >-
+          actual: >-
             {% set soil = states('sensor.h03_soil_moisture') | float(0) %}
             {% set target = states('input_number.irrigation_zone_b_soil_target') | float(100) %}
-            {{ 100 if (is_state('input_boolean.irrigation_enable', 'on') and soil < target) else 0 }}
+            {% set on = is_state('input_boolean.irrigation_enable', 'on') %}
+            {% set secs = states('sensor.smart_irrigation_zone_b') | int(0) %}
+            {{ timedelta(seconds=(secs if (on and soil < target) else 0)) }}
 
   - id: irrigation_dry_alarm
     alias: "Bewässerung - Trockenalarm"
@@ -147,3 +150,38 @@ automation:
           message: >-
             {{ dry_zones | join(' und ') }} liegt nach dem Bewässerungsfenster
             noch unter dem Zielwert. Wasserzufuhr, Ventil oder Bodensensor prüfen.
+
+  - id: irrigation_si_reset_bucket
+    alias: "Bewässerung - Smart Irrigation Bucket zurücksetzen"
+    description: >
+      Resets a zone's Smart Irrigation bucket right after its valve finishes a
+      run, so the next calculation starts from topped-up soil. A skipped zone's
+      valve never turns on, so its bucket is left untouched.
+    mode: parallel
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.irrigation_unlimited_c1_z1
+        from: "on"
+        to: "off"
+        id: zone_a
+      - platform: state
+        entity_id: binary_sensor.irrigation_unlimited_c1_z2
+        from: "on"
+        to: "off"
+        id: zone_b
+    action:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id: zone_a
+            sequence:
+              - service: smart_irrigation.reset_bucket
+                target:
+                  entity_id: sensor.smart_irrigation_zone_a
+          - conditions:
+              - condition: trigger
+                id: zone_b
+            sequence:
+              - service: smart_irrigation.reset_bucket
+                target:
+                  entity_id: sensor.smart_irrigation_zone_b
