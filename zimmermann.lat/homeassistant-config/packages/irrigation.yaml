@@ -65,10 +65,10 @@ irrigation_unlimited:
         - name: "Zone A"
           entity_id: switch.sonoff_valve_1
           # Hard cap: force-closes the valve regardless of requested duration.
-          maximum: "00:20:00"
+          maximum: "00:40:00"
         - name: "Zone B"
           entity_id: switch.sonoff_valve_2
-          maximum: "00:20:00"
+          maximum: "00:40:00"
       sequences:
         - name: "Bewässerungslauf"
           schedules:
@@ -185,3 +185,45 @@ automation:
               - service: smart_irrigation.reset_bucket
                 target:
                   entity_id: sensor.smart_irrigation_zone_b
+
+  - id: irrigation_valve_watchdog
+    alias: "Bewässerung - Ventil-Watchdog (45 min)"
+    description: >
+      Hard safety net: force-closes a valve that has stayed open for 45 minutes
+      straight, then notifies. Backs up Irrigation Unlimited's own cap and
+      requires Home Assistant to be running; the valve's device-side manual
+      fail-safe covers the case where HA itself is down.
+    mode: parallel
+    trigger:
+      - platform: state
+        entity_id: switch.sonoff_valve_1
+        to: "on"
+        for: "00:45:00"
+        id: valve_1
+      - platform: state
+        entity_id: switch.sonoff_valve_2
+        to: "on"
+        for: "00:45:00"
+        id: valve_2
+    action:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id: valve_1
+            sequence:
+              - service: switch.turn_off
+                target:
+                  entity_id: switch.sonoff_valve_1
+          - conditions:
+              - condition: trigger
+                id: valve_2
+            sequence:
+              - service: switch.turn_off
+                target:
+                  entity_id: switch.sonoff_valve_2
+      - service: notify.ALL_DEVICES
+        data:
+          title: "Bewässerung: Not-Aus (45 min)"
+          message: >-
+            Ein Ventil lief über 45 Minuten und wurde zwangsweise geschlossen.
+            Bitte Ventil, Zeitplan und Wasserzufuhr prüfen.
