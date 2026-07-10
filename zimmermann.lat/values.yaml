@@ -506,7 +506,7 @@ apps:
               suspend: true
             download:
               schedule: "0 2 1 * *"
-              suspend: false
+              suspend: true
   pytr-tatjana:
     enabled: true
     argocd:
@@ -531,7 +531,7 @@ apps:
               suspend: true
             download:
               schedule: "0 2 1 * *"
-              suspend: false
+              suspend: true
   postgres:
     enabled: true
     argocd:
