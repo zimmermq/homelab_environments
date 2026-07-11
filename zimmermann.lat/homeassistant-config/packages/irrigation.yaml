@@ -16,11 +16,12 @@
 #   Zone B -> switch.sonoff_valve_2, soil = sensor.h03_soil_moisture
 #
 # Control model:
-#   Irrigation Unlimited owns the static schedule (start time + base duration).
-#   Dynamic behaviour (skip when wet / master off, and later the Smart
-#   Irrigation duration) is applied via the irrigation_unlimited.adjust_time
-#   service in the pre-run automation. Config values in irrigation_unlimited are
-#   static — only service-call fields accept templates.
+#   Irrigation Unlimited owns the schedule and runs the valves in sequence. The
+#   05:25 pre-run automation feeds each zone its Smart Irrigation duration (or 0
+#   to skip when wet / master off) via irrigation_unlimited.adjust_time, and sets
+#   the valve's on-device manual_irrigation_duration so the valve self-closes
+#   near the intended time even if Home Assistant is down. Config values in
+#   irrigation_unlimited are static — only service-call fields accept templates.
 #
 # Start time is the schedule `time` below. The pre-run automation fires five
 # minutes earlier; keep that lead if you change the start time.
@@ -64,7 +65,7 @@ irrigation_unlimited:
       zones:
         - name: "Zone A"
           entity_id: switch.sonoff_valve_1
-          # Hard cap: force-closes the valve regardless of requested duration.
+          # In-IU run-time clamp; the valve also self-caps on-device.
           maximum: "00:40:00"
         - name: "Zone B"
           entity_id: switch.sonoff_valve_2
@@ -75,8 +76,8 @@ irrigation_unlimited:
             - name: "Start"
               time: "05:30"
           zones:
-            # Base run time per zone. adjust_time scales this to 0% (skip) or
-            # 100% each morning, and later to the Smart Irrigation duration.
+            # Placeholder duration; the pre-run automation overrides it each day
+            # via adjust_time (Smart Irrigation seconds, or 0 to skip a zone).
             - zone_id: 1
               duration: "00:05:00"
             - zone_id: 2
@@ -98,42 +99,40 @@ automation:
       - platform: time
         at: "05:25:00"
     action:
+      # Each zone's effective run, computed once: the Smart Irrigation duration,
+      # or 0 when the master switch is off or the soil already meets its target.
+      - variables:
+          zone_a_secs: >-
+            {% set on = is_state('input_boolean.irrigation_enable', 'on') %}
+            {% set soil = states('sensor.zone_a_soil_moisture_avg') | float(0) %}
+            {% set target = states('input_number.irrigation_zone_a_soil_target') | float(100) %}
+            {{ (states('sensor.smart_irrigation_zone_a') | int(0)) if (on and soil < target) else 0 }}
+          zone_b_secs: >-
+            {% set on = is_state('input_boolean.irrigation_enable', 'on') %}
+            {% set soil = states('sensor.h03_soil_moisture') | float(0) %}
+            {% set target = states('input_number.irrigation_zone_b_soil_target') | float(100) %}
+            {{ (states('sensor.smart_irrigation_zone_b') | int(0)) if (on and soil < target) else 0 }}
+      # On-device safety cap = longer planned run + margin, clamped 10-45 min.
       - service: number.set_value
         target:
           entity_id: number.sonoff_valve_manual_irrigation_duration
         data:
           value: >-
-            {% set on = is_state('input_boolean.irrigation_enable', 'on') %}
-            {% set a_soil = states('sensor.zone_a_soil_moisture_avg') | float(0) %}
-            {% set a_target = states('input_number.irrigation_zone_a_soil_target') | float(100) %}
-            {% set a_sec = (states('sensor.smart_irrigation_zone_a') | int(0)) if (on and a_soil < a_target) else 0 %}
-            {% set b_soil = states('sensor.h03_soil_moisture') | float(0) %}
-            {% set b_target = states('input_number.irrigation_zone_b_soil_target') | float(100) %}
-            {% set b_sec = (states('sensor.smart_irrigation_zone_b') | int(0)) if (on and b_soil < b_target) else 0 %}
-            {% set minutes = (([a_sec, b_sec] | max) / 60) | round(0, 'ceil') | int + 1 %}
+            {% set minutes = (([zone_a_secs | int(0), zone_b_secs | int(0)] | max) / 60) | round(0, 'ceil') | int + 1 %}
             {{ [10, [minutes, 45] | min] | max }}
+      # Feed each sequence zone its run time (0 seconds = skipped this cycle).
       - service: irrigation_unlimited.adjust_time
         data:
           entity_id: binary_sensor.irrigation_unlimited_c1_m
           sequence_id: 1
           zones: [1]
-          actual: >-
-            {% set soil = states('sensor.zone_a_soil_moisture_avg') | float(0) %}
-            {% set target = states('input_number.irrigation_zone_a_soil_target') | float(100) %}
-            {% set on = is_state('input_boolean.irrigation_enable', 'on') %}
-            {% set secs = states('sensor.smart_irrigation_zone_a') | int(0) %}
-            {{ timedelta(seconds=(secs if (on and soil < target) else 0)) }}
+          actual: "{{ timedelta(seconds=zone_a_secs | int(0)) }}"
       - service: irrigation_unlimited.adjust_time
         data:
           entity_id: binary_sensor.irrigation_unlimited_c1_m
           sequence_id: 1
           zones: [2]
-          actual: >-
-            {% set soil = states('sensor.h03_soil_moisture') | float(0) %}
-            {% set target = states('input_number.irrigation_zone_b_soil_target') | float(100) %}
-            {% set on = is_state('input_boolean.irrigation_enable', 'on') %}
-            {% set secs = states('sensor.smart_irrigation_zone_b') | int(0) %}
-            {{ timedelta(seconds=(secs if (on and soil < target) else 0)) }}
+          actual: "{{ timedelta(seconds=zone_b_secs | int(0)) }}"
 
   - id: irrigation_dry_alarm
     alias: "Bewässerung - Trockenalarm"
