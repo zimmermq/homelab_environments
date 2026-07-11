@@ -89,12 +89,29 @@ automation:
       Runs five minutes before the scheduled sequence. Sets each sequence zone's
       run time to the Smart Irrigation duration (evapotranspiration incl. rain),
       or to zero when the master switch is off or the zone's soil already meets
-      its target.
+      its target. Also sets the valve's on-device manual_irrigation_duration to
+      the day's longest planned run plus a margin (clamped 10-45 min), so losing
+      Home Assistant mid-run closes the valve near the intended time instead of
+      at the 45-minute ceiling.
     mode: single
     trigger:
       - platform: time
         at: "05:25:00"
     action:
+      - service: number.set_value
+        target:
+          entity_id: number.sonoff_valve_manual_irrigation_duration
+        data:
+          value: >-
+            {% set on = is_state('input_boolean.irrigation_enable', 'on') %}
+            {% set a_soil = states('sensor.zone_a_soil_moisture_avg') | float(0) %}
+            {% set a_target = states('input_number.irrigation_zone_a_soil_target') | float(100) %}
+            {% set a_sec = (states('sensor.smart_irrigation_zone_a') | int(0)) if (on and a_soil < a_target) else 0 %}
+            {% set b_soil = states('sensor.h03_soil_moisture') | float(0) %}
+            {% set b_target = states('input_number.irrigation_zone_b_soil_target') | float(100) %}
+            {% set b_sec = (states('sensor.smart_irrigation_zone_b') | int(0)) if (on and b_soil < b_target) else 0 %}
+            {% set minutes = (([a_sec, b_sec] | max) / 60) | round(0, 'ceil') | int + 1 %}
+            {{ [10, [minutes, 45] | min] | max }}
       - service: irrigation_unlimited.adjust_time
         data:
           entity_id: binary_sensor.irrigation_unlimited_c1_m
