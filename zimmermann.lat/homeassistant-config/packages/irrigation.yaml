@@ -38,7 +38,7 @@ input_number:
     min: 0
     max: 100
     step: 1
-    initial: 40
+    initial: 50
     unit_of_measurement: "%"
     icon: mdi:water-percent
   irrigation_zone_b_soil_target:
@@ -46,7 +46,7 @@ input_number:
     min: 0
     max: 100
     step: 1
-    initial: 40
+    initial: 50
     unit_of_measurement: "%"
     icon: mdi:water-percent
 
