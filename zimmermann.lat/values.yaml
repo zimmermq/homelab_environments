@@ -26,6 +26,11 @@ global:
     issuerUrl: "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_A6gtz8gw5"
     clientId: "5vmqlfbdhdrma83s40bnrbb59i"
     cookieDomain: "zimmermann.lat"   # NO leading dot — Envoy rejects it
+    # When set, the gateway-oidc SecurityPolicy forwards the Cognito ID token and
+    # extracts its `email` claim into this request header (via an optional JWT
+    # provider). Enables header-based SSO for backends like Firefly III
+    # (remote_user_guard). Unset -> feature off, gateway behaves as before.
+    emailClaimHeader: "X-Auth-Email"
 
   # Cloudflare Authenticated Origin Pulls. The Gateway has two HTTPS listener
   # pairs: a LAN-only one on :443 (reachable only because the router doesn't
