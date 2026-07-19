@@ -91,6 +91,23 @@ apps:
       targetRevision: ~
       helm:
         values: {}
+  firefly:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values:
+          generic:
+            deployment:
+              pvcMounts:
+                upload:
+                  hostPath: /mnt/tank1/encrypted/apps/firefly/upload
+  firefly-importer:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values: {}
   paperlessgpt:
     enabled: true
     argocd:
