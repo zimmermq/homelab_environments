@@ -107,7 +107,12 @@ apps:
     argocd:
       targetRevision: ~
       helm:
-        values: {}
+        values:
+          generic:
+            deployment:
+              pvcMounts:
+                import:
+                  hostPath: /mnt/tank1/encrypted/apps/firefly-importer/import
   paperlessgpt:
     enabled: true
     argocd:
