@@ -112,7 +112,7 @@ apps:
             deployment:
               pvcMounts:
                 import:
-                  hostPath: /mnt/tank1/encrypted/apps/firefly-importer/import
+                  hostPath: /mnt/tank1/encrypted/apps/firefly/import
   paperlessgpt:
     enabled: true
     argocd:
