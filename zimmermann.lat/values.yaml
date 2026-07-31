@@ -554,6 +554,31 @@ apps:
             download:
               schedule: "0 2 1 * *"
               suspend: true
+  justtrade:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values:
+          generic:
+            persistentVolumeClaims:
+              credentials:
+                hostPath: /mnt/tank1/encrypted/apps/justtrade/credentials
+              downloads:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/justTRADE
+            externalSecrets:
+              justtrade-credentials:
+                # Reuses the shared portal-document-downloader Akeyless namespace.
+                - JUSTTRADE_USERNAME: /portal-document-downloader/JUSTTRADE_USERNAME
+                - JUSTTRADE_PASSWORD: /portal-document-downloader/JUSTTRADE_PASSWORD
+          justtrade:
+            login:
+              schedule: "0 0 1 1 *"
+              suspend: true
+            # Un-suspend once the first login has seeded the refresh token.
+            download:
+              schedule: "0 2 1 * *"
+              suspend: true
   postgres:
     enabled: true
     argocd:
