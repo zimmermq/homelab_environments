@@ -91,10 +91,11 @@ apps:
       targetRevision: ~
       helm:
         values: {}
+  # Firefly stack is defined in homelab-iac base-chart; the env overlay only enables
+  # it and supplies this cluster's hostPaths.
   firefly:
     enabled: true
     argocd:
-      targetRevision: ~
       helm:
         values:
           generic:
@@ -105,7 +106,6 @@ apps:
   firefly-importer:
     enabled: true
     argocd:
-      targetRevision: ~
       helm:
         values:
           generic:
@@ -115,17 +115,6 @@ apps:
                   hostPath: /mnt/tank1/encrypted/apps/firefly/import
   firefly-sankey:
     enabled: true
-    homer:
-      enabled: true
-      group: "productivity"
-      logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/firefly-iii.svg"
-      subtitle: "Sankey money-flow diagrams"
-      displayName: "Firefly Sankey"
-      subdomain: "sankey"
-    argocd:
-      targetRevision: ~
-      helm:
-        values: {}
   paperlessgpt:
     enabled: true
     argocd:
