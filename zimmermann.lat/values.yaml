@@ -115,6 +115,13 @@ apps:
                   hostPath: /mnt/tank1/encrypted/apps/firefly/import
   firefly-sankey:
     enabled: true
+    homer:
+      enabled: true
+      group: "productivity"
+      logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/firefly-iii.svg"
+      subtitle: "Sankey money-flow diagrams"
+      displayName: "Firefly Sankey"
+      subdomain: "sankey"
     argocd:
       targetRevision: ~
       helm:
