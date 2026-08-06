@@ -96,8 +96,16 @@ apps:
   firefly:
     enabled: true
     argocd:
+      targetRevision: feature/firefly-group-authorization
       helm:
         values:
+          # Only these Cognito groups reach Firefly; everyone else gets a 403
+          # from Envoy. Both groups must exist in the pool and have members
+          # before this is merged — Firefly has no other access gate, so an
+          # empty group locks everyone out.
+          sso:
+            allowedGroups:
+              - finance
           generic:
             deployment:
               pvcMounts:
@@ -115,6 +123,19 @@ apps:
                   hostPath: /mnt/tank1/encrypted/apps/firefly/import
   firefly-sankey:
     enabled: true
+  kalibra:
+    enabled: true
+    homer:
+      logo: "https://kalibra.zimmermann.lat/icon-192.png"
+    argocd:
+      helm:
+        values:
+          generic:
+            deployment:
+              pvcMounts:
+                # Holds the whole H2 database, including customer and calibration records.
+                data:
+                  hostPath: /mnt/tank1/encrypted/apps/kalibra/data
   paperlessgpt:
     enabled: true
     argocd:
