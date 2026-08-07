@@ -123,7 +123,7 @@ apps:
   firefly-sankey:
     enabled: true
   kalibra:
-    enabled: true
+    enabled: false
     homer:
       logo: "https://kalibra.zimmermann.lat/icon-192.png"
     argocd:
