@@ -134,6 +134,9 @@ apps:
             deployment:
               pvcMounts:
                 # Holds the whole H2 database, including customer and calibration records.
+                # One-time setup on the host — the app runs as uid 1000 and creates its file here:
+                #   mkdir -p /mnt/tank1/encrypted/apps/kalibra/data
+                #   chown 1000:1000 /mnt/tank1/encrypted/apps/kalibra/data
                 data:
                   hostPath: /mnt/tank1/encrypted/apps/kalibra/data
   paperlessgpt:
@@ -826,7 +829,11 @@ apps:
   envoy-gateway:
     enabled: true
     argocd:
-      targetRevision: ~
+      # Pinned while the per-route group gate is being tested: the gateway policy
+      # on this revision pins the session cookie names and stores the tokens
+      # unencrypted, which is what lets a route's `groups:` check read the ID
+      # token. Unpin once the branch is merged.
+      targetRevision: feature/firefly-group-authorization
       # Gateway CR + all envoy-gateway resources live here; global.gateway.namespace
       # is derived from this, so every app's HTTPRoute follows automatically.
       # The &envoyNamespace anchor is reused below for the controller, so the
