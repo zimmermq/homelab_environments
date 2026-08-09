@@ -366,6 +366,8 @@ apps:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/BVV
               downloads-entega:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Entega
+              downloads-santander:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Santander
           portalDocumentDownloader:
             portals:
               treubau:
@@ -517,6 +519,19 @@ apps:
                 secrets:
                   ENTEGA_USERNAME: /portal-document-downloader/ENTEGA_USERNAME
                   ENTEGA_PASSWORD: /portal-document-downloader/ENTEGA_PASSWORD
+              santander:
+                enabled: true
+                # Every login needs a SantanderSign push approved on the phone —
+                # there is no session to resume — so this stays suspended and is
+                # triggered by hand in ArgoCD, like fnz and psdbank.
+                schedule: "0 16 1 * *"
+                suspend: true
+                flat: true
+                env:
+                  PORTAL: "santander"
+                secrets:
+                  SANTANDER_USERNAME: /portal-document-downloader/SANTANDER_USERNAME
+                  SANTANDER_PASSWORD: /portal-document-downloader/SANTANDER_PASSWORD
   c24-document-downloader:
     enabled: true
     argocd:
