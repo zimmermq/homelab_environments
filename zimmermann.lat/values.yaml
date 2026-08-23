@@ -829,6 +829,15 @@ apps:
                 writeList: ["@admin"]
             avahi:
               enabled: true
+              # Not the chart default (serverString lowercased, "homeserver").
+              # The publisher runs on hostNetwork, so its avahi-daemon takes the
+              # node's hostname and reserves HomeServer.local for itself — and
+              # the node's own system avahi-daemon shares port 5353 and answers
+              # for it too. avahi-publish-address then collides on that name and
+              # dies on an assertion, so the record pointing at the Samba VIP is
+              # never published. "nas" is unclaimed, so nas.local wins the name
+              # uncontested.
+              hostname: "nas"
   cloudflareddns:
     enabled: true
     argocd:
