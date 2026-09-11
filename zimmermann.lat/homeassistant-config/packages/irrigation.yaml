@@ -1,63 +1,39 @@
 # Irrigation (Bewässerung)
 #
-# Weather-aware, soil-guarded irrigation for the Sonoff dual valve.
+# Weather-aware irrigation for the Sonoff dual valve.
 #
 # Roles:
 #   - Smart Irrigation (UI-configured, HACS): computes each zone's watering
-#     duration from evapotranspiration incl. rainfall. Its per-zone duration is
-#     injected into the run below via the adjust_time `actual:` field.
+#     duration from evapotranspiration incl. rainfall. It is the sole judge of
+#     whether a zone needs water at all - it returns 0 seconds once recent rain
+#     has covered the loss, and a zone with 0 seconds is skipped for the day.
 #   - Irrigation Unlimited (this file): schedules and runs the valves as one
-#     sequence, zone after zone — never both at once (shared supply).
-#   - Soil sensors (H01/H02 -> Zone A avg, H03 -> Zone B): veto + dry alarm.
-#     A zone whose soil already sits at/above its target is skipped for the day.
+#     sequence, zone after zone - never both at once (shared supply).
 #
 # Zone map:
-#   Zone A -> switch.sonoff_valve_1, soil = mean(H01, H02)
-#   Zone B -> switch.sonoff_valve_2, soil = sensor.h03_soil_moisture
+#   Zone A -> switch.sonoff_valve_1
+#   Zone B -> switch.sonoff_valve_2
 #
 # Control model:
 #   Irrigation Unlimited owns the schedule and runs the valves in sequence. The
 #   05:25 pre-run automation feeds each zone its Smart Irrigation duration (or 0
-#   to skip when wet / master off) via irrigation_unlimited.adjust_time, and sets
-#   the valve's on-device manual_irrigation_duration so the valve self-closes
-#   near the intended time even if Home Assistant is down. Config values in
-#   irrigation_unlimited are static — only service-call fields accept templates.
+#   to skip when the master switch is off) via irrigation_unlimited.adjust_time,
+#   and sets the valve's on-device manual_irrigation_duration so the valve
+#   self-closes near the intended time even if Home Assistant is down. Config
+#   values in irrigation_unlimited are static - only service-call fields accept
+#   templates.
 #
 # Start time is the schedule `time` below. The pre-run automation fires five
 # minutes earlier; keep that lead if you change the start time.
+#
+# There is no independent check that water actually reached the ground: a
+# clogged line, an empty supply or a stuck valve is indistinguishable here from
+# a schedule that ran correctly.
 
 input_boolean:
   irrigation_enable:
     name: "Bewässerung aktiv"
     icon: mdi:water-pump
-
-input_number:
-  # Skip a zone when its soil moisture already sits at/above this value.
-  irrigation_zone_a_soil_target:
-    name: "Bewässerung Zone A - Boden-Zielwert"
-    min: 0
-    max: 100
-    step: 1
-    initial: 50
-    unit_of_measurement: "%"
-    icon: mdi:water-percent
-  irrigation_zone_b_soil_target:
-    name: "Bewässerung Zone B - Boden-Zielwert"
-    min: 0
-    max: 100
-    step: 1
-    initial: 50
-    unit_of_measurement: "%"
-    icon: mdi:water-percent
-
-sensor:
-  - platform: min_max
-    name: "Zone A Soil Moisture Avg"
-    type: mean
-    round_digits: 0
-    entity_ids:
-      - sensor.h01_soil_moisture
-      - sensor.h02_soil_moisture
 
 irrigation_unlimited:
   controllers:
@@ -85,33 +61,28 @@ irrigation_unlimited:
 
 automation:
   - id: irrigation_pre_run_adjust
-    alias: "Bewässerung - Lauf vorbereiten (Boden-Veto)"
+    alias: "Bewässerung - Lauf vorbereiten"
     description: >
       Runs five minutes before the scheduled sequence. Sets each sequence zone's
       run time to the Smart Irrigation duration (evapotranspiration incl. rain),
-      or to zero when the master switch is off or the zone's soil already meets
-      its target. Also sets the valve's on-device manual_irrigation_duration to
-      the day's longest planned run plus a margin (clamped 10-45 min), so losing
-      Home Assistant mid-run closes the valve near the intended time instead of
-      at the 45-minute ceiling.
+      or to zero when the master switch is off. Also sets the valve's on-device
+      manual_irrigation_duration to the day's longest planned run plus a margin
+      (clamped 10-45 min), so losing Home Assistant mid-run closes the valve near
+      the intended time instead of at the 45-minute ceiling.
     mode: single
     trigger:
       - platform: time
         at: "05:25:00"
     action:
-      # Each zone's effective run, computed once: the Smart Irrigation duration,
-      # or 0 when the master switch is off or the soil already meets its target.
+      # Each zone's effective run: the Smart Irrigation duration, or 0 when the
+      # master switch is off.
       - variables:
           zone_a_secs: >-
             {% set on = is_state('input_boolean.irrigation_enable', 'on') %}
-            {% set soil = states('sensor.zone_a_soil_moisture_avg') | float(0) %}
-            {% set target = states('input_number.irrigation_zone_a_soil_target') | float(100) %}
-            {{ (states('sensor.smart_irrigation_zone_a') | int(0)) if (on and soil < target) else 0 }}
+            {{ (states('sensor.smart_irrigation_zone_a') | int(0)) if on else 0 }}
           zone_b_secs: >-
             {% set on = is_state('input_boolean.irrigation_enable', 'on') %}
-            {% set soil = states('sensor.h03_soil_moisture') | float(0) %}
-            {% set target = states('input_number.irrigation_zone_b_soil_target') | float(100) %}
-            {{ (states('sensor.smart_irrigation_zone_b') | int(0)) if (on and soil < target) else 0 }}
+            {{ (states('sensor.smart_irrigation_zone_b') | int(0)) if on else 0 }}
       # On-device safety cap = longer planned run + margin, clamped 10-45 min.
       - service: number.set_value
         target:
@@ -133,39 +104,6 @@ automation:
           sequence_id: 1
           zones: [2]
           actual: "{{ timedelta(seconds=zone_b_secs | int(0)) }}"
-
-  - id: irrigation_dry_alarm
-    alias: "Bewässerung - Trockenalarm"
-    description: >
-      Warns when a zone's soil is still below its target well after the daily
-      watering window — a sign the line is clogged, the supply is empty, a valve
-      is stuck, or a soil sensor has failed. A zone skipped because it was
-      already wet sits above target, so it does not alarm.
-    mode: single
-    trigger:
-      - platform: time
-        at: "09:00:00"
-    condition:
-      - condition: state
-        entity_id: input_boolean.irrigation_enable
-        state: "on"
-    action:
-      - variables:
-          zone_a_soil: "{{ states('sensor.zone_a_soil_moisture_avg') | float(0) }}"
-          zone_a_target: "{{ states('input_number.irrigation_zone_a_soil_target') | float(100) }}"
-          zone_b_soil: "{{ states('sensor.h03_soil_moisture') | float(0) }}"
-          zone_b_target: "{{ states('input_number.irrigation_zone_b_soil_target') | float(100) }}"
-          dry_zones: >-
-            {{ (['Zone A'] if zone_a_soil < zone_a_target else [])
-             + (['Zone B'] if zone_b_soil < zone_b_target else []) }}
-      - condition: template
-        value_template: "{{ dry_zones | length > 0 }}"
-      - service: notify.ALL_DEVICES
-        data:
-          title: "Bewässerung: Boden noch trocken"
-          message: >-
-            {{ dry_zones | join(' und ') }} liegt nach dem Bewässerungsfenster
-            noch unter dem Zielwert. Wasserzufuhr, Ventil oder Bodensensor prüfen.
 
   - id: irrigation_si_reset_bucket
     alias: "Bewässerung - Smart Irrigation Bucket zurücksetzen"
