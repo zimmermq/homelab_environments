@@ -130,6 +130,11 @@ apps:
             from: michael@zimmermann.lat
             fromName: Firefly Data Importer
             destination: michael@zimmermann.lat
+          # Summary mail 30 min after the import: new transactions per account,
+          # plus any account that has gone quiet for much longer than its own
+          # normal rhythm - which is what a dead bank connection looks like.
+          digest:
+            enabled: true
   firefly-sankey:
     enabled: true
   kalibra:
