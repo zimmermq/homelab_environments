@@ -120,6 +120,16 @@ apps:
               pvcMounts:
                 import:
                   hostPath: /mnt/tank1/encrypted/apps/firefly/import
+          # Delivers the nightly import report; without it, transactions the
+          # importer rejects are only visible in the pod log. Needs Akeyless
+          # /firefly/MAIL_PASSWORD to exist before this is merged.
+          smtp:
+            enabled: true
+            host: mail.your-server.de
+            username: michael@zimmermann.lat
+            from: michael@zimmermann.lat
+            fromName: Firefly Data Importer
+            destination: michael@zimmermann.lat
   firefly-sankey:
     enabled: true
   kalibra:
