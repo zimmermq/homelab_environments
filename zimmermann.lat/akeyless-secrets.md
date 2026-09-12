@@ -54,12 +54,25 @@ openssl rand -base64 32
 
 | Akeyless Path                                              | Description                         |
 |------------------------------------------------------------|-------------------------------------|
-| `/restic/S3_ACCESS_KEY_ID`                                 | S3 access key ID                    |
-| `/restic/S3_SECRET_ACCESS_KEY`                             | S3 secret access key                |
-| `/restic/S3_BUCKET`                                        | S3 bucket name                      |
-| `/restic/S3_ENDPOINT`                                      | S3 endpoint URL                     |
-| `/restic/S3_REGION`                                        | S3 region                           |
-| `/restic/RESTIC_PASSWORD`                                  | Restic repository password          |
+| `/zimmermann.lat/restic/S3_ACCESS_KEY_ID`                  | S3 access key ID                    |
+| `/zimmermann.lat/restic/S3_SECRET_ACCESS_KEY`              | S3 secret access key                |
+| `/zimmermann.lat/restic/S3_BUCKET`                         | S3 bucket name                      |
+| `/zimmermann.lat/restic/S3_ENDPOINT`                       | S3 endpoint URL                     |
+| `/zimmermann.lat/restic/S3_REGION`                         | S3 region                           |
+| `/zimmermann.lat/restic/RESTIC_PASSWORD`                   | Restic repository password          |
+
+## Prometheus / Alertmanager
+
+| Akeyless Path                                                   | Description                              |
+|-----------------------------------------------------------------|------------------------------------------|
+| `/zimmermann.lat/o11y/grafana/admin-user`                       | Grafana admin username                   |
+| `/zimmermann.lat/o11y/grafana/admin-password`                   | Grafana admin password                   |
+| `/zimmermann.lat/o11y/alertmanager/pagerduty_service_key`       | PagerDuty routing key (service `zimmermann-lat-prometheus`) |
+| `/zimmermann.lat/o11y/alertmanager/watchdog_heartbeat_url`      | healthchecks.io ping URL for the Watchdog dead man's switch |
+
+The heartbeat URL is a capability URL: anyone holding it can keep the check green and hide a
+real outage. It must be unique per cluster. See `doc/Alerting/watchdog-heartbeat.md` in
+homelab-iac.
 
 ## Apps with no secrets
 
