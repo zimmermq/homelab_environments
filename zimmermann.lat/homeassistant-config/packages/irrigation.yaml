@@ -35,6 +35,28 @@ input_boolean:
     name: "Bewässerung aktiv"
     icon: mdi:water-pump
 
+input_number:
+  # Litres each zone was meant to receive, captured before the run: Smart
+  # Irrigation zeroes its bucket the moment a zone's valve closes, so the intent
+  # is gone by the time the delivered amount can be read. Zero means "no run was
+  # planned", which also disarms the post-run check.
+  irrigation_zone_a_expected_litres:
+    name: "Bewässerung Zone A - Sollmenge"
+    min: 0
+    max: 2000
+    step: 0.1
+    initial: 0
+    unit_of_measurement: "L"
+    icon: mdi:water
+  irrigation_zone_b_expected_litres:
+    name: "Bewässerung Zone B - Sollmenge"
+    min: 0
+    max: 2000
+    step: 0.1
+    initial: 0
+    unit_of_measurement: "L"
+    icon: mdi:water
+
 irrigation_unlimited:
   controllers:
     - name: "Garten"
@@ -83,6 +105,26 @@ automation:
           zone_b_secs: >-
             {% set on = is_state('input_boolean.irrigation_enable', 'on') %}
             {{ (states('sensor.smart_irrigation_zone_b') | int(0)) if on else 0 }}
+      # Litres owed to each zone: the Smart Irrigation deficit in mm over the zone
+      # area. Taken from the deficit rather than the run time on purpose - a wrong
+      # throughput shortens the run and the expected litres together, so a run-time
+      # comparison would call an under-watered zone healthy.
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.irrigation_zone_a_expected_litres
+        data:
+          value: >-
+            {{ 0 if (zone_a_secs | int(0)) == 0 else
+               (((state_attr('sensor.smart_irrigation_zone_a', 'bucket') | float(0)) | abs)
+                * (state_attr('sensor.smart_irrigation_zone_a', 'size') | float(0))) | round(1) }}
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.irrigation_zone_b_expected_litres
+        data:
+          value: >-
+            {{ 0 if (zone_b_secs | int(0)) == 0 else
+               (((state_attr('sensor.smart_irrigation_zone_b', 'bucket') | float(0)) | abs)
+                * (state_attr('sensor.smart_irrigation_zone_b', 'size') | float(0))) | round(1) }}
       # On-device cap = longer planned run + margin, clamped 10-45 min. This is
       # not only a failsafe: the valve closes itself once a switch-driven run
       # reaches this many minutes, so a value below the planned run silently
@@ -108,6 +150,66 @@ automation:
           sequence_id: 1
           zones: [2]
           actual: "{{ timedelta(seconds=zone_b_secs | int(0)) }}"
+
+  - id: irrigation_delivery_check
+    alias: "Bewässerung - Liefermenge prüfen"
+    description: >
+      Compares what each zone was owed against what the valve's flow meter
+      actually delivered, once the sequence ends. Catches a clogged line, a closed
+      supply, a stuck valve, and a run the valve cut short at its own minute cap.
+      None of those change the switch state or leave anything in the log, so
+      without this a failed watering is indistinguishable from a good one.
+      A zone whose expected litres are zero was not scheduled and is not checked.
+    mode: single
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.irrigation_unlimited_c1_m
+        from: "on"
+        to: "off"
+    action:
+      # The valve reports its final totals a few seconds after the water stops.
+      - delay: "00:00:30"
+      - variables:
+          problems: >-
+            {% set ns = namespace(msgs=[]) %}
+            {% for z in [
+                 {'n': 1, 'name': 'Zone A', 'exp': states('input_number.irrigation_zone_a_expected_litres') | float(0)},
+                 {'n': 2, 'name': 'Zone B', 'exp': states('input_number.irrigation_zone_b_expected_litres') | float(0)}
+               ] %}
+              {% if z.exp > 0 %}
+                {% set s = states('sensor.sonoff_valve_irrigation_schedule_status_' ~ z.n) %}
+                {% set amts = s | regex_findall('actual_irrigation_amount.: (\d+)') %}
+                {% set aes = s | regex_findall('actual_end_time.: .([0-9T:+-]+)') %}
+                {% set ees = s | regex_findall('expected_end_time.: .([0-9T:+-]+)') %}
+                {% if amts | length == 0 %}
+                  {% set ns.msgs = ns.msgs + [z.name ~ ': das Ventil meldet keine Liefermenge.'] %}
+                {% elif (amts[0] | float(0)) < z.exp * 0.8 %}
+                  {% set ns.msgs = ns.msgs + [z.name ~ ' hat nur ' ~ (amts[0] | int) ~ ' von ' ~ (z.exp | round(0) | int) ~ ' Litern bekommen.'] %}
+                {% endif %}
+                {% if aes | length > 0 and ees | length > 0 and as_timestamp(aes[0]) >= as_timestamp(ees[0]) %}
+                  {% set ns.msgs = ns.msgs + [z.name ~ ' wurde vom Ventil an seinem Minutenlimit abgeschnitten.'] %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.msgs | join(' ') }}
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ problems | trim | length > 0 }}"
+            sequence:
+              - service: notify.all_devices
+                data:
+                  title: "Bewässerung: Lauf unvollständig"
+                  message: "{{ problems | trim }} Wasserzufuhr, Ventil und Leitung prüfen."
+      # Disarm until the next pre-run capture, so a manual run cannot be judged
+      # against a scheduled run's figures.
+      - service: input_number.set_value
+        target:
+          entity_id:
+            - input_number.irrigation_zone_a_expected_litres
+            - input_number.irrigation_zone_b_expected_litres
+        data:
+          value: 0
 
   - id: irrigation_si_reset_bucket
     alias: "Bewässerung - Smart Irrigation Bucket zurücksetzen"
