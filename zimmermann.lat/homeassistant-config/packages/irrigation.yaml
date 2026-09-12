@@ -18,10 +18,10 @@
 #   Irrigation Unlimited owns the schedule and runs the valves in sequence. The
 #   05:25 pre-run automation feeds each zone its Smart Irrigation duration (or 0
 #   to skip when the master switch is off) via irrigation_unlimited.adjust_time,
-#   and sets the valve's on-device manual_irrigation_duration so the valve
-#   self-closes near the intended time even if Home Assistant is down. Config
-#   values in irrigation_unlimited are static - only service-call fields accept
-#   templates.
+#   and raises the valve's own per-run minute cap over MQTT so the device does not
+#   cut a run short - and so the valve still self-closes near the intended time if
+#   Home Assistant dies mid-run. Config values in irrigation_unlimited are static
+#   - only service-call fields accept templates.
 #
 # Start time is the schedule `time` below. The pre-run automation fires five
 # minutes earlier; keep that lead if you change the start time.
@@ -83,14 +83,18 @@ automation:
           zone_b_secs: >-
             {% set on = is_state('input_boolean.irrigation_enable', 'on') %}
             {{ (states('sensor.smart_irrigation_zone_b') | int(0)) if on else 0 }}
-      # On-device safety cap = longer planned run + margin, clamped 10-45 min.
-      - service: number.set_value
-        target:
-          entity_id: number.sonoff_valve_manual_irrigation_duration
+      # On-device cap = longer planned run + margin, clamped 10-45 min. This is
+      # not only a failsafe: the valve closes itself once a switch-driven run
+      # reaches this many minutes, so a value below the planned run silently
+      # truncates it. Zigbee2MQTT discards a partial composite without error, so
+      # every field is sent even though only irrigation_duration changes.
+      - service: mqtt.publish
         data:
-          value: >-
+          topic: "zigbee2mqtt/Sonoff Valve/set"
+          payload: >-
             {% set minutes = (([zone_a_secs | int(0), zone_b_secs | int(0)] | max) / 60) | round(0, 'ceil') | int + 1 %}
-            {{ [10, [minutes, 45] | min] | max }}
+            {% set capped = [10, [minutes, 45] | min] | max %}
+            {{ {"manual_default_settings": {"fail_safe": 45, "irrigation_mode": "duration", "irrigation_duration": capped, "irrigation_amount": 0}} | to_json }}
       # Feed each sequence zone its run time (0 seconds = skipped this cycle).
       - service: irrigation_unlimited.adjust_time
         data:
