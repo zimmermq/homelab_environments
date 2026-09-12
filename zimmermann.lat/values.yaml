@@ -132,6 +132,13 @@ apps:
           # normal rhythm - which is what a dead bank connection looks like.
           digest:
             enabled: true
+            # Not fed by the nightly import, so they would be flagged every night:
+            # the TR depot is refreshed by hand from a pytr CSV, the two Visa cards
+            # are closed and sit at 0,00.
+            ignoreStale:
+              - Trade Republic Depot
+              - Comdirect Visa 0001
+              - Comdirect Visa 0002
   firefly-sankey:
     enabled: true
   kalibra:
