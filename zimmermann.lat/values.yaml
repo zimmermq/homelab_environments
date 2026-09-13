@@ -584,7 +584,12 @@ apps:
               pytr-credentials:
                 - PHONE_NUMBER: /pytr/PHONE_NUMBER
                 - PIN: /pytr/PIN
+              pytr-paperless:
+                - PAPERLESS_API_TOKEN: /pytr/PAPERLESS_API_TOKEN
           pytr:
+            csvVersions:
+              suspend: true
+              rootDocumentId: 5629
             login:
               schedule: "0 0 1 1 *"
               suspend: true
@@ -610,6 +615,11 @@ apps:
                 - PIN: /pytr-tatjana/PIN
           pytr:
             subdomain: tr-tatjana
+            # Off until this instance has its own Paperless token in Akeyless as
+            # /pytr-tatjana/PAPERLESS_API_TOKEN. Turning it on also needs a
+            # pytr-tatjana-paperless entry above and rootDocumentId 6104.
+            csvVersions:
+              enabled: false
             login:
               schedule: "0 0 1 1 *"
               suspend: true
