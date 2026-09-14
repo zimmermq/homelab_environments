@@ -32,6 +32,8 @@ global:
   # NAT WAN traffic to it) and a Cloudflare-only one on :4443 requiring mTLS.
   # Cloudflare presents a leaf cert signed by the CA below; Envoy validates it.
   # ca.key is kept offline — the cluster only ever holds this public ca.crt.
+    defaultGroups:
+      - admin
   security:
     cloudflareOriginCA: |
       -----BEGIN CERTIFICATE-----
@@ -264,26 +266,6 @@ apps:
                 configmap:
                   mountPath: /configmap
                   configMapName: homeassistant-app-config
-            ingress:
-              https:
-                - subdomain: homeassistant
-                  port: 8123
-                  oauth: true
-                  groups:
-                    - admin
-                - subdomain: homeassistant
-                  port: 8123
-                  pathPrefixes:
-                    - /api
-                    - /auth
-                    - /frontend_latest
-                    - /static
-                  rawMatch:
-                    - headers:
-                        - name: User-Agent
-                          type: RegularExpression
-                          value: .*wv.*
-                  oauth: false
   redis:
     enabled: true
     argocd:
@@ -331,13 +313,6 @@ apps:
                 GITHUB_CONFIG_PATH: "zimmermann.lat/smarthome4-config/smarthome-config.yaml"
                 GITHUB_ALEXA_CONFIG_PATH: "zimmermann.lat/homeassistant-config/alexa.yaml"
                 GITHUB_BRANCH: "main"
-            ingress:
-              https:
-                - subdomain: lights
-                  port: 8000
-                  oauth: true
-                  groups:
-                    - admin
   smarthome4:
     enabled: true
     argocd:
@@ -390,18 +365,6 @@ apps:
                   hostPath: /mnt/tank1/encrypted/apps/paperlessngx/export
                 consume:
                   hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume
-            ingress:
-              https:
-                - subdomain: paperlessngx
-                  port: 8000
-                  oauth: true
-                  groups:
-                    - admin
-                - subdomain: paperlessngx
-                  pathPrefixes:
-                    - /api
-                  port: 8000
-                  oauth: false
           admin:
             username: michael
             email: michael@zimmermann.lat
@@ -416,18 +379,6 @@ apps:
               pvcMounts:
                 config:
                   hostPath: /mnt/tank1/encrypted/apps/stirlingpdf/config
-            ingress:
-              https:
-                - subdomain: stirling-pdf
-                  port: 8080
-                  oauth: true
-                  groups:
-                    - admin
-                - subdomain: pdf
-                  port: 8080
-                  oauth: true
-                  groups:
-                    - admin
   portal-document-downloader:
     enabled: true
     argocd:
@@ -644,13 +595,6 @@ apps:
               pvcMounts:
                 downloads:
                   hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/C24
-            ingress:
-              https:
-                - subdomain: c24
-                  port: 5000
-                  oauth: true
-                  groups:
-                    - admin
   pytr:
     enabled: true
     argocd:
@@ -669,14 +613,6 @@ apps:
                 - PIN: /pytr/PIN
               pytr-paperless:
                 - PAPERLESS_API_TOKEN: /pytr/PAPERLESS_API_TOKEN
-            ingress:
-              https:
-                - subdomain: tr
-                  port: 8080
-                  service: pytr-login-service
-                  oauth: true
-                  groups:
-                    - admin
           pytr:
             csvVersions:
               suspend: true
@@ -734,14 +670,6 @@ apps:
                 # Reuses the shared portal-document-downloader Akeyless namespace.
                 - JUSTTRADE_USERNAME: /portal-document-downloader/JUSTTRADE_USERNAME
                 - JUSTTRADE_PASSWORD: /portal-document-downloader/JUSTTRADE_PASSWORD
-            ingress:
-              https:
-                - subdomain: jt
-                  port: 8080
-                  service: justtrade-login-service
-                  oauth: true
-                  groups:
-                    - admin
           justtrade:
             login:
               schedule: "0 0 1 1 *"
@@ -787,13 +715,6 @@ apps:
               pvcMounts:
                 data:
                   hostPath: /mnt/tank1/unencrypted/apps/zigbee2mqtt/data
-            ingress:
-              https:
-                - subdomain: zigbee2mqtt
-                  port: 8080
-                  oauth: true
-                  groups:
-                    - admin
   asn:
     enabled: true
     argocd:
@@ -868,13 +789,6 @@ apps:
             # tatjana is granted access to via apps/radicale rights file.
             additionalResources:
               - michael
-            ingress:
-              https:
-                - subdomain: contacts
-                  port: 8080
-                  oauth: true
-                  groups:
-                    - admin
   vaultwarden:
     enabled: true
     argocd:
@@ -923,26 +837,6 @@ apps:
             persistentVolumeClaims:
               grafana:
                 hostPath: /mnt/tank1/unencrypted/apps/prometheus/grafana/data
-            ingress:
-              https:
-                - subdomain: prometheus
-                  port: 9090
-                  service: kube-prometheus-stack-prometheus
-                  oauth: true
-                  groups:
-                    - admin
-                - subdomain: grafana
-                  port: 80
-                  service: kube-prometheus-stack-grafana
-                  oauth: true
-                  groups:
-                    - admin
-                - subdomain: alertmanager
-                  port: 9093
-                  service: kube-prometheus-stack-alertmanager
-                  oauth: true
-                  groups:
-                    - admin
   sftpgo:
     enabled: true
     argocd:
@@ -959,21 +853,6 @@ apps:
                 tank1:
                   mountPath: /mnt/tank1
                   hostPath: /mnt/tank1
-            ingress:
-              https:
-                - subdomain: sftpgo
-                  port: 8080
-                  oauth: true
-                  groups:
-                    - admin
-                - subdomain: sftpgo
-                  port: 8080
-                  pathPrefixes:
-                    - /web/client/pubshares/
-                  oauth: false
-                - subdomain: webdav
-                  port: 8081
-                  oauth: false
   samba:
     enabled: true
     argocd:
@@ -1064,33 +943,12 @@ apps:
           persistence:
             data:
               mountPath: /mnt/tank1/unencrypted/apps/homematic/ccu_data
-          generic:
-            ingress:
-              https:
-                - subdomain: homematic
-                  port: 80
-                  service: homematic-openccu
-                  oauth: true
-                  groups:
-                    - admin
   homer:
     enabled: true
     argocd:
       targetRevision: ~
       helm:
-        values:
-          generic:
-            ingress:
-              https:
-                - subdomain: homer
-                  port: 8080
-                  oauth: true
-                  groups:
-                    - admin
-                - port: 8080
-                  oauth: true
-                  groups:
-                    - admin
+        values: {}
     additionalLinks:
       githubEnvironments:
         name: "Environments"
@@ -1160,18 +1018,6 @@ apps:
                 hostPath: /mnt/tank1/encrypted/apps/backrest/tmp
               restore:
                 hostPath: /mnt/tank1/encrypted/apps/backrest/restore
-            ingress:
-              https:
-                - subdomain: backrest
-                  port: 9898
-                  oauth: true
-                  groups:
-                    - admin
-                - subdomain: backrest
-                  pathPrefixes:
-                    - /api
-                  port: 9898
-                  oauth: false
   alexa-custom-skill:
     enabled: true
     argocd:
@@ -1407,13 +1253,6 @@ apps:
                   hostPath: /mnt/tank1/encrypted/apps/teddycloud/plugins
                 cache:
                   hostPath: /mnt/tank1/unencrypted/apps/teddycloud/cache
-            ingress:
-              https:
-                - subdomain: teddycloud
-                  port: 80
-                  oauth: true
-                  groups:
-                    - admin
           teddycloud:
             box:
               # Second address out of the MetalLB pool (global.cluster.ip-range
