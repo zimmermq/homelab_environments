@@ -74,6 +74,28 @@ The heartbeat URL is a capability URL: anyone holding it can keep the check gree
 real outage. It must be unique per cluster. See `doc/Alerting/watchdog-heartbeat.md` in
 homelab-iac.
 
+## venice-autobook
+
+Auto-books capacity-limited gym classes. Needs the studio login and (optionally) an
+ntfy topic for notifications.
+
+| Akeyless Path                                   | Description                                  |
+|--------------------------------------------------|----------------------------------------------|
+| `/zimmermann.lat/venice-autobook/VB_USERNAME`   | VeniceBeach/FitBase app login (email)        |
+| `/zimmermann.lat/venice-autobook/VB_PASSWORD`   | VeniceBeach/FitBase app password             |
+| `/zimmermann.lat/venice-autobook/NTFY_URL`      | ntfy topic URL for notifications (optional)   |
+
+Create them (fill in the values; run with an authenticated `akeyless` CLI):
+
+```bash
+akeyless create-secret --name /zimmermann.lat/venice-autobook/VB_USERNAME --value 'marcel.panoscha@gmx.de'
+akeyless create-secret --name /zimmermann.lat/venice-autobook/VB_PASSWORD --value '<the app password>'
+akeyless create-secret --name /zimmermann.lat/venice-autobook/NTFY_URL    --value 'https://ntfy.sh/<your-private-topic>'
+```
+
+If NTFY_URL is left unset, notifications are simply skipped (the ExternalSecret still
+expects the key to exist, so create it - use an empty value or a real topic).
+
 ## Apps with no secrets
 
 The following enabled apps do not require Akeyless secrets:

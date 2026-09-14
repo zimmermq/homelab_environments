@@ -85,6 +85,16 @@ global:
     targetRevision: main
 
 apps:
+  venice-autobook:
+    enabled: true
+    argocd:
+      helm:
+        values:
+          generic:
+            deployment:
+              pvcMounts:
+                data:
+                  hostPath: /mnt/tank1/encrypted/apps/venice-autobook/data
   mosquitto:
     enabled: true
     argocd:
