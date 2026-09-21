@@ -114,10 +114,12 @@ apps:
             containerSocket: ~
             smart:
               # Root filesystem lives on the NVMe drive behind the M.2 HAT.
-              # The controller, not the namespace nvme0n1, is what answers
-              # S.M.A.R.T. queries.
+              # The controller answers the queries; the namespace is listed
+              # too because the agent probes the node it traced the mounted
+              # filesystem back to, which is nvme0n1.
               devices:
               - /dev/nvme0
+              - /dev/nvme0n1
   homer:
     enabled: true
     argocd:
