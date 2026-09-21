@@ -106,12 +106,18 @@ apps:
               pvcMounts:
                 data:
                   hostPath: /mnt/data/apps/beszel/data
-          # microk8s exposes its containerd socket here, not the standard
-          # /var/run/docker.sock. Beszel's agent still falls back to host
-          # CPU/RAM/disk metrics if the mount type doesn't match.
           agent:
             enabled: true
-            containerSocket: /var/snap/microk8s/common/run/containerd.sock
+            # No container metrics on this node: the only runtime here is
+            # microk8s' containerd, which serves CRI over gRPC, while the
+            # agent reads container stats from the Docker HTTP API.
+            containerSocket: ~
+            smart:
+              # Root filesystem lives on the NVMe drive behind the M.2 HAT.
+              # The controller, not the namespace nvme0n1, is what answers
+              # S.M.A.R.T. queries.
+              devices:
+              - /dev/nvme0
   homer:
     enabled: true
     argocd:
