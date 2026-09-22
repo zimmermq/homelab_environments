@@ -163,10 +163,12 @@ apps:
           digest:
             enabled: true
             # Not fed by the nightly import, so they would be flagged every night:
-            # the TR depot is refreshed by hand from a pytr CSV, the two Visa cards
-            # are closed and sit at 0,00.
+            # the two Trade Republic accounts and the finvesto depot are refreshed
+            # by hand from a pytr CSV, the two Visa cards are closed and sit at 0,00.
             ignoreStale:
+              - Trade Republic
               - Trade Republic Depot
+              - finvesto Depot 99148724306 (FNZ Bank)
               - Comdirect Visa 7340
               - Comdirect Visa 7357
   firefly-sankey:
