@@ -74,6 +74,35 @@ The heartbeat URL is a capability URL: anyone holding it can keep the check gree
 real outage. It must be unique per cluster. See `doc/Alerting/watchdog-heartbeat.md` in
 homelab-iac.
 
+## Firefly III
+
+Finance app plus its Data Importer, which pulls transactions from the banks nightly through
+Enable Banking and mails a digest afterwards.
+
+| Akeyless Path                                          | Description                                             |
+|--------------------------------------------------------|---------------------------------------------------------|
+| `/zimmermann.lat/firefly/APP_KEY`                      | Laravel application key                                 |
+| `/zimmermann.lat/firefly/DB_PASSWORD`                  | Postgres password                                       |
+| `/zimmermann.lat/firefly/STATIC_CRON_TOKEN`            | Token the cron endpoint expects                         |
+| `/zimmermann.lat/firefly/IMPORTER_ACCESS_TOKEN`        | Firefly III API token the importer and digest use       |
+| `/zimmermann.lat/firefly/AUTO_IMPORT_SECRET`           | Secret in the nightly `/autoimport` URL                 |
+| `/zimmermann.lat/firefly/ENABLE_BANKING_APP_ID`        | Enable Banking application ID                           |
+| `/zimmermann.lat/firefly/ENABLE_BANKING_PRIVATE_KEY`   | Enable Banking private key (PEM)                        |
+| `/zimmermann.lat/firefly/MAIL_PASSWORD`                | Mailbox password for the digest mail                    |
+| `/zimmermann.lat/firefly/DIGEST_HEARTBEAT_URL`         | healthchecks.io ping URL for the digest dead man's switch |
+
+A healthy night sends no digest mail, so an empty inbox proves nothing on its own: only the
+heartbeat separates "nothing to report" from a job that never ran. Like the Alertmanager one
+above it is a capability URL and must not reach Git. Create the check with a period of 1 day
+and a grace time of a few hours (the job runs at 04:30), then:
+
+```bash
+akeyless create-secret --name /zimmermann.lat/firefly/DIGEST_HEARTBEAT_URL --value 'https://hc-ping.com/<uuid>'
+```
+
+The entry must exist before `digest.heartbeat.enabled` is turned on in `values.yaml`, or the
+ExternalSecret never syncs and the digest job cannot start.
+
 ## venice-autobook
 
 Auto-books capacity-limited gym classes. Needs the studio login and (optionally) an
