@@ -105,6 +105,24 @@ apps:
                   groups:
                     - admin
                     - venice-autobook
+  facilioo-watch:
+    enabled: true
+    argocd:
+      helm:
+        values:
+          generic:
+            deployment:
+              pvcMounts:
+                data:
+                  hostPath: /mnt/tank1/encrypted/apps/facilioo-watch/data
+            ingress:
+              https:
+                - subdomain: facilioo-watch
+                  port: 8080
+                  oauth: true
+                  groups:
+                    - admin
+                    - facilioo-watch
   mosquitto:
     enabled: true
     argocd:

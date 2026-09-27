@@ -125,6 +125,32 @@ akeyless create-secret --name /zimmermann.lat/venice-autobook/NTFY_URL    --valu
 If NTFY_URL is left unset, notifications are simply skipped (the ExternalSecret still
 expects the key to exist, so create it - use an empty value or a real topic).
 
+## facilioo-watch
+
+Reports which processes at the property have stopped moving. Needs the portal login
+and the password for the mail relay.
+
+| Akeyless Path                                          | Description                                   |
+|--------------------------------------------------------|-----------------------------------------------|
+| `/zimmermann.lat/facilioo-watch/FW_FACILIOO_EMAIL`     | facilioo portal login (email)                 |
+| `/zimmermann.lat/facilioo-watch/FW_FACILIOO_PASSWORD`  | facilioo portal password                      |
+| `/zimmermann.lat/facilioo-watch/SMTP_PASSWORD`         | password for the mail relay that sends reports |
+
+Create them (fill in the values; run with an authenticated `akeyless` CLI):
+
+```bash
+akeyless create-secret --name /zimmermann.lat/facilioo-watch/FW_FACILIOO_EMAIL    --value '<the portal login>'
+akeyless create-secret --name /zimmermann.lat/facilioo-watch/FW_FACILIOO_PASSWORD --value '<the portal password>'
+akeyless create-secret --name /zimmermann.lat/facilioo-watch/SMTP_PASSWORD        --value '<the relay password>'
+```
+
+All three must exist before the app is enabled, or the ExternalSecret never syncs. The app
+still starts without them and shows the failure in its UI and run history rather than crash
+looping, but no report can go out.
+
+Everything else the app needs, including the schedule, the thresholds, the recipients and the
+mail template, is edited in its web UI and stored on its volume. No password is ever kept there.
+
 ## Apps with no secrets
 
 The following enabled apps do not require Akeyless secrets:
