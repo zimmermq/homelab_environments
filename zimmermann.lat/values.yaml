@@ -480,8 +480,12 @@ apps:
                 schedule: "0 6 1 * *"
                 suspend: true
                 flat: true
+                # The account signs in with a passkey on a phone; the QR code
+                # is printed to the job log and needs homeserver's Bluetooth.
+                bluetooth: true
                 env:
                   PORTAL: "hrworks"
+                  HRWORKS_PASSKEY_QR: "true"
                 secrets:
                   HRWORKS_EMAIL: /portal-document-downloader/HRWORKS_EMAIL
                   HRWORKS_PASSWORD: /portal-document-downloader/HRWORKS_PASSWORD
