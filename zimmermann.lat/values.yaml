@@ -1290,3 +1290,21 @@ apps:
               # insists on port 443 and authenticates with its own client
               # certificate, so it cannot share the Gateway's :443 listener.
               loadBalancerIP: "192.168.0.81"
+  tonie-studio:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values:
+          generic:
+            deployment:
+              pvcMounts:
+                # The audio archive, shared with nothing else. Read-only in
+                # practice: the app never opens a file here for writing.
+                archive:
+                  hostPath: /mnt/tank1/encrypted/documents/audio
+                # Browser uploads on their way to teddyCloud, plus the sheet
+                # PDF while it is being downloaded. Both are throwaway, so no
+                # backup is configured.
+                data:
+                  hostPath: /mnt/tank1/encrypted/apps/tonie-studio/data
