@@ -423,8 +423,8 @@ apps:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/finvesto
               downloads-fnztati:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Tatjana/ebase
-              downloads-psdbank-ht:
-                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/PsdBankHT
+              downloads-bbbank:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/BBBank
               downloads-psdbank-nuernberg:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/PsdBankNuernberg
               downloads-mainova:
@@ -508,17 +508,19 @@ apps:
                   FNZ_USERNAME: /portal-document-downloader/FNZTATI_USERNAME
                   FNZ_PASSWORD: /portal-document-downloader/FNZTATI_PASSWORD
                   FNZ_AUTH_METHOD: /portal-document-downloader/FNZTATI_AUTH_METHOD
-              psdbank-ht:
+              bbbank:
                 enabled: true
                 schedule: "0 8 1 * *"
                 suspend: true
                 flat: true
                 env:
+                  # BBBank runs the same Fiducia GAD portal as PSD Bank Nuernberg;
+                  # the two instances differ only in credentials and base URL.
                   PORTAL: "psdbank"
                 secrets:
-                  PSDBANK_USERNAME: /portal-document-downloader/PSDBANK_HT_USERNAME
-                  PSDBANK_PASSWORD: /portal-document-downloader/PSDBANK_HT_PASSWORD
-                  PSDBANK_BASE_URL: /portal-document-downloader/PSDBANK_HT_BASE_URL
+                  PSDBANK_USERNAME: /portal-document-downloader/BBBANK_USERNAME
+                  PSDBANK_PASSWORD: /portal-document-downloader/BBBANK_PASSWORD
+                  PSDBANK_BASE_URL: /portal-document-downloader/BBBANK_BASE_URL
               psdbank-nuernberg:
                 enabled: true
                 schedule: "0 9 1 * *"
