@@ -635,6 +635,11 @@ apps:
             persistentVolumeClaims:
               credentials:
                 hostPath: /mnt/tank1/encrypted/apps/pytr/credentials
+              # pytr skips a document only if the file is already on disk, and Paperless
+              # deletes whatever it ingests from the consume dir below. Without this durable
+              # archive every run refetches the entire history.
+              archive:
+                hostPath: /mnt/tank1/encrypted/apps/pytr/archive
               downloads:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/TradeRepublic
             externalSecrets:
@@ -664,6 +669,8 @@ apps:
             persistentVolumeClaims:
               credentials:
                 hostPath: /mnt/tank1/encrypted/apps/pytr-tatjana/credentials
+              archive:
+                hostPath: /mnt/tank1/encrypted/apps/pytr-tatjana/archive
               downloads:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Tatjana/TradeRepublic
             externalSecrets:
