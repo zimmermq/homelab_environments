@@ -172,6 +172,31 @@ smartHome:
           - Bad DimmerSwitch 01 Night
           cycleStart: i:1
           cycleEnd: i:N
+  - name: Badezimmer_Motion
+    type: AqaraFP300
+    devices:
+    - M01
+    groups:
+    - position: '1'
+      profile: AqaraFP300LightDefault
+      homeAssistantResources:
+      - light_badezimmer
+      condition: day
+      triggers:
+      - trigger: AQARA_FP300_PRESENCE_DETECTED
+        sequences:
+        - homeAssistantResources:
+          - Bad DimmerSwitch 01 Day
+    - position: '1'
+      profile: AqaraFP300LightDefault
+      homeAssistantResources:
+      - light_badezimmer
+      condition: night
+      triggers:
+      - trigger: AQARA_FP300_PRESENCE_DETECTED
+        sequences:
+        - homeAssistantResources:
+          - Bad DimmerSwitch 01 Night
   - name: Buero_Dimmer_Switches
     type: HueDimmerSwitch
     devices:
