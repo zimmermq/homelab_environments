@@ -212,6 +212,16 @@ apps:
               - finvesto Depot 99148724306 (FNZ Bank)
               - Comdirect Visa 7340
               - Comdirect Visa 7357
+          ledgerCheck:
+            enabled: true
+            # The three loan accounts carry no IBAN in Firefly, so their self-payees
+            # cannot be recognised from the payee name and have to be named by id.
+            loanPayees: [50, 49, 244]
+            # Trade Republic holds no IBAN on the account itself, but the monthly
+            # Sparplan arrives from the BBBank side as a withdrawal to a payee named
+            # after this IBAN, which is exactly the half-booked transfer to catch.
+            extraOwnIbans:
+              DE90100123450119298501: Trade Republic
   firefly-sankey:
     enabled: true
   kalibra:
