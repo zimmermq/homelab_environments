@@ -219,6 +219,13 @@ apps:
             # after this IBAN, which is exactly the half-booked transfer to catch.
             extraOwnIbans:
               DE00100000000000000003: Trade Republic
+            # Kept apart on purpose, so reporting them would mail every night:
+            # every own-account IBAN has its own "Kontoinhaber (...)" self-payee,
+            # which is exactly what the unlinked-transfer scan matches on, and Dritter
+            # Inhaber really does hold two accounts at the same bank.
+            ignorePayees:
+              - Kontoinhaber
+              - Dritter Inhaber
   firefly-sankey:
     enabled: true
   kalibra:
