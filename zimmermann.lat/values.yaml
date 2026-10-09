@@ -222,6 +222,13 @@ apps:
             # after this IBAN, which is exactly the half-booked transfer to catch.
             extraOwnIbans:
               DE90100123450119298501: Trade Republic
+            # Kept apart on purpose, so reporting them would mail every night:
+            # every own-account IBAN has its own "Michael Zimmermann (...)" self-payee,
+            # which is exactly what the unlinked-transfer scan matches on, and Jonas
+            # Hess really does hold two accounts at the same bank.
+            ignorePayees:
+              - Michael Zimmermann
+              - Jonas Hess
   firefly-sankey:
     enabled: true
   kalibra:
