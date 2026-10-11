@@ -258,7 +258,7 @@ apps:
 #          LLM_PROVIDER: openai
 #          LLM_MODEL: gpt-5.4-mini
           LLM_PROVIDER: anthropic
-          LLM_MODEL: claude-haiku-4-5
+          LLM_MODEL: claude-sonnet-5-5
           AWS_OCR_BUCKET_NAME: zimmermann.lat-paperless-ocr
           PROMPT_TITLE_EXPLANATION: ''
           PROMPT_DOCUMENT_TYPE_EXPLANATION: ''
