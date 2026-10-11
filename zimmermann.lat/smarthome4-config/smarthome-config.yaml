@@ -179,6 +179,8 @@ smartHome:
     groups:
     - position: '1'
       profile: AqaraFP300LightDefault
+      profileOptions:
+        maxIlluminance: 30
       homeAssistantResources:
       - light_badezimmer
       condition: day
@@ -189,6 +191,8 @@ smartHome:
           - Bad DimmerSwitch 01 Day
     - position: '1'
       profile: AqaraFP300LightDefault
+      profileOptions:
+        maxIlluminance: 30
       homeAssistantResources:
       - light_badezimmer
       condition: night
