@@ -263,6 +263,33 @@ apps:
           LLM_PROVIDER: anthropic
           LLM_MODEL: claude-sonnet-5-5
           AWS_OCR_BUCKET_NAME: zimmermann.lat-paperless-ocr
+          # Monday mail on what paperless-gpt filed questionably last week. Needs Akeyless
+          # /zimmermann.lat/paperlessgpt/MAIL_PASSWORD (same mailbox as firefly).
+          qualityReport:
+            enabled: true
+            publicUrl: https://paperlessngx.zimmermann.lat
+            themeTags:
+              - Arbeit & Beruf
+              - Reisen & Urlaube
+              - Ausweise & Dokumente
+              - Bank & Finanzen
+              - Bildung & Qualifikationen
+              - Fahrzeug & Transport
+              - Familie & Partnerschaft
+              - Gesundheit & Krankenkasse
+              - Rechnungen & Belege
+              - Rechtliches & Anwaltliches
+              - Freizeit & Persönliches
+              - Steuern & Finanzamt
+              - Versicherung & Vorsorge
+              - Verträge & Abonnements
+              - Wohnung & Immobilien
+              - Ehrenamt & Politik
+            smtp:
+              host: mail.your-server.de
+              username: michael@zimmermann.lat
+              from: michael@zimmermann.lat
+              destination: michael@zimmermann.lat
           PROMPT_TITLE_EXPLANATION: ''
           PROMPT_DOCUMENT_TYPE_EXPLANATION: ''
           PROMPT_CORRESPONDENT_EXPLANATION: ''
