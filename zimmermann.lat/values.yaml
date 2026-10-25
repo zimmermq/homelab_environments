@@ -155,6 +155,13 @@ apps:
               pvcMounts:
                 import:
                   hostPath: /mnt/tank1/encrypted/apps/firefly/import
+                # Holds the wizard's job files, the only copy of a freshly authorised
+                # bank consent. One-time setup on the host - the importer runs as uid 33
+                # and the mount is type Directory, so the pod will not start without it:
+                #   mkdir -p /mnt/tank1/encrypted/apps/firefly/import-jobs
+                #   chown 33:33 /mnt/tank1/encrypted/apps/firefly/import-jobs
+                import-jobs:
+                  hostPath: /mnt/tank1/encrypted/apps/firefly/import-jobs
           # Delivers the nightly import report; without it, transactions the
           # importer rejects are only visible in the pod log. Needs Akeyless
           # /firefly/MAIL_PASSWORD to exist before this is merged.
@@ -196,6 +203,9 @@ apps:
           # normal rhythm - which is what a dead bank connection looks like.
           digest:
             enabled: true
+            # Quoted in the re-authorisation steps that accompany a consent warning,
+            # so the mail is actionable on a phone without looking the host up.
+            importerUrl: https://firefly-importer.zimmermann.lat
             # Not fed by the nightly import, so they would be flagged every night:
             # the two Trade Republic accounts and the finvesto depot are refreshed
             # by hand from a pytr CSV, the two Visa cards are closed and sit at 0,00.
@@ -226,6 +236,12 @@ apps:
             ignorePayees:
               - Kontoinhaber
               - Dritter Inhaber
+          # Carries a consent renewed in the wizard into the nightly configuration, the
+          # step that was manual and that leaves the import broken when it is forgotten.
+          # All three banks here are Enable Banking, so all three would otherwise need it
+          # by hand roughly every 90 days.
+          syncConsent:
+            enabled: true
   firefly-sankey:
     enabled: true
   kalibra:
