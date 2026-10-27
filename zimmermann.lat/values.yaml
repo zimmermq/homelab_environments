@@ -242,6 +242,13 @@ apps:
           # by hand roughly every 90 days.
           syncConsent:
             enabled: true
+          # The monthly BBBank -> Comdirect household transfer arrives as two halves
+          # every single month, because the paying bank names the payee after the
+          # receiving IBAN instead of the importer matching the account that holds it.
+          # Left unjoined it adds 1,350 EUR of phantom income and expenses per month to
+          # every report while net worth stays right, so nothing looks wrong.
+          linkTransfers:
+            enabled: true
   firefly-sankey:
     enabled: true
   kalibra:
