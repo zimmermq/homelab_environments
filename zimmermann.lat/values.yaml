@@ -546,7 +546,10 @@ apps:
                   FACILIOO_EMAIL: /portal-document-downloader/FACILIOO_EMAIL
                   FACILIOO_PASSWORD: /portal-document-downloader/FACILIOO_PASSWORD
               vodafone:
-                enabled: true
+                # Vodafone mails every invoice as a PDF, and the mail rules
+                # import it within days. The portal copy is a different file
+                # of the same invoice, so running this only creates duplicates.
+                enabled: false
                 schedule: "0 4 1 * *"
                 suspend: true
                 flat: true
