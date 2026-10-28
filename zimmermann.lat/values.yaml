@@ -756,14 +756,16 @@ apps:
                 - PAPERLESS_API_TOKEN: /pytr/PAPERLESS_API_TOKEN
           pytr:
             csvVersions:
-              suspend: true
+              suspend: false
               rootDocumentId: 5629
             login:
               schedule: "0 0 1 1 *"
               suspend: true
+            # Unattended on the session the login job saves, which the nightly Firefly TR
+            # import shares. When it has expired the run stops without logging in.
             download:
               schedule: "0 2 1 * *"
-              suspend: true
+              suspend: false
   pytr-tatjana:
     enabled: true
     argocd:
