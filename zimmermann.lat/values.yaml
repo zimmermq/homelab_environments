@@ -162,6 +162,10 @@ apps:
                 #   chown 33:33 /mnt/tank1/encrypted/apps/firefly/import-jobs
                 import-jobs:
                   hostPath: /mnt/tank1/encrypted/apps/firefly/import-jobs
+            # Adds to the chart's own secrets; the key name must not clash with them.
+            externalSecrets:
+              firefly-importer-tr-aliases:
+                - TR_NAME_ALIAS: /firefly/TR_NAME_ALIAS
           # Delivers the nightly import report; without it, transactions the
           # importer rejects are only visible in the pod log. Needs Akeyless
           # /firefly/MAIL_PASSWORD to exist before this is merged.
@@ -239,6 +243,9 @@ apps:
             depotAccount: 258
             assetAccounts:
               SpaceX: 1006
+            # Timeline name -> payee already in Firefly, kept in Akeyless
+            # (/firefly/TR_NAME_ALIAS) because the shops say where someone lives.
+            aliasSecret: firefly-importer-tr-aliases
             loginHint: |
               1. Start the login job:
                  kubectl --context home-zimmermann.lat -n argocd create job --from=cronjob/pytr-login pytr-login-$(date +%y%m%d%H%M)
