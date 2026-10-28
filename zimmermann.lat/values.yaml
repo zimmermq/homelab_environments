@@ -494,10 +494,10 @@ apps:
         values:
           generic:
             persistentVolumeClaims:
-              downloads-treubau:
-                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Objekt B
-              downloads-facilioo:
-                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Objekt A
+              # Shared by the portals whose folder name is personal; each one writes
+              # into a subfolder named in its secret (subdirFrom below).
+              downloads-michael:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael
               downloads-vodafone:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Vodafone
               downloads-hrworks:
@@ -528,6 +528,8 @@ apps:
             portals:
               treubau:
                 enabled: true
+                volume: downloads-michael
+                subdirFrom: TREUBAU_SUBDIR
                 schedule: "0 2 1 * *"
                 suspend: false
                 flat: true
@@ -538,8 +540,11 @@ apps:
                   TREUBAU_KURZNAME: /portal-document-downloader/TREUBAU_KURZNAME
                   TREUBAU_PASSWORT: /portal-document-downloader/TREUBAU_PASSWORT
                   TREUBAU_OBJEKT: /portal-document-downloader/TREUBAU_OBJEKT
+                  TREUBAU_SUBDIR: /portal-document-downloader/TREUBAU_SUBDIR
               facilioo:
                 enabled: true
+                volume: downloads-michael
+                subdirFrom: FACILIOO_SUBDIR
                 schedule: "0 3 1 * *"
                 suspend: false
                 flat: true
@@ -548,6 +553,7 @@ apps:
                 secrets:
                   FACILIOO_EMAIL: /portal-document-downloader/FACILIOO_EMAIL
                   FACILIOO_PASSWORD: /portal-document-downloader/FACILIOO_PASSWORD
+                  FACILIOO_SUBDIR: /portal-document-downloader/FACILIOO_SUBDIR
               vodafone:
                 # Vodafone mails every invoice as a PDF, and the mail rules
                 # import it within days. The portal copy is a different file
