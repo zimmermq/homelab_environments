@@ -249,6 +249,15 @@ apps:
           # every report while net worth stays right, so nothing looks wrong.
           linkTransfers:
             enabled: true
+            # Trade Republic is refreshed by hand from the broker's own export, so the
+            # deposit half of a transfer into it never arrives from a bank and waiting for
+            # one waits forever. It also holds no IBAN in Firefly, which is why the account
+            # has to be named here. Converting the paying side early is not optional: the
+            # broker import's duplicate filter only inspects rows that touch 257 or 258, so
+            # until the conversion happens the movement is invisible to it and gets imported
+            # a second time.
+            soleSourceIbans:
+              DE00100000000000000003: 257
   firefly-sankey:
     enabled: true
   kalibra:
