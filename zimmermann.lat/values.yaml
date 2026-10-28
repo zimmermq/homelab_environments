@@ -181,10 +181,7 @@ apps:
             destination: michael@zimmermann.lat
           loanSplit:
             enabled: true
-            # Starts in dry-run: the job rewrites transactions, so the first cycles only
-            # report what they would have done. Flip to false once a month's payments have
-            # been seen to be identified correctly.
-            dryRun: true
+            dryRun: false
             loans:
               - label: Objekt A
                 payee: 50
