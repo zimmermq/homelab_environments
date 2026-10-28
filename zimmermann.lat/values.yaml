@@ -207,15 +207,13 @@ apps:
             # so the mail is actionable on a phone without looking the host up.
             importerUrl: https://firefly-importer.zimmermann.lat
             # Not fed by the nightly import, so they would be flagged every night:
-            # the two Trade Republic accounts and the finvesto depot are refreshed
-            # by hand from a pytr CSV, the two Visa cards are closed and sit at 0,00.
+            # the finvesto depot is refreshed by hand, the two Visa cards are closed
+            # and sit at 0,00.
             # Dead man's switch: a healthy night sends no mail, so without this a
             # suspended CronJob looks exactly like "nothing to report".
             heartbeat:
               enabled: true
             ignoreStale:
-              - Trade Republic
-              - Trade Republic Depot
               - finvesto Depot 00000000000 (FNZ Bank)
               - Comdirect Visa 0001
               - Comdirect Visa 0002
@@ -249,15 +247,27 @@ apps:
           # every report while net worth stays right, so nothing looks wrong.
           linkTransfers:
             enabled: true
-            # Trade Republic is refreshed by hand from the broker's own export, so the
-            # deposit half of a transfer into it never arrives from a bank and waiting for
-            # one waits forever. It also holds no IBAN in Firefly, which is why the account
-            # has to be named here. Converting the paying side early is not optional: the
-            # broker import's duplicate filter only inspects rows that touch 257 or 258, so
-            # until the conversion happens the movement is invisible to it and gets imported
-            # a second time.
+            # The TR import leaves movements to and from own bank accounts to the bank,
+            # so the broker side never arrives and waiting for it waits forever. TR also
+            # holds no IBAN in Firefly, which is why the account has to be named here.
             soleSourceIbans:
               DE00100000000000000003: 257
+          # Nightly Trade Republic import from the broker's timeline, on the session the
+          # pytr chart's login job saves.
+          trTimeline:
+            enabled: true
+            credentialsSecret: pytr-credentials
+            sessionClaim: pytr-credentials-pvc
+            cashAccount: 257
+            depotAccount: 258
+            assetAccounts:
+              SpaceX: 1006
+            loginHint: |
+              1. Start the login job:
+                 kubectl --context home-zimmermann.lat -n argocd create job --from=cronjob/pytr-login pytr-login-$(date +%y%m%d%H%M)
+              2. Trade Republic sends a 4-digit code to the phone. Open
+                 https://tr.zimmermann.lat/code/<code>
+              3. Nothing else: the next night's run uses the new session.
   firefly-sankey:
     enabled: true
   kalibra:
