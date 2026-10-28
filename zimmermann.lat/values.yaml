@@ -183,16 +183,13 @@ apps:
             enabled: true
             dryRun: false
             loans:
-              - label: Objekt A
-                payee: 50
+              - payee: 50
                 liability: 987
                 interest: 994
-              - label: Objekt B
-                payee: 49
+              - payee: 49
                 liability: 990
                 interest: 995
-              - label: Objekt C
-                payee: 244
+              - payee: 244
                 liability: 1000
                 interest: 1003
           # Summary mail 30 min after the import: new transactions per account,
@@ -203,52 +200,35 @@ apps:
             # Quoted in the re-authorisation steps that accompany a consent warning,
             # so the mail is actionable on a phone without looking the host up.
             importerUrl: https://firefly-importer.zimmermann.lat
-            # Not fed by the nightly import, so they would be flagged every night:
-            # the finvesto depot is refreshed by hand, the two Visa cards are closed
-            # and sit at 0,00.
             # Dead man's switch: a healthy night sends no mail, so without this a
             # suspended CronJob looks exactly like "nothing to report".
             heartbeat:
               enabled: true
-            ignoreStale:
-              - finvesto Depot 00000000000 (FNZ Bank)
-              - Comdirect Visa 0001
-              - Comdirect Visa 0002
+            # Not fed by the nightly import, so they would be flagged every night: a
+            # depot refreshed by hand and two closed cards.
+            ignoreStale: [1023, 851, 852]
           ledgerCheck:
             enabled: true
-            # The three loan accounts carry no IBAN in Firefly, so their self-payees
-            # cannot be recognised from the payee name and have to be named by id.
+            # The loan accounts carry no IBAN in Firefly, so their self-payees cannot
+            # be recognised from the payee name and have to be named by id.
             loanPayees: [50, 49, 244]
-            # Trade Republic holds no IBAN on the account itself, but the monthly
-            # Sparplan arrives from the BBBank side as a withdrawal to a payee named
-            # after this IBAN, which is exactly the half-booked transfer to catch.
-            extraOwnIbans:
-              DE00100000000000000003: Trade Republic
-            # Kept apart on purpose, so reporting them would mail every night:
-            # every own-account IBAN has its own "Kontoinhaber (...)" self-payee,
-            # which is exactly what the unlinked-transfer scan matches on, and Dritter
-            # Inhaber really does hold two accounts at the same bank.
-            ignorePayees:
-              - Kontoinhaber
-              - Dritter Inhaber
+            # Two pairs that are legitimately split: one person with two accounts at the
+            # same bank, and an own account Firefly does not hold.
+            ignorePayeeIds: [11, 141, 27, 45]
           # Carries a consent renewed in the wizard into the nightly configuration, the
           # step that was manual and that leaves the import broken when it is forgotten.
-          # All three banks here are Enable Banking, so all three would otherwise need it
-          # by hand roughly every 90 days.
           syncConsent:
             enabled: true
-          # The monthly BBBank -> Comdirect household transfer arrives as two halves
-          # every single month, because the paying bank names the payee after the
-          # receiving IBAN instead of the importer matching the account that holds it.
-          # Left unjoined it adds 1,350 EUR of phantom income and expenses per month to
-          # every report while net worth stays right, so nothing looks wrong.
+          # Own-account transfers arrive as two halves, because the paying bank names the
+          # payee after the receiving IBAN instead of the importer matching the account
+          # that holds it. Left unjoined they add phantom income and expenses to every
+          # report while net worth stays right, so nothing looks wrong.
           linkTransfers:
             enabled: true
-            # The TR import leaves movements to and from own bank accounts to the bank,
-            # so the broker side never arrives and waiting for it waits forever. TR also
-            # holds no IBAN in Firefly, which is why the account has to be named here.
-            soleSourceIbans:
-              DE00100000000000000003: 257
+            # The broker import leaves movements to and from own bank accounts to the
+            # bank, so the broker side never arrives. The account carries its IBAN in
+            # Firefly's account number field.
+            soleSourceAccounts: [257]
           # Nightly Trade Republic import from the broker's timeline, on the session the
           # pytr chart's login job saves.
           trTimeline:
