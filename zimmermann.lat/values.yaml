@@ -675,8 +675,10 @@ apps:
                   NEODIGITAL_PASSWORD: /portal-document-downloader/NEODIGITAL_PASSWORD
               pkdw:
                 enabled: true
+                # Plain email + password login, no second factor, so it runs on
+                # its schedule.
                 schedule: "0 13 1 * *"
-                suspend: true
+                suspend: false
                 flat: true
                 env:
                   PORTAL: "pkdw"
