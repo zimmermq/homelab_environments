@@ -855,6 +855,12 @@ apps:
               pvcMounts:
                 data:
                   hostPath: /mnt/tank1/unencrypted/apps/zigbee2mqtt/data
+  zigbee-light-watcher:
+    enabled: true
+    argocd:
+      targetRevision: ~
+      helm:
+        values: {}
   asn:
     enabled: true
     argocd:
