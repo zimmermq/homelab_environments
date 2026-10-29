@@ -717,10 +717,10 @@ apps:
               amazon:
                 enabled: true
                 # Sign-in is unattended: the one-time code is computed from the
-                # authenticator-app key in AMAZON_TOTP_SECRET. Suspended until an
-                # image that contains the amazon portal is deployed.
+                # authenticator-app key in AMAZON_TOTP_SECRET, so this runs on its
+                # schedule. Each run scans the last two years (AMAZON_YEARS default).
                 schedule: "0 17 1 * *"
-                suspend: true
+                suspend: false
                 flat: true
                 env:
                   PORTAL: "amazon"
