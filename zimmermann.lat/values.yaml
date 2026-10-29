@@ -533,6 +533,8 @@ apps:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Santander
               downloads-amazon:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Amazon
+              downloads-aws:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/AWS
           portalDocumentDownloader:
             portals:
               treubau:
@@ -728,6 +730,19 @@ apps:
                   AMAZON_EMAIL: /portal-document-downloader/AMAZON_EMAIL
                   AMAZON_PASSWORD: /portal-document-downloader/AMAZON_PASSWORD
                   AMAZON_TOTP_SECRET: /portal-document-downloader/AMAZON_TOTP_SECRET
+              aws:
+                enabled: true
+                # Official AWS Invoicing API with an IAM key that may only list
+                # invoices and fetch their PDFs; no 2FA, so it runs on schedule.
+                # AWS issues the invoice around the 2nd of the following month.
+                schedule: "0 18 5 * *"
+                suspend: false
+                flat: true
+                env:
+                  PORTAL: "aws"
+                secrets:
+                  AWS_ACCESS_KEY_ID: /portal-document-downloader/AWS_ACCESS_KEY_ID
+                  AWS_SECRET_ACCESS_KEY: /portal-document-downloader/AWS_SECRET_ACCESS_KEY
   c24-document-downloader:
     enabled: true
     argocd:
