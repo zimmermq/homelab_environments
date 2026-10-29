@@ -813,8 +813,16 @@ apps:
               pytr-tatjana-credentials:
                 - PHONE_NUMBER: /pytr-tatjana/PHONE_NUMBER
                 - PIN: /pytr-tatjana/PIN
+            # Replaces the chart's single route, which names Michael's host and
+            # his login service: without this both instances serve tr.<domain>
+            # and a code typed for Tatjana reaches the wrong login pod.
+            ingress:
+              https:
+                - subdomain: tr-tatjana
+                  port: 8080
+                  service: pytr-tatjana-login-service
+                  oauth: true
           pytr:
-            subdomain: tr-tatjana
             # Off until this instance has its own Paperless token in Akeyless as
             # /pytr-tatjana/PAPERLESS_API_TOKEN. Turning it on also needs a
             # pytr-tatjana-paperless entry above and rootDocumentId 6104.
