@@ -636,7 +636,9 @@ apps:
                   PSDBANK_PASSWORD: /portal-document-downloader/PSDBANK_NUERNBERG_PASSWORD
                   PSDBANK_BASE_URL: /portal-document-downloader/PSDBANK_NUERNBERG_BASE_URL
               mainova:
-                enabled: true
+                # Contract ended; the final invoice (Schlussrechnung, May 2026)
+                # is in Paperless, so there is nothing left to fetch.
+                enabled: false
                 schedule: "0 10 1 * *"
                 suspend: true
                 flat: true
@@ -660,7 +662,7 @@ apps:
               neodigital:
                 enabled: true
                 schedule: "0 12 1 * *"
-                suspend: true
+                suspend: false
                 flat: true
                 env:
                   PORTAL: "neodigital"
@@ -680,7 +682,7 @@ apps:
               bvv:
                 enabled: true
                 schedule: "0 14 1 * *"
-                suspend: true
+                suspend: false
                 flat: true
                 env:
                   PORTAL: "bvv"
@@ -690,7 +692,7 @@ apps:
               entega:
                 enabled: true
                 schedule: "0 15 1 * *"
-                suspend: true
+                suspend: false
                 flat: true
                 env:
                   PORTAL: "entega"
