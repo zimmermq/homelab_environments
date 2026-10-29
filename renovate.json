@@ -1,0 +1,59 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "timezone": "Europe/Berlin",
+  "schedule": [
+    "after 12:00 and before 22:00"
+  ],
+  "commitMessagePrefix": "chore:",
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "to {{newVersion}}",
+  "labels": [
+    "dependencies",
+    "renovate"
+  ],
+  "platformAutomerge": true,
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update Docker image references in environment values (overrides of the homelab-iac charts)",
+      "managerFilePatterns": [
+        "/(^|/)values\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "image:\\s*['\"]?(?<depName>[^:'\"\\s@]+):(?<currentValue>[^'\"\\s@]+)(?:@(?<currentDigest>sha256:[a-f0-9]{64}))?['\"]?"
+      ],
+      "datasourceTemplate": "docker"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Auto-merge patch and minor updates for Docker images (matched by datasource: categories do not exist for regex-found dependencies)",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "merge-commit"
+    },
+    {
+      "description": "Require manual approval for major Docker image updates",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "automerge": false,
+      "addLabels": [
+        "major-update"
+      ]
+    }
+  ]
+}
