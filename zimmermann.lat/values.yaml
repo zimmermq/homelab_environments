@@ -531,6 +531,8 @@ apps:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Entega
               downloads-santander:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Santander
+              downloads-amazon:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Amazon
           portalDocumentDownloader:
             portals:
               treubau:
@@ -712,6 +714,20 @@ apps:
                 secrets:
                   SANTANDER_USERNAME: /portal-document-downloader/SANTANDER_USERNAME
                   SANTANDER_PASSWORD: /portal-document-downloader/SANTANDER_PASSWORD
+              amazon:
+                enabled: true
+                # Sign-in is unattended: the one-time code is computed from the
+                # authenticator-app key in AMAZON_TOTP_SECRET. Suspended until an
+                # image that contains the amazon portal is deployed.
+                schedule: "0 17 1 * *"
+                suspend: true
+                flat: true
+                env:
+                  PORTAL: "amazon"
+                secrets:
+                  AMAZON_EMAIL: /portal-document-downloader/AMAZON_EMAIL
+                  AMAZON_PASSWORD: /portal-document-downloader/AMAZON_PASSWORD
+                  AMAZON_TOTP_SECRET: /portal-document-downloader/AMAZON_TOTP_SECRET
   c24-document-downloader:
     enabled: true
     argocd:
