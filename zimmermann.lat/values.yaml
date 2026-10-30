@@ -1158,6 +1158,11 @@ apps:
           persistence:
             data:
               mountPath: /mnt/tank1/unencrypted/apps/homematic/ccu_data
+          # Same directory, as a claim for the restic backup (see apps/homematic/values.yaml).
+          generic:
+            persistentVolumeClaims:
+              ccu-data:
+                hostPath: /mnt/tank1/unencrypted/apps/homematic/ccu_data
   homer:
     enabled: true
     argocd:
