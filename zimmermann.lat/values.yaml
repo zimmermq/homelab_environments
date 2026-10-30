@@ -246,10 +246,10 @@ apps:
             namespace: trade-republic
             loginHint: |
               1. Start the login job:
-                 kubectl --context home-zimmermann.lat -n argocd create job --from=cronjob/pytr-login pytr-login-$(date +%y%m%d%H%M)
+                 kubectl --context home-zimmermann.lat -n trade-republic create job --from=cronjob/pytr-login pytr-login-$(date +%y%m%d%H%M)
               2. Trade Republic sends a 4-digit code to the phone. Open
                  https://tr.zimmermann.lat/code/<code>
-              3. Nothing else: the next night's run uses the new session.
+              3. Nothing else: the import, the document download and the CSV versioning start on their own.
   firefly-sankey:
     enabled: true
   kalibra:
