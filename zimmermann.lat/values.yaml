@@ -1028,15 +1028,17 @@ apps:
       helm:
         values:
           ecrRegistries:
+            # Every 4 h against a 12 h token: one failed run still leaves a valid
+            # pull secret until the next attempt.
             - name: primary
               region: eu-central-1
               namespace: argocd
-              schedule: "0 */10 * * *"
+              schedule: "0 */4 * * *"
             # Add additional ECR accounts as needed
             - name: secondary
               region: eu-central-1
               namespace: argocd
-              schedule: "0 */10 * * *"
+              schedule: "0 */4 * * *"
   prometheus:
     enabled: true
     argocd:
