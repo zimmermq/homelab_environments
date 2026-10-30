@@ -1,0 +1,50 @@
+# Login alerts
+#
+# Pushes a phone notification when a login to Home Assistant itself fails or
+# when an IP address gets banned. Home Assistant already posts both as
+# persistent notifications, but those are only seen once someone opens the UI.
+#
+#   http-login  every failed login; the message names the client IP that Home
+#               Assistant saw, so it also shows whether the real client IP gets
+#               through the gateway or a proxy address is recorded instead
+#   ip-ban      an IP reached login_attempts_threshold (Settings -> System ->
+#               Network); the ban lasts until the IP is removed from
+#               /config/ip_bans.yaml and Home Assistant restarts
+#
+# Both IDs are Home Assistant's own (homeassistant.components.http.ban).
+
+automation:
+  - id: login_alerts_forward
+    alias: "Login: fehlgeschlagene Anmeldung oder IP-Sperre melden"
+    description: >-
+      Forwards Home Assistant's failed-login and IP-ban notices to all phones.
+    # Queued: several failed logins in a row must each be reported, and the
+    # ban notice that follows them must not be dropped.
+    mode: queued
+    max: 20
+    triggers:
+      # Since 2026.9 a repeated notice under the same ID fires "updated", not
+      # "added", so both are needed to catch every attempt.
+      - trigger: persistent_notification
+        notification_id: http-login
+        update_type: [added, updated]
+        id: login_failed
+      - trigger: persistent_notification
+        notification_id: ip-ban
+        update_type: [added, updated]
+        id: ip_banned
+    actions:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id: ip_banned
+            sequence:
+              - action: notify.all_devices
+                data:
+                  title: "Home Assistant: IP-Adresse gesperrt"
+                  message: "{{ trigger.notification.message }}"
+        default:
+          - action: notify.all_devices
+            data:
+              title: "Home Assistant: Anmeldung fehlgeschlagen"
+              message: "{{ trigger.notification.message }}"
