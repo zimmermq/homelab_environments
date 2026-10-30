@@ -24,13 +24,14 @@ global:
     clientId: "5vmqlfbdhdrma83s40bnrbb59i"
     cookieDomain: "zimmermann.lat"   # NO leading dot — Envoy rejects it
 
+    defaultGroups:
+      - admin
+
   # Cloudflare Authenticated Origin Pulls. The Gateway has two HTTPS listener
   # pairs: a LAN-only one on :443 (reachable only because the router doesn't
   # NAT WAN traffic to it) and a Cloudflare-only one on :4443 requiring mTLS.
   # Cloudflare presents a leaf cert signed by the CA below; Envoy validates it.
   # ca.key is kept offline — the cluster only ever holds this public ca.crt.
-    defaultGroups:
-      - admin
   security:
     cloudflareOriginCA: |
       -----BEGIN CERTIFICATE-----
@@ -167,12 +168,12 @@ apps:
                 #   chown 33:33 /mnt/tank1/encrypted/apps/firefly/import-jobs
                 import-jobs:
                   hostPath: /mnt/tank1/encrypted/apps/firefly/import-jobs
-          # Delivers the nightly import report; without it, transactions the
-          # importer rejects are only visible in the pod log. Needs Akeyless
-          # /firefly/MAIL_PASSWORD to exist before this is merged.
             ingress:
               groups:
                 - finance
+          # Delivers the nightly import report; without it, transactions the
+          # importer rejects are only visible in the pod log. Needs Akeyless
+          # /firefly/MAIL_PASSWORD to exist before this is merged.
           smtp:
             enabled: true
             host: mail.your-server.de
@@ -1191,12 +1192,6 @@ apps:
         subtitle: "Scanner"
         logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/png/scanservjs.png"
         url: "http://192.168.0.124/"
-      duplicateHomeserver:
-        name: "Duplicati Homeserver"
-        group: "infrastructure"
-        subtitle: "Duplicati Homeserver"
-        logo: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/duplicati.svg"
-        url: "http://duplicat.home.lat:8200/"
   reloader:
     enabled: true
     argocd:
