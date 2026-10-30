@@ -883,6 +883,8 @@ apps:
             persistentVolumeClaims:
               dumps:
                 hostPath: /mnt/tank1/encrypted/apps/postgres/dumps
+                backup:
+                  enabled: true
   tika:
     enabled: true
     argocd:
