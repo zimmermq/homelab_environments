@@ -28,6 +28,10 @@ global:
     issuerUrl: "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_A6gtz8gw5"
     clientId: "5vmqlfbdhdrma83s40bnrbb59i"
     cookieDomain: "raspi.zimmermann.lat"   # NO leading dot — Envoy rejects it
+    # Only members of this Cognito group pass the OIDC routes; the pool is shared
+    # with zimmermann.lat, where other groups (finance, family) also sign in.
+    defaultGroups:
+      - admin
 
   # No global.security.cloudflareOriginCA on purpose: raspi is LAN-only
   # (grey-cloud DNS, LAN IP). The gateway then runs with just the LAN listener
