@@ -1104,11 +1104,15 @@ apps:
                 uid: 1001
                 groups: [family]
             shares:
+              # The whole pool: app data of every service lives below it, and much
+              # of it is readable by "others". Admins only; give other users their
+              # own share for the folder they need instead.
               - name: tank1
                 path: /shares/tank1
                 guest: false
                 readOnly: true
                 browseable: true
+                validUsers: ["@admin"]
                 writeList: ["@admin"]
             avahi:
               enabled: true
