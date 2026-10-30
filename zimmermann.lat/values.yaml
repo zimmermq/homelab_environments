@@ -95,13 +95,9 @@ apps:
                 data:
                   hostPath: /mnt/tank1/encrypted/apps/venice-autobook/data
             ingress:
-              https:
-                - subdomain: venice-autobook
-                  port: 8080
-                  oauth: true
-                  groups:
-                    - admin
-                    - venice-autobook
+              groups:
+                - admin
+                - venice-autobook
   facilioo-watch:
     enabled: true
     argocd:
@@ -113,13 +109,9 @@ apps:
                 data:
                   hostPath: /mnt/tank1/encrypted/apps/facilioo-watch/data
             ingress:
-              https:
-                - subdomain: facilioo-watch
-                  port: 8080
-                  oauth: true
-                  groups:
-                    - admin
-                    - facilioo-watch
+              groups:
+                - admin
+                - facilioo-watch
   mosquitto:
     enabled: true
     argocd:
@@ -179,12 +171,8 @@ apps:
           # importer rejects are only visible in the pod log. Needs Akeyless
           # /firefly/MAIL_PASSWORD to exist before this is merged.
             ingress:
-              https:
-                - subdomain: firefly-importer
-                  port: 8080
-                  oauth: true
-                  groups:
-                    - finance
+              groups:
+                - finance
           smtp:
             enabled: true
             host: mail.your-server.de
