@@ -762,6 +762,9 @@ apps:
   pytr:
     enabled: true
     argocd:
+      # Own namespace: the login job may create Jobs here, which in argocd would reach
+      # every other app's secrets.
+      namespace: trade-republic
       targetRevision: ~
       helm:
         values:
@@ -784,19 +787,24 @@ apps:
                 - PAPERLESS_API_TOKEN: /pytr/PAPERLESS_API_TOKEN
           pytr:
             csvVersions:
-              suspend: false
+              # Started by the login (afterLogin) instead of on a schedule.
+              suspend: true
               rootDocumentId: 5629
+              paperlessUrl: "http://paperlessngx-service.argocd.svc.cluster.local:8000"
+              waitMinutes: 240
             login:
               schedule: "0 0 1 1 *"
               suspend: true
-            # Unattended on the session the login job saves, which the nightly Firefly TR
-            # import shares. When it has expired the run stops without logging in.
+              # A session lives 24 h from the login, so everything that needs it starts
+              # right after one.
+              afterLogin: [pytr-download, pytr-csv-versions, firefly-importer-tr-timeline]
             download:
               schedule: "0 2 1 * *"
-              suspend: false
+              suspend: true
   pytr-tatjana:
     enabled: true
     argocd:
+      namespace: trade-republic
       path: apps/pytr
       targetRevision: ~
       helm:
@@ -831,6 +839,7 @@ apps:
             login:
               schedule: "0 0 1 1 *"
               suspend: true
+              afterLogin: [pytr-tatjana-download]
             download:
               schedule: "0 2 1 * *"
               suspend: true
