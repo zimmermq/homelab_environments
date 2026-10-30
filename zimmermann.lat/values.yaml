@@ -372,6 +372,9 @@ apps:
                     - |
                       echo "Copying config files from ConfigMap to /config..."
                       mkdir -p /config/packages
+                      # Packages come only from the ConfigMap; clear the old copies so a
+                      # package removed from git does not keep running.
+                      rm -f /config/packages/*.yaml
                       for f in /configmap/*.yaml; do
                         [ -f "$f" ] || continue
                         name=$(basename "$f")

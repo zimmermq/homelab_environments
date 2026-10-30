@@ -21,7 +21,7 @@ input_number:
     min: 4.5
     max: 25
     step: 0.5
-    initial: 16
+    # No "initial:": it would reset the temperature set in the UI on each restart.
     unit_of_measurement: "°C"
     icon: mdi:thermometer
 

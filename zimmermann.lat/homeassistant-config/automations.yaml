@@ -75,6 +75,14 @@
     value_template: >
       {{ (states('input_number.humidity_send_allclear_notification') | int == 1) and
          (is_state('input_boolean.humidity_alert_active', 'on')) }}
+  # With a repeat interval of 0 the loop above is skipped, so wait here until no
+  # room is too humid; otherwise the all-clear would go out while it still is.
+  - wait_template: >
+      {% set group = 'sensor.feuchtigkeitssensoren' %}
+      {% set st_objs = expand(state_attr(group, 'entity_id') | select('has_value')) %}
+      {% set threshold = states('input_number.humidity_threshold_percent') | int %}
+      {% set humid_count = st_objs | map(attribute='state') | map('float') | select('gt', threshold) | list | count %}
+      {{ humid_count == 0 }}
   - service: notify.all_devices
     data:
       title: Luftfeuchtigkeit normalisiert
@@ -281,6 +289,13 @@
     value_template: >
       {{ (states('input_number.window_send_allclear_notification') | int == 1) and
          (is_state('input_boolean.window_alert_active', 'on')) }}
+  # With a repeat interval of 0 the loop above is skipped, so wait here until all
+  # windows are closed; otherwise the all-clear would go out while one is open.
+  - wait_template: >
+      {{ expand(states.binary_sensor)
+         | selectattr('attributes.device_class', 'eq', 'window')
+         | selectattr('state', 'eq', 'on')
+         | list | count == 0 }}
   - service: notify.all_devices
     data:
       title: Alle Fenster geschlossen

@@ -3,6 +3,9 @@
 # These input_number helpers allow adjusting automation behavior without editing code.
 # After changing values, automations will use the new values immediately (no restart needed).
 # Values can be adjusted in: Settings → Devices & Services → Helpers
+# No "initial:" on purpose: it would reset every value set in the UI on each
+# restart. A fresh install therefore starts each helper at its minimum; set the
+# "Default:" values noted below once.
 
 # Window Open Automation - Trigger Time
 # Used by: automation.fenster_zu_lange_offen
@@ -15,7 +18,6 @@ window_open_trigger_minutes:
   step: 1
   unit_of_measurement: "min"
   icon: mdi:window-open
-  initial: 10
 
 # Window Open Automation - Repeat Interval
 # Used by: automation.fenster_zu_lange_offen
@@ -29,7 +31,6 @@ window_notification_repeat_minutes:
   step: 5
   unit_of_measurement: "min"
   icon: mdi:clock-alert
-  initial: 60
 
 # Humidity Automation - Humidity Threshold
 # Used by: automation.wohnraumfeuchtigkeit
@@ -42,7 +43,6 @@ humidity_threshold_percent:
   step: 1
   unit_of_measurement: "%"
   icon: mdi:water-percent
-  initial: 60
 
 # Humidity Automation - Trigger Time
 # Used by: automation.wohnraumfeuchtigkeit
@@ -55,7 +55,6 @@ humidity_trigger_minutes:
   step: 5
   unit_of_measurement: "min"
   icon: mdi:clock-outline
-  initial: 15
 
 # Humidity Automation - Repeat Interval
 # Used by: automation.wohnraumfeuchtigkeit
@@ -69,7 +68,6 @@ humidity_notification_repeat_minutes:
   step: 30
   unit_of_measurement: "min"
   icon: mdi:clock-alert
-  initial: 360
 
 # Window Open Automation - All Clear Notification Toggle
 # Used by: automation.fenster_zu_lange_offen
@@ -81,7 +79,6 @@ window_send_allclear_notification:
   max: 1
   step: 1
   icon: mdi:check-circle
-  initial: 1
   mode: box
 
 # Humidity Automation - All Clear Notification Toggle
@@ -94,5 +91,4 @@ humidity_send_allclear_notification:
   max: 1
   step: 1
   icon: mdi:check-circle
-  initial: 1
   mode: box
