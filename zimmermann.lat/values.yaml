@@ -125,7 +125,20 @@ apps:
     argocd:
       targetRevision: ~
       helm:
-        values: {}
+        values:
+          generic:
+            configMaps:
+              mosquitto-config-cm:
+                # Every client here logs in (Home Assistant, zigbee2mqtt, smarthome4,
+                # smarthome4-ui, zigbee-light-watcher, teddycloud), so anonymous
+                # access is off. A new client needs the account from auth.txt.
+                mosquitto.conf: |-
+                  allow_anonymous false
+                  listener 1883
+                  password_file /mosquitto/config/auth.txt
+          # All clients run in the cluster; nothing on the LAN talks MQTT directly.
+          service:
+            type: ClusterIP
   # Firefly stack is defined in homelab-iac base-chart; the env overlay only enables
   # it and supplies this cluster's hostPaths.
   firefly:
