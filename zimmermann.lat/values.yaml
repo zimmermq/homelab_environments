@@ -877,6 +877,12 @@ apps:
               pvcMounts:
                 data:
                   hostPath: /mnt/tank1/encrypted/apps/postgres/data
+            # Nightly pg_dumpall target. One-time setup on the host - the mount is
+            # type Directory, so the dump job will not start without it:
+            #   mkdir -p /mnt/tank1/encrypted/apps/postgres/dumps
+            persistentVolumeClaims:
+              dumps:
+                hostPath: /mnt/tank1/encrypted/apps/postgres/dumps
   tika:
     enabled: true
     argocd:
