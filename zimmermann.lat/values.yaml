@@ -136,6 +136,13 @@ apps:
                   allow_anonymous false
                   listener 1883
                   password_file /mosquitto/config/auth.txt
+                  persistence true
+                  persistence_location /mosquitto/data/
+            # Keeps retained messages (Zigbee2MQTT's Home Assistant discovery) and
+            # client sessions across broker restarts.
+            persistentVolumeClaims:
+              data:
+                hostPath: /mnt/tank1/encrypted/apps/mosquitto/data
           # All clients run in the cluster; nothing on the LAN talks MQTT directly.
           service:
             type: ClusterIP
