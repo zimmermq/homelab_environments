@@ -84,6 +84,13 @@ global:
   argocd:
     targetRevision: main
 
+# Storage: tank1/encrypted needs its passphrase typed in after every reboot (ZFS
+# keylocation=prompt). Apps that must come back on their own after a power cut
+# (smart home, monitoring, the Tonieboxes) keep their data on tank1/unencrypted on
+# purpose; those hostPaths are marked "unencrypted on purpose". Moving one to
+# encrypted means it stays down until the pool is unlocked. What that leaves
+# readable on a disk that leaves the house: HA config and tokens, the Zigbee
+# network key, the Homematic CCU keys, Grafana users, the sftpgo user DB.
 apps:
   venice-autobook:
     enabled: true
@@ -350,7 +357,7 @@ apps:
             deployment:
               pvcMounts:
                 config:
-                  hostPath: /mnt/tank1/unencrypted/apps/homeassistant/config
+                  hostPath: /mnt/tank1/unencrypted/apps/homeassistant/config  # unencrypted on purpose, see the note above apps:
               # Init container copies config files from ConfigMap to PVC on every startup
               initContainers:
                 - name: copy-config
@@ -915,7 +922,7 @@ apps:
             deployment:
               pvcMounts:
                 data:
-                  hostPath: /mnt/tank1/unencrypted/apps/zigbee2mqtt/data
+                  hostPath: /mnt/tank1/unencrypted/apps/zigbee2mqtt/data  # unencrypted on purpose, see the note above apps:
   zigbee-light-watcher:
     enabled: true
     argocd:
@@ -938,7 +945,7 @@ apps:
             deployment:
               pvcMounts:
                 tokens:
-                  hostPath: /mnt/tank1/unencrypted/apps/tgtg/tokens
+                  hostPath: /mnt/tank1/unencrypted/apps/tgtg/tokens  # unencrypted on purpose, see the note above apps:
   radicale:
     enabled: true
     argocd:
@@ -1045,7 +1052,7 @@ apps:
               alertmanager: /mnt/tank1/unencrypted/apps/prometheus/alertmanager/data
             persistentVolumeClaims:
               grafana:
-                hostPath: /mnt/tank1/unencrypted/apps/prometheus/grafana/data
+                hostPath: /mnt/tank1/unencrypted/apps/prometheus/grafana/data  # unencrypted on purpose, see the note above apps:
   sftpgo:
     enabled: true
     argocd:
@@ -1058,7 +1065,7 @@ apps:
                 data:
                   hostPath: /mnt/tank1/encrypted/apps/sftpgo/data
                 config:
-                  hostPath: /mnt/tank1/unencrypted/apps/sftpgo/config
+                  hostPath: /mnt/tank1/unencrypted/apps/sftpgo/config  # unencrypted on purpose, see the note above apps:
                 tank1:
                   mountPath: /mnt/tank1
                   hostPath: /mnt/tank1
@@ -1160,7 +1167,7 @@ apps:
           generic:
             persistentVolumeClaims:
               ccu-data:
-                hostPath: /mnt/tank1/unencrypted/apps/homematic/ccu_data
+                hostPath: /mnt/tank1/unencrypted/apps/homematic/ccu_data  # unencrypted on purpose, see the note above apps:
   homer:
     enabled: true
     argocd:
@@ -1464,7 +1471,7 @@ apps:
                 plugins:
                   hostPath: /mnt/tank1/encrypted/apps/teddycloud/plugins
                 cache:
-                  hostPath: /mnt/tank1/unencrypted/apps/teddycloud/cache
+                  hostPath: /mnt/tank1/unencrypted/apps/teddycloud/cache  # unencrypted on purpose, see the note above apps:
           teddycloud:
             box:
               # Second address out of the MetalLB pool (global.cluster.ip-range
