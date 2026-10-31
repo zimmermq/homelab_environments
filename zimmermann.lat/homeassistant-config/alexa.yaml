@@ -3,7 +3,7 @@ smart_home:
   endpoint: https://api.eu.amazonalexa.com/v3/events
   filter:
     include_entities:
-    - light.aegypten
+    - light.deko
     - light.buero
     - light.esszimmer_5
     - light.flur_2
@@ -18,9 +18,9 @@ smart_home:
     - light.schlafzimmer_deckenlicht
     - light.fernsehlicht
   entity_config:
-    light.aegypten:
-      name: Ägyptenlampe
-      description: Die Ägyptenlampe
+    light.deko:
+      name: Deko
+      description: Die Deko Lampe
     light.buero:
       name: Bürolicht
       description: Das Deckenlicht im Büro
