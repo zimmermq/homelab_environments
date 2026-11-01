@@ -107,9 +107,7 @@ apps:
                 - admin
                 - venice-autobook
   venice-autobook-pfitzenmeier:
-    # Enable only after an image containing the Pfitzenmeier tenant is released and
-    # the apps/*/values.yaml image tags are bumped; v0.3.5 predates the tenant.
-    enabled: false
+    enabled: true
     argocd:
       helm:
         values:
