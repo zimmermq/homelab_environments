@@ -948,7 +948,10 @@ apps:
     argocd:
       targetRevision: ~
       helm:
-        values: {}
+        values:
+          # Lidl GU10 spots switch themselves on now and then. Just above the 60 s poll
+          # interval, so the light is re-read once before the watcher switches it off.
+          autoOffSeconds: "70"
   asn:
     enabled: true
     argocd:
