@@ -125,6 +125,31 @@ akeyless create-secret --name /zimmermann.lat/venice-autobook/NTFY_URL    --valu
 If NTFY_URL is left unset, notifications are simply skipped (the ExternalSecret still
 expects the key to exist, so create it - use an empty value or a real topic).
 
+## venice-autobook-pfitzenmeier
+
+A second instance of the same app for the Pfitzenmeier tenant (`VB_TENANT=pfitzenmeier`,
+host `pfitzenmeier.api.actinate.com`). Same four keys as venice-autobook, in its own
+path. The app's client secret is baked into the image, not stored here.
+
+| Akeyless Path                                                | Description                              |
+|---------------------------------------------------------------|------------------------------------------|
+| `/zimmermann.lat/venice-autobook-pfitzenmeier/VB_USERNAME`    | Pfitzenmeier app login (email)           |
+| `/zimmermann.lat/venice-autobook-pfitzenmeier/VB_PASSWORD`    | Pfitzenmeier app password                |
+| `/zimmermann.lat/venice-autobook-pfitzenmeier/NTFY_URL`       | ntfy topic URL, or a single space to skip |
+| `/zimmermann.lat/venice-autobook-pfitzenmeier/SMTP_PASSWORD`  | mail-relay password, or a space to skip   |
+
+Akeyless rejects an empty value, so a channel that should stay off holds a single space:
+the app strips whitespace and treats the channel as disabled. Email also stays off until
+host and recipient are set in the app's own UI, so SMTP_PASSWORD only matters once email
+is enabled there.
+
+```bash
+akeyless create-secret --name /zimmermann.lat/venice-autobook-pfitzenmeier/VB_USERNAME   --value '<the Pfitzenmeier login>'
+akeyless create-secret --name /zimmermann.lat/venice-autobook-pfitzenmeier/VB_PASSWORD   --value '<the Pfitzenmeier password>'
+akeyless create-secret --name /zimmermann.lat/venice-autobook-pfitzenmeier/NTFY_URL      --value ' '
+akeyless create-secret --name /zimmermann.lat/venice-autobook-pfitzenmeier/SMTP_PASSWORD --value ' '
+```
+
 ## facilioo-watch
 
 Reports which processes at the property have stopped moving. Needs the portal login
