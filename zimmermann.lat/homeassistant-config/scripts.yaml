@@ -8,8 +8,31 @@ turn_on_all_lights:
 
 turn_off_all_lights:
   alias: Turn off all lights
-  description: Turns off every light entity in the house
+  description: Turns off every light in the house, one room after another
+  # A command to a Zigbee2MQTT group is an unacknowledged broadcast, and the
+  # coordinator answers BUSY when too many go out at once; the dropped group then
+  # stays on and nothing retries it. Turning off `all` (every bulb plus every
+  # overlapping group) sent such a burst. Here each bulb is covered by one target
+  # only, and the targets go out one at a time so they never reach the coordinator
+  # in the same instant.
+  # The list covers every bulb exactly once: a new light must be added here.
+  # Single-bulb groups are addressed as the bulb, which is a direct, acknowledged send.
   sequence:
-    - action: light.turn_off
-      target:
-        entity_id: all
+    - repeat:
+        for_each:
+          - light.esszimmer_5
+          - light.wohnzimmer_2
+          - light.kueche
+          - light.bad
+          - light.buero
+          - light.schlafzimmer_2
+          - light.flur_decke
+          - light.deko
+          - light.stehlampe_schlafzimmer
+          - light.stimmungsleuchte
+        sequence:
+          - action: light.turn_off
+            target:
+              entity_id: "{{ repeat.item }}"
+          - delay:
+              milliseconds: 100

@@ -17,6 +17,7 @@ smart_home:
     - light.bad
     - light.schlafzimmer_deckenlicht
     - light.fernsehlicht
+    - script.turn_off_all_lights
   entity_config:
     light.deko:
       name: Deko
@@ -60,3 +61,6 @@ smart_home:
     light.fernsehlicht:
       name: Fernsehlicht
       description: Stehlampe hinter Fernseher
+    script.turn_off_all_lights:
+      name: Alles aus
+      description: Schaltet alle Lichter nacheinander aus
