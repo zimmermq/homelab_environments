@@ -195,6 +195,15 @@ apps:
                 #   chown 33:33 /mnt/tank1/encrypted/apps/firefly/import-jobs
                 import-jobs:
                   hostPath: /mnt/tank1/encrypted/apps/firefly/import-jobs
+            # AqBanking configuration for the FinTS job (user, system id, TAN method) and
+            # its LOGIN_REFUSED lock. One-time setup on the host before this is merged:
+            #   mkdir -p /mnt/tank1/encrypted/apps/firefly/fints
+            # then copy a working AqBanking folder (aqbanking -D <dir>) into it.
+            persistentVolumeClaims:
+              fints:
+                hostPath: /mnt/tank1/encrypted/apps/firefly/fints
+                backup:
+                  enabled: true
             ingress:
               groups:
                 - finance
@@ -279,6 +288,144 @@ apps:
               2. Trade Republic sends a 4-digit code to the phone. Open
                  https://tr.zimmermann.lat/code/<code>
               3. Nothing else: the import, the document download and the CSV versioning start on their own.
+          # Tatjana's 1822direkt Girokonto (Firefly 1050) over FinTS: Enable Banking does not
+          # offer 1822direkt. History before `since` came from PDF statements and the web
+          # export; importConfig is the wizard's configuration for that web export, which
+          # the job's CSV reproduces column for column. Needs Akeyless /firefly/FINTS_1822_PIN.
+          fints:
+            enabled: true
+            blz: "50050222"
+            iban: DE02500502011244250048
+            since: "2026-11-07"
+            importName: 1822direkt-tatjana
+            pinPath: /firefly/FINTS_1822_PIN
+            loginHint: |
+              1. Start the login job:
+                 kubectl --context home-zimmermann.lat -n argocd create job --from=cronjob/firefly-importer-fints-login fints-login-$(date +%y%m%d%H%M)
+              2. Attach once the pod runs:
+                 kubectl --context home-zimmermann.lat -n argocd exec -it job/<job name> -- python3 /script/fints_import.py login
+              3. Type the TAN the 1822TAN+ app shows. The next night fetches again on its own.
+            importConfig:
+              {
+                "version": 3,
+                "source": "ff3-importer-2.3.4",
+                "created_at": "2026-11-07T19:48:23+01:00",
+                "date": "d.m.Y",
+                "default_account": 1050,
+                "delimiter": "semicolon",
+                "headers": true,
+                "rules": true,
+                "webhooks": true,
+                "skip_form": false,
+                "add_import_tag": true,
+                "roles": [
+                  "_ignore",
+                  "_ignore",
+                  "date_transaction",
+                  "date_interest",
+                  "amount",
+                  "_ignore",
+                  "note",
+                  "opposing-name",
+                  "opposing-iban",
+                  "opposing-bic",
+                  "sepa_ci",
+                  "sepa_db",
+                  "_ignore",
+                  "description",
+                  "description",
+                  "description",
+                  "description",
+                  "description",
+                  "description",
+                  "description",
+                  "description",
+                  "description",
+                  "description",
+                  "description",
+                  "description",
+                  "description",
+                  "description",
+                  "description",
+                  "description",
+                  "description",
+                  "description",
+                  "sepa_ct_id"
+                ],
+                "do_mapping": [
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false
+                ],
+                "mapping": {},
+                "duplicate_detection_method": "classic",
+                "ignore_duplicate_lines": true,
+                "unique_column_index": 0,
+                "unique_column_type": "note",
+                "pseudo_identifier": [],
+                "flow": "file",
+                "content_type": "csv",
+                "camt_type": "",
+                "custom_tag": "",
+                "file_name": "(unknown)",
+                "identifier": "0",
+                "connection": "0",
+                "ignore_spectre_categories": false,
+                "grouped_transaction_handling": "",
+                "use_entire_opposing_address": false,
+                "map_all_data": false,
+                "pending_transactions": false,
+                "access_token": "",
+                "accounts": {},
+                "new_accounts": [],
+                "date_range": "",
+                "date_range_number": 30,
+                "date_range_unit": "d",
+                "date_range_not_after_unit": "",
+                "date_range_not_after_number": 0,
+                "date_not_before": "",
+                "date_not_after": "",
+                "nordigen_country": "",
+                "nordigen_bank": "",
+                "nordigen_requisitions": {},
+                "nordigen_max_days": "90",
+                "lunch_flow_api_key": "",
+                "enable_banking_country": "",
+                "enable_banking_bank": "",
+                "enable_banking_auth_id": "",
+                "enable_banking_sessions": [],
+                "conversion": false,
+                "ignore_duplicate_transactions": true
+              }
   firefly-sankey:
     enabled: true
   kalibra:
