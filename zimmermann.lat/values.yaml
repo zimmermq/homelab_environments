@@ -289,16 +289,22 @@ apps:
               2. Trade Republic sends a 4-digit code to the phone. Open
                  https://tr.zimmermann.lat/code/<code>
               3. Nothing else: the import, the document download and the CSV versioning start on their own.
-          # Tatjana's 1822direkt Girokonto (Firefly 1050) over FinTS: Enable Banking does not
+          # Tatjana's 1822direkt giro (Firefly 1050) and ZinsCash (1174) over FinTS: Enable Banking does not
           # offer 1822direkt. History before `since` came from PDF statements and the web
           # export; importConfig is the wizard's configuration for that web export, which
           # the job's CSV reproduces column for column. Needs Akeyless /firefly/FINTS_1822_PIN.
           fints:
             enabled: true
             blz: "50050222"
-            iban: DE02500502011244250048
+            # Giro first: movements between giro and ZinsCash are booked from the giro
+            # statement only.
+            accounts:
+              - iban: DE02500502011244250048
+                importName: 1822direkt-tatjana
+              - iban: DE77500502011244250056
+                importName: 1822direkt-zinscash-tatjana
+                defaultAccount: 1174
             since: "2026-11-07"
-            importName: 1822direkt-tatjana
             pinPath: /firefly/FINTS_1822_PIN
             loginHint: |
               1. Start the login job:
