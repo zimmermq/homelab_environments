@@ -250,9 +250,14 @@ apps:
             # The loan accounts carry no IBAN in Firefly, so their self-payees cannot
             # be recognised from the payee name and have to be named by id.
             loanPayees: [50, 49, 244]
-            # Two pairs that are legitimately split: one person with two accounts at the
-            # same bank, and an own account Firefly does not hold.
-            ignorePayeeIds: [11, 141, 27, 45]
+            # Pairs that are legitimately split: one person with two accounts at the same
+            # bank, and an own account Firefly does not hold (11/141, 27/45). Then payees
+            # where one side carries an IBAN the importer matches on and the other a name
+            # spelling it matches on (1116/616 ... 1268/549): merging them makes the
+            # importer recreate the lost side, so both stay.
+            ignorePayeeIds: [11, 141, 27, 45,
+                             1116, 616, 1260, 683, 1119, 652, 1137, 698,
+                             1248, 810, 113, 1239, 1279, 9, 1268, 549]
           # Carries a consent renewed in the wizard into the nightly configuration, the
           # step that was manual and that leaves the import broken when it is forgotten.
           syncConsent:
