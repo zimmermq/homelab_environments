@@ -293,8 +293,8 @@ apps:
               2. Trade Republic sends a 4-digit code to the phone. Open
                  https://tr.zimmermann.lat/code/<code>
               3. Nothing else: the import, the document download and the CSV versioning start on their own.
-            # Tatjana's TR account (cash 1315, depot 1345). First run: dry, over the whole
-            # history, started by her login; the output is checked before anything is booked.
+            # Tatjana's TR account (cash 1315, depot 1345). Her savings plan top-ups are
+            # direct debits from her 1822direkt giro, booked from that side as transfers.
             accounts:
               - name: tatjana
                 label: Tatjana
@@ -302,8 +302,6 @@ apps:
                 sessionClaim: pytr-tatjana-credentials-pvc
                 cashAccount: 1315
                 depotAccount: 1345
-                windowDays: 0
-                dryRun: true
                 loginHint: |
                   1. Start the login job:
                      kubectl --context home-zimmermann.lat -n trade-republic create job --from=cronjob/pytr-tatjana-login pytr-tatjana-login-$(date +%y%m%d%H%M)
