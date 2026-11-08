@@ -269,9 +269,8 @@ apps:
           linkTransfers:
             enabled: true
             # Broker accounts whose side of a movement to or from an own bank account never
-            # arrives: the TR timeline import leaves those to the bank (257), and Tatjana's
-            # TR account has no import at all (1315). Each carries its IBAN in Firefly's
-            # account number field.
+            # arrives: the TR timeline import leaves those to the bank (257 and 1315).
+            # Each carries its IBAN in Firefly's account number field.
             soleSourceAccounts: [257, 1315]
           # Nightly Trade Republic import from the broker's timeline, on the session the
           # pytr chart's login job saves.
@@ -294,6 +293,23 @@ apps:
               2. Trade Republic sends a 4-digit code to the phone. Open
                  https://tr.zimmermann.lat/code/<code>
               3. Nothing else: the import, the document download and the CSV versioning start on their own.
+            # Tatjana's TR account (cash 1315, depot 1345). First run: dry, over the whole
+            # history, started by her login; the output is checked before anything is booked.
+            accounts:
+              - name: tatjana
+                label: Tatjana
+                credentialsSecret: pytr-tatjana-credentials
+                sessionClaim: pytr-tatjana-credentials-pvc
+                cashAccount: 1315
+                depotAccount: 1345
+                windowDays: 0
+                dryRun: true
+                loginHint: |
+                  1. Start the login job:
+                     kubectl --context home-zimmermann.lat -n trade-republic create job --from=cronjob/pytr-tatjana-login pytr-tatjana-login-$(date +%y%m%d%H%M)
+                  2. Trade Republic sends a 4-digit code to Tatjana's phone. Open
+                     https://tr-tatjana.zimmermann.lat/code/<code>
+                  3. Nothing else: the import and the document download start on their own.
           # Tatjana's 1822direkt giro (Firefly 1050) and ZinsCash (1174) over FinTS: Enable Banking does not
           # offer 1822direkt. History before `since` came from PDF statements and the web
           # export; importConfig is the wizard's configuration for that web export, which
@@ -1028,7 +1044,7 @@ apps:
             login:
               schedule: "0 0 1 1 *"
               suspend: true
-              afterLogin: [pytr-tatjana-download]
+              afterLogin: [pytr-tatjana-download, firefly-importer-tr-timeline-tatjana]
             download:
               schedule: "0 2 1 * *"
               suspend: true
