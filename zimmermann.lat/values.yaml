@@ -814,6 +814,7 @@ apps:
                 flat: true
                 env:
                   PORTAL: "fnz"
+                  FNZ_YEARS: "10"
                 secrets:
                   FNZ_USERNAME: /portal-document-downloader/FNZTATI_USERNAME
                   FNZ_PASSWORD: /portal-document-downloader/FNZTATI_PASSWORD
