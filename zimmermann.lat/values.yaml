@@ -263,10 +263,11 @@ apps:
           # report while net worth stays right, so nothing looks wrong.
           linkTransfers:
             enabled: true
-            # The broker import leaves movements to and from own bank accounts to the
-            # bank, so the broker side never arrives. The account carries its IBAN in
-            # Firefly's account number field.
-            soleSourceAccounts: [257]
+            # Broker accounts whose side of a movement to or from an own bank account never
+            # arrives: the TR timeline import leaves those to the bank (257), and Tatjana's
+            # TR account has no import at all (1315). Each carries its IBAN in Firefly's
+            # account number field.
+            soleSourceAccounts: [257, 1315]
           # Nightly Trade Republic import from the broker's timeline, on the session the
           # pytr chart's login job saves.
           trTimeline:
