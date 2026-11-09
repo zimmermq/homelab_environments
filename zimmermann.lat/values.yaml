@@ -242,9 +242,16 @@ apps:
             # suspended CronJob looks exactly like "nothing to report".
             heartbeat:
               enabled: true
-            # Not fed by the nightly import, so they would be flagged every night: a
-            # depot refreshed by hand and two closed cards.
-            ignoreStale: [1023, 851, 852]
+            # Refreshed by hand from statements: Badenia yearly (January), the two FNZ
+            # VL depots quarterly. Flagged only once the next statement is overdue.
+            staleLimits: {"1346": 400, "1023": 100, "1358": 100}
+            # The giro settles the Comdirect Visa cards automatically every month; their
+            # purchases come by hand from the Finanzreport. A balance other than 0.00
+            # means a settlement arrived whose purchases are still missing.
+            expectZero: [851, 852]
+            # No refresh cycle to check: the Visa cards (see expectZero) and Toni's
+            # Trade Republic depot, whose value only the app shows.
+            ignoreStale: [851, 852, 1357]
           ledgerCheck:
             enabled: true
             # The loan accounts carry no IBAN in Firefly, so their self-payees cannot
