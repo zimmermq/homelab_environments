@@ -1120,6 +1120,14 @@ apps:
             configMaps:
               zigbee2mqtt-config-map:
                 ZIGBEE2MQTT_CONFIG_SERIAL_PORT: "tcp://192.168.0.125:6638"
+                # Debug log to trace what the Lidl GU10 spots (TS0505B) receive when
+                # they switch on with no command. The adapter's frame chatter stays at
+                # info. Rotation is off because rotated files cap at 3 x 10 MB, which
+                # debug fills in about an hour; without it data/log/<start time>/log.log
+                # grows unbounded on the unencrypted data volume until this is reverted.
+                ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL: "debug"
+                ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_NAMESPACED_LEVELS: '{"zh:ember":"info"}'
+                ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_ROTATION: "false"
             deployment:
               pvcMounts:
                 data:
