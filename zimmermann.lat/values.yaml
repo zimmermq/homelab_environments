@@ -748,6 +748,8 @@ apps:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/Amazon
               downloads-aws:
                 hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Michael/AWS
+              downloads-aventini:
+                hostPath: /mnt/tank1/encrypted/apps/paperlessngx/consume/paperless-gpt-auto/Tatjana/Aventini
           portalDocumentDownloader:
             portals:
               treubau:
@@ -958,6 +960,23 @@ apps:
                 secrets:
                   AWS_ACCESS_KEY_ID: /portal-document-downloader/AWS_ACCESS_KEY_ID
                   AWS_SECRET_ACCESS_KEY: /portal-document-downloader/AWS_SECRET_ACCESS_KEY
+              aventini:
+                enabled: true
+                # Payroll documents and personnel file from the employer's
+                # aventini HR portal; the employer-specific portal URL is a
+                # secret like the other bank base URLs. The one-time code is computed from the
+                # authenticator-app key in AVENTINI_TOTP_SECRET, so this runs
+                # on its schedule.
+                schedule: "0 19 1 * *"
+                suspend: false
+                flat: true
+                env:
+                  PORTAL: "aventini"
+                secrets:
+                  AVENTINI_BASE_URL: /portal-document-downloader/AVENTINI_BASE_URL
+                  AVENTINI_EMAIL: /portal-document-downloader/AVENTINI_EMAIL
+                  AVENTINI_PASSWORD: /portal-document-downloader/AVENTINI_PASSWORD
+                  AVENTINI_TOTP_SECRET: /portal-document-downloader/AVENTINI_TOTP_SECRET
   c24-document-downloader:
     enabled: true
     argocd:
