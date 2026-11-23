@@ -1225,6 +1225,11 @@ apps:
                   user = tatjana
                   collection = michael/shared-family-contacts
                   permissions = RrWw
+
+                  [tatjana-shared-tasks]
+                  user = tatjana
+                  collection = michael/shared-tasks
+                  permissions = RrWw
   infcloud:
     enabled: true
     argocd:
