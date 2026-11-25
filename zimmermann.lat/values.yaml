@@ -230,7 +230,7 @@ apps:
               - payee: 244
                 liability: 1000
                 interest: 1003
-          paypalPayee:
+          payeeTidy:
             enabled: true
           # Summary mail 30 min after the import: new transactions per account,
           # plus any account that has gone quiet for much longer than its own
